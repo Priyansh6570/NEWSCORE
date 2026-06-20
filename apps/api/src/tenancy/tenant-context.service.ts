@@ -30,4 +30,9 @@ export class TenantContextService {
   get id(): string {
     return this.get().id;
   }
+
+  /** Alias for {@link id} — the active tenant's id, as embedded in access tokens (`tid`). */
+  get tenantId(): string {
+    return this.get().id;
+  }
 }
