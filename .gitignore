@@ -1,0 +1,30 @@
+# dependencies
+node_modules/
+.pnpm-store/
+
+# build outputs
+dist/
+.next/
+.turbo/
+out/
+build/
+
+# env files — never commit real secrets
+.env
+.env.local
+.env.*
+!.env.example
+
+# logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+yarn-error.log*
+
+# local tooling overrides (machine-specific, never shared)
+.claude/settings.local.json
+
+# misc
+.DS_Store
+coverage/
+*.tsbuildinfo
