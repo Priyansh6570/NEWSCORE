@@ -1,0 +1,37 @@
+name: CI
+
+# Runs the API suite on every push to main. The specs are hermetic: integration
+# tests spin up their own mongodb-memory-server (downloads mongod in CI) and the
+# unit/int specs use stub configs/Redis — so no secrets, env, or services needed.
+on:
+  push:
+    branches: [main]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  api:
+    name: api typecheck + tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # pnpm first so setup-node can cache the pnpm store. Version comes from the
+      # root package.json "packageManager" field.
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Typecheck
+        run: pnpm --filter @newscore/api typecheck
+
+      - name: Test
+        run: pnpm --filter @newscore/api test
