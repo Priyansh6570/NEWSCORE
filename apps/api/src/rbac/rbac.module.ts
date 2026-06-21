@@ -2,6 +2,7 @@ import { Module, type OnModuleInit } from '@nestjs/common';
 import { MongoService } from '../database/mongo.service';
 import { TenancyModule } from '../tenancy/tenancy.module';
 import { PermissionsGuard } from './permissions.guard';
+import { RbacController } from './rbac.controller';
 import { RbacService } from './rbac.service';
 import { ROLE_MODEL, RoleSchema } from './role.schema';
 
@@ -12,6 +13,7 @@ import { ROLE_MODEL, RoleSchema } from './role.schema';
  */
 @Module({
   imports: [TenancyModule],
+  controllers: [RbacController],
   providers: [RbacService, PermissionsGuard],
   exports: [RbacService, PermissionsGuard],
 })
