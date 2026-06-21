@@ -21,6 +21,8 @@ import { TENANT_MODEL, TenantSchema } from '../src/platform/tenant.schema';
 import { ROLE_MODEL, RoleSchema, type RoleDoc } from '../src/rbac/role.schema';
 import { USER_MODEL, UserSchema } from '../src/users/user.schema';
 import { PERMISSIONS, SUPER_ADMIN_ROLE_NAME } from '../src/rbac/permissions';
+import { SITE_CONFIG_MODEL, SiteConfigSchema } from '../src/site-config/site-config.schema';
+import { buildDefaultSiteConfig } from '../src/site-config/site-config.defaults';
 
 // Load apps/api/.env regardless of the cwd the script is launched from.
 loadEnv({ path: path.resolve(__dirname, '../.env') });
@@ -74,6 +76,9 @@ async function main(): Promise<void> {
       { upsert: true },
     ).exec();
     console.log(`tenant '${DEMO_TENANT.slug}' (${platformDb}.tenants): ${outcome(tenantRes)}`);
+    const tenant = await Tenant.findOne({ slug: DEMO_TENANT.slug }).lean<{ _id: unknown }>().exec();
+    if (!tenant) throw new Error('Demo tenant missing after upsert.');
+    const tenantId = String(tenant._id);
 
     // ── Tenant DB: Super Admin role + dev user ────────────────────────────
     const tenantDb = base.useDb(DEMO_TENANT.dbName, { useCache: true });
@@ -99,6 +104,16 @@ async function main(): Promise<void> {
       `user '${DEV_USER.phone}' (${DEMO_TENANT.dbName}.users): ${outcome(userRes)} ` +
         `-> roleIds:[${role._id.toString()}]`,
     );
+
+    // Ensure a default SiteConfig exists (one doc/tenant). $setOnInsert so a
+    // re-run never clobbers admin edits — only creates it when absent.
+    const SiteConfig = tenantDb.model(SITE_CONFIG_MODEL, SiteConfigSchema);
+    const cfgRes = await SiteConfig.updateOne(
+      { tenantId },
+      { $setOnInsert: buildDefaultSiteConfig(tenantId, DEMO_TENANT.name) },
+      { upsert: true },
+    ).exec();
+    console.log(`site-config (${DEMO_TENANT.dbName}.site_config): ${outcome(cfgRes)}`);
 
     console.log('Dev seed complete.');
   } finally {

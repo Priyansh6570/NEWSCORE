@@ -13,6 +13,9 @@ export const envSchema = z.object({
   REFRESH_TTL_DAYS: z.coerce.number().int().positive().default(30),
   OTP_TTL_SECONDS: z.coerce.number().int().positive().default(300),
   OTP_LENGTH: z.coerce.number().int().min(4).max(8).default(6),
+
+  // ── Encryption key for per-tenant secrets at rest (Razorpay, SMS, …) ──
+  SECRETS_ENC_KEY: z.string().min(16),
   // add storage / payment keys here as each module needs them
 });
 

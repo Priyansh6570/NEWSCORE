@@ -3,11 +3,13 @@ import { ConfigModule } from '@nestjs/config';
 import { ClsModule } from 'nestjs-cls';
 import { validateEnv } from './config/env.schema';
 import { AuthModule } from './auth/auth.module';
+import { EncryptionModule } from './common/encryption.module';
 import { ContentModule } from './content/content.module';
 import { DatabaseModule } from './database/database.module';
 import { NotificationsModule } from './notifications/notifications.module';
 import { RbacModule } from './rbac/rbac.module';
 import { RedisModule } from './redis/redis.module';
+import { SiteConfigModule } from './site-config/site-config.module';
 import { TaxonomyModule } from './taxonomy/taxonomy.module';
 import { TenancyModule } from './tenancy/tenancy.module';
 import { UsersModule } from './users/users.module';
@@ -27,6 +29,7 @@ import { UsersModule } from './users/users.module';
     ClsModule.forRoot({ global: true, middleware: { mount: false } }),
     DatabaseModule,
     RedisModule,
+    EncryptionModule,
     TenancyModule,
     UsersModule,
     NotificationsModule,
@@ -34,6 +37,7 @@ import { UsersModule } from './users/users.module';
     AuthModule,
     ContentModule,
     TaxonomyModule,
+    SiteConfigModule,
   ],
 })
 export class AppModule {}
