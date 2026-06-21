@@ -45,6 +45,7 @@ export interface ArticleDoc {
   scheduledAt?: Date;
   publishedAt?: Date;
   views: number;
+  likeCount: number; // denormalized reaction count, maintained by the engagement module
   createdAt: Date;
   updatedAt: Date;
 }
@@ -81,6 +82,7 @@ export const ArticleSchema = new Schema<ArticleDoc>(
     scheduledAt: { type: Date },
     publishedAt: { type: Date },
     views: { type: Number, default: 0 },
+    likeCount: { type: Number, default: 0, min: 0 },
   },
   { collection: 'articles', timestamps: true },
 );

@@ -90,6 +90,10 @@ export class CreateArticleDto {
  * Patch an article. Every field is optional; status is intentionally absent —
  * status only changes through publish/archive. The slug is fixed at creation and
  * deliberately NOT regenerated when the title changes, so published URLs stay stable.
+ *
+ * Denormalized counters (`views`, `likeCount`) are server-maintained and MUST NOT
+ * be added here — they are only ever moved by their owning flows ($inc on read /
+ * engagement), so exposing them for client edit would let them desync from source.
  */
 export class UpdateArticleDto {
   @IsOptional()
@@ -191,6 +195,7 @@ export interface ArticleView {
   scheduledAt?: string;
   publishedAt?: string;
   views: number;
+  likeCount: number;
   createdAt: string;
   updatedAt: string;
 }

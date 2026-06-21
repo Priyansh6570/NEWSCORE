@@ -6,6 +6,7 @@ import { AuthModule } from './auth/auth.module';
 import { EncryptionModule } from './common/encryption.module';
 import { ContentModule } from './content/content.module';
 import { DatabaseModule } from './database/database.module';
+import { EngagementModule } from './engagement/engagement.module';
 import { MediaModule } from './media/media.module';
 import { NotificationsModule } from './notifications/notifications.module';
 import { RbacModule } from './rbac/rbac.module';
@@ -40,6 +41,7 @@ import { UsersModule } from './users/users.module';
     TaxonomyModule,
     SiteConfigModule,
     MediaModule,
+    EngagementModule,
   ],
 })
 export class AppModule {}

@@ -191,6 +191,7 @@ function toView(doc: ArticleDoc): ArticleView {
     scheduledAt: doc.scheduledAt?.toISOString(),
     publishedAt: doc.publishedAt?.toISOString(),
     views: doc.views,
+    likeCount: doc.likeCount ?? 0,
     createdAt: doc.createdAt.toISOString(),
     updatedAt: doc.updatedAt.toISOString(),
   };
