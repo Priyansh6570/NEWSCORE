@@ -1,4 +1,5 @@
 import { Module, type OnModuleInit } from '@nestjs/common';
+import { RefreshTokenModule } from '../auth/refresh-token.module';
 import { MongoService } from '../database/mongo.service';
 import { RbacModule } from '../rbac/rbac.module';
 import { TenancyModule } from '../tenancy/tenancy.module';
@@ -9,10 +10,11 @@ import { USER_MODEL, UserSchema } from './user.schema';
 /**
  * Users OF a tenant. Find-or-create on OTP login plus the admin management
  * surface (list/get/create/update/deactivate) with role assignment. RbacModule
- * is imported for the privilege-escalation checks. See CLAUDE.md §6.2, §10.
+ * is imported for the privilege-escalation checks; RefreshTokenModule lets us
+ * revoke a user's sessions when they are blocked. See CLAUDE.md §6.2, §10.
  */
 @Module({
-  imports: [TenancyModule, RbacModule],
+  imports: [TenancyModule, RbacModule, RefreshTokenModule],
   controllers: [UsersController],
   providers: [UsersService],
   exports: [UsersService],

@@ -1,9 +1,8 @@
-import { Module, type OnModuleInit } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { APP_GUARD } from '@nestjs/core';
 import { JwtModule } from '@nestjs/jwt';
 import type { Env } from '../config/env.schema';
-import { MongoService } from '../database/mongo.service';
 import { NotificationsModule } from '../notifications/notifications.module';
 import { RbacModule } from '../rbac/rbac.module';
 import { PermissionsGuard } from '../rbac/permissions.guard';
@@ -13,8 +12,7 @@ import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
 import { JwtAuthGuard } from './jwt-auth.guard';
 import { OtpService } from './otp.service';
-import { RefreshTokenService } from './refresh-token.service';
-import { REFRESH_TOKEN_MODEL, RefreshTokenSchema } from './refresh-token.schema';
+import { RefreshTokenModule } from './refresh-token.module';
 
 /**
  * Authentication: OTP login → JWT access + rotating refresh (with reuse
@@ -27,6 +25,7 @@ import { REFRESH_TOKEN_MODEL, RefreshTokenSchema } from './refresh-token.schema'
     UsersModule,
     NotificationsModule,
     RbacModule,
+    RefreshTokenModule,
     JwtModule.registerAsync({
       inject: [ConfigService],
       useFactory: (config: ConfigService<Env, true>) => ({
@@ -39,16 +38,9 @@ import { REFRESH_TOKEN_MODEL, RefreshTokenSchema } from './refresh-token.schema'
   providers: [
     AuthService,
     OtpService,
-    RefreshTokenService,
     // Global guards, in execution order: authenticate, then authorize.
     { provide: APP_GUARD, useClass: JwtAuthGuard },
     { provide: APP_GUARD, useClass: PermissionsGuard },
   ],
 })
-export class AuthModule implements OnModuleInit {
-  constructor(private readonly mongo: MongoService) {}
-
-  onModuleInit(): void {
-    this.mongo.registerTenantModel(REFRESH_TOKEN_MODEL, RefreshTokenSchema);
-  }
-}
+export class AuthModule {}

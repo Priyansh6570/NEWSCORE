@@ -1,5 +1,12 @@
 import { ConflictException, ForbiddenException } from '@nestjs/common';
+import type { ConfigService } from '@nestjs/config';
 import { type Model, Types } from 'mongoose';
+import {
+  REFRESH_TOKEN_MODEL,
+  RefreshTokenSchema,
+  type RefreshTokenDoc,
+} from '../auth/refresh-token.schema';
+import { RefreshTokenService } from '../auth/refresh-token.service';
 import { startIntDb, TEST_DB_NAME, type IntDb } from '../test/int-db';
 import { USER_MODEL, UserSchema, type UserDoc } from '../users/user.schema';
 import { UsersService } from '../users/users.service';
@@ -18,14 +25,19 @@ describe('IAM guards (integration, real Mongo)', () => {
   let db: IntDb;
   let rbac: RbacService;
   let users: UsersService;
+  let refresh: RefreshTokenService;
 
   beforeAll(async () => {
     db = await startIntDb([
       [ROLE_MODEL, RoleSchema],
       [USER_MODEL, UserSchema],
+      [REFRESH_TOKEN_MODEL, RefreshTokenSchema],
     ]);
     rbac = new RbacService(db.mongo, db.ctx);
-    users = new UsersService(db.mongo, db.ctx, rbac);
+    // REFRESH_TTL_DAYS = 30 → issued tokens expire comfortably in the future.
+    const config = { get: () => 30 } as unknown as ConfigService;
+    refresh = new RefreshTokenService(db.mongo, db.ctx, config);
+    users = new UsersService(db.mongo, db.ctx, rbac, refresh);
   }, 60_000);
 
   afterAll(async () => {
@@ -35,12 +47,15 @@ describe('IAM guards (integration, real Mongo)', () => {
   beforeEach(async () => {
     await db.reset(ROLE_MODEL);
     await db.reset(USER_MODEL);
+    await db.reset(REFRESH_TOKEN_MODEL);
   });
 
   const roleModel = (): Model<RoleDoc> =>
     db.mongo.tenant(TEST_DB_NAME).model<RoleDoc>(ROLE_MODEL);
   const userModel = (): Model<UserDoc> =>
     db.mongo.tenant(TEST_DB_NAME).model<UserDoc>(USER_MODEL);
+  const refreshModel = (): Model<RefreshTokenDoc> =>
+    db.mongo.tenant(TEST_DB_NAME).model<RefreshTokenDoc>(REFRESH_TOKEN_MODEL);
 
   function seedRole(
     over: Partial<RoleDoc> & { name: string; permissions: RoleDoc['permissions'] },
@@ -189,6 +204,57 @@ describe('IAM guards (integration, real Mongo)', () => {
 
       const updated = await users.deactivate(first._id.toString());
       expect(updated.status).toBe('blocked');
+    });
+  });
+
+  // ── Session revocation on block (caps a blocked user's access) ─────────────
+
+  describe('block revokes refresh sessions', () => {
+    const activeFamily = (userId: Types.ObjectId) =>
+      refreshModel()
+        .find({ userId, status: 'active' })
+        .countDocuments()
+        .exec();
+
+    it('deactivate() revokes all of the user’s active refresh tokens', async () => {
+      const editor = await seedRole({ name: 'Editor', permissions: ['article:create'] });
+      const target = await seedUser({ name: 'Staff', phone: '+15550004444', roleIds: [editor._id] });
+      await refresh.issue(target._id.toString());
+      await refresh.issue(target._id.toString()); // two live sessions
+      expect(await activeFamily(target._id)).toBe(2);
+
+      await users.deactivate(target._id.toString());
+
+      expect(await activeFamily(target._id)).toBe(0);
+      const all = await refreshModel().find({ userId: target._id }).lean<RefreshTokenDoc[]>().exec();
+      expect(all.every((t) => t.status === 'revoked')).toBe(true);
+    });
+
+    it('update() to status:blocked also revokes the user’s active refresh tokens', async () => {
+      const editor = await seedRole({ name: 'Editor', permissions: ['article:create'] });
+      const actor = await seedSuperAdminRole().then((sa) =>
+        seedUser({ name: 'Admin', phone: '+15550001111', roleIds: [sa._id] }),
+      );
+      const target = await seedUser({ name: 'Staff', phone: '+15550005555', roleIds: [editor._id] });
+      await refresh.issue(target._id.toString());
+      expect(await activeFamily(target._id)).toBe(1);
+
+      await users.update(target._id.toString(), { status: 'blocked' }, actor._id.toString());
+
+      expect(await activeFamily(target._id)).toBe(0);
+    });
+
+    it('does NOT revoke sessions on an unrelated update (name change)', async () => {
+      const editor = await seedRole({ name: 'Editor', permissions: ['article:create'] });
+      const actor = await seedSuperAdminRole().then((sa) =>
+        seedUser({ name: 'Admin', phone: '+15550001111', roleIds: [sa._id] }),
+      );
+      const target = await seedUser({ name: 'Staff', phone: '+15550006666', roleIds: [editor._id] });
+      await refresh.issue(target._id.toString());
+
+      await users.update(target._id.toString(), { name: 'Renamed' }, actor._id.toString());
+
+      expect(await activeFamily(target._id)).toBe(1); // session untouched
     });
   });
 });

@@ -5,6 +5,7 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { type Model, Types } from 'mongoose';
+import { RefreshTokenService } from '../auth/refresh-token.service';
 import { MongoService } from '../database/mongo.service';
 import { RbacService } from '../rbac/rbac.service';
 import { ROLE_MODEL, type RoleDoc } from '../rbac/role.schema';
@@ -26,6 +27,7 @@ export class UsersService {
     private readonly mongo: MongoService,
     private readonly ctx: TenantContextService,
     private readonly rbac: RbacService,
+    private readonly refresh: RefreshTokenService,
   ) {}
 
   /** The User model on the active tenant's connection. */
@@ -137,6 +139,9 @@ export class UsersService {
       .lean<UserDoc>()
       .exec();
     if (!updated) throw new NotFoundException('User not found');
+    // Blocking a user cuts off their refresh: revoke their active tokens so they
+    // can't rotate a new access token (existing access token expires within its TTL).
+    if (updated.status === 'blocked') await this.refresh.revokeAllForUser(id);
     const roleMap = await this.roleRefs(updated.roleIds);
     return toView(updated, roleMap);
   }
@@ -150,6 +155,9 @@ export class UsersService {
       .lean<UserDoc>()
       .exec();
     if (!updated) throw new NotFoundException('User not found');
+    // Revoke active sessions immediately — a blocked user must not be able to
+    // refresh into a fresh access token.
+    await this.refresh.revokeAllForUser(id);
     const roleMap = await this.roleRefs(updated.roleIds);
     return toView(updated, roleMap);
   }
