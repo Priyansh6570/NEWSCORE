@@ -22,6 +22,7 @@ export class TenantMiddleware implements NestMiddleware {
       id: tenant.id,
       slug: tenant.slug,
       dbName: tenant.dbName,
+      domains: tenant.domains,
     };
     next();
   }

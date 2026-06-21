@@ -6,6 +6,7 @@ export interface TenantContext {
   id: string;
   slug: string;
   dbName: string;
+  domains: string[]; // the tenant's known hosts; domains[0] is the canonical origin host
 }
 
 /** CLS key under which the active tenant is stored. */

@@ -9,6 +9,7 @@ export interface ResolvedTenant {
   id: string;
   slug: string;
   dbName: string;
+  domains: string[]; // the tenant's known hosts; domains[0] is canonical
   status: TenantStatus;
 }
 
@@ -71,6 +72,7 @@ export class TenantRegistryService {
       id: String(doc._id),
       slug: doc.slug,
       dbName: doc.dbName,
+      domains: doc.domains ?? [],
       status: doc.status,
     };
     await this.redis.set(key, JSON.stringify(resolved), 'EX', CACHE_TTL_SECONDS);

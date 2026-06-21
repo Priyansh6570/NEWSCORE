@@ -11,6 +11,7 @@ import { MediaModule } from './media/media.module';
 import { NotificationsModule } from './notifications/notifications.module';
 import { RbacModule } from './rbac/rbac.module';
 import { RedisModule } from './redis/redis.module';
+import { SeoModule } from './seo/seo.module';
 import { SiteConfigModule } from './site-config/site-config.module';
 import { TaxonomyModule } from './taxonomy/taxonomy.module';
 import { TenancyModule } from './tenancy/tenancy.module';
@@ -42,6 +43,7 @@ import { UsersModule } from './users/users.module';
     SiteConfigModule,
     MediaModule,
     EngagementModule,
+    SeoModule,
   ],
 })
 export class AppModule {}

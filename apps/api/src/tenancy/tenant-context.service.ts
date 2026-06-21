@@ -27,6 +27,16 @@ export class TenantContextService {
     return this.get().slug;
   }
 
+  /** The tenant's known hosts (from the registry). domains[0] is canonical. */
+  get domains(): string[] {
+    return this.get().domains ?? [];
+  }
+
+  /** The canonical host for building absolute, tenant-owned URLs. */
+  get primaryDomain(): string | undefined {
+    return this.domains[0];
+  }
+
   get id(): string {
     return this.get().id;
   }
