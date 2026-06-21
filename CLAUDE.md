@@ -396,6 +396,7 @@ publish(/* ... */) { /* ... */ }
 - No hardcoded client strings, colors, or copy — read from `SiteConfig`.
 - Encrypt per-tenant secrets (Razorpay, SMS) at rest; never log them.
 - Tests on the paths that hurt: auth, permissions, publishing, payments (webhook signature + idempotency).
+- **Git: commit directly to `main`. Do NOT create feature branches** — solo dev, no PR review, so a branch per module just adds a merge step. Push to `main`; CI (GitHub Actions) runs typecheck + tests on every push.
 
 ---
 
