@@ -8,7 +8,7 @@
     "start": "node dist/main.js",
     "seed:dev": "tsx scripts/seed-dev.ts",
     "typecheck": "tsc --noEmit -p tsconfig.json",
-    "test": "jest",
+    "test": "jest --runInBand",
     "test:watch": "jest --watch",
     "lint": "echo \"no lint configured\" && exit 0"
   },
