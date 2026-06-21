@@ -16,7 +16,15 @@ export const envSchema = z.object({
 
   // ── Encryption key for per-tenant secrets at rest (Razorpay, SMS, …) ──
   SECRETS_ENC_KEY: z.string().min(16),
-  // add storage / payment keys here as each module needs them
+
+  // ── Media storage: Cloudflare R2 (S3-compatible). One bucket, per-tenant key prefix. ──
+  R2_ACCOUNT_ID: z.string().min(1),
+  R2_ACCESS_KEY_ID: z.string().min(1),
+  R2_SECRET_ACCESS_KEY: z.string().min(1),
+  R2_BUCKET: z.string().min(1),
+  R2_ENDPOINT: z.string().url(), // e.g. https://<account>.r2.cloudflarestorage.com
+  R2_PUBLIC_URL: z.string().url(), // public CDN origin objects are served from
+  // add payment keys here as each module needs them
 });
 
 export type Env = z.infer<typeof envSchema>;

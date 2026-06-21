@@ -13,6 +13,7 @@
     "lint": "echo \"no lint configured\" && exit 0"
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.1073.0",
     "@nestjs/common": "^11.0.1",
     "@nestjs/config": "^4.0.0",
     "@nestjs/core": "^11.0.1",
@@ -25,6 +26,7 @@
     "nestjs-cls": "^4.4.1",
     "reflect-metadata": "^0.2.2",
     "rxjs": "^7.8.1",
+    "sharp": "^0.35.2",
     "zod": "^3.24.1"
   },
   "devDependencies": {
@@ -32,6 +34,7 @@
     "@nestjs/schematics": "^11.0.0",
     "@types/express": "^5.0.0",
     "@types/jest": "^30.0.0",
+    "@types/multer": "^2.1.0",
     "@types/node": "^22.10.2",
     "dotenv": "^16.4.7",
     "jest": "^30.4.2",
