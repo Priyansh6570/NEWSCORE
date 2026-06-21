@@ -6,6 +6,7 @@
     "build": "nest build",
     "dev": "nest start --watch",
     "start": "node dist/main.js",
+    "seed:dev": "tsx scripts/seed-dev.ts",
     "typecheck": "tsc --noEmit -p tsconfig.json",
     "test": "jest",
     "test:watch": "jest --watch",
@@ -32,8 +33,10 @@
     "@types/express": "^5.0.0",
     "@types/jest": "^30.0.0",
     "@types/node": "^22.10.2",
+    "dotenv": "^16.4.7",
     "jest": "^30.4.2",
     "ts-jest": "^29.4.11",
+    "tsx": "^4.19.2",
     "typescript": "^5.7.2"
   }
 }
