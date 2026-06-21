@@ -1,5 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { type FilterQuery, type Model, Types } from 'mongoose';
+import { slugify, uniqueSlug } from '../common/slug';
 import { MongoService } from '../database/mongo.service';
 import { TenantContextService } from '../tenancy/tenant-context.service';
 import { ARTICLE_MODEL, type ArticleDoc } from './article.schema';
@@ -31,7 +32,7 @@ export class ArticleService {
    * publishing is a separate, permission-gated step.
    */
   async create(dto: CreateArticleDto, authorId: string): Promise<ArticleView> {
-    const slug = await this.uniqueSlug(slugify(dto.title));
+    const slug = await uniqueSlug(this.model(), slugify(dto.title, 'article'));
     const doc = await this.model().create({
       title: dto.title,
       slug,
@@ -163,29 +164,6 @@ export class ArticleService {
     if (!Types.ObjectId.isValid(id)) throw new NotFoundException('Article not found');
     return new Types.ObjectId(id);
   }
-
-  /** Find a free slug, appending -2, -3… until one is unused in this tenant. */
-  private async uniqueSlug(base: string): Promise<string> {
-    const model = this.model();
-    let candidate = base;
-    let n = 2;
-    // The unique index is the real guard; this just avoids the obvious collision.
-    while (await model.exists({ slug: candidate })) {
-      candidate = `${base}-${n++}`;
-    }
-    return candidate;
-  }
-}
-
-/** Slugify a title: lowercase, alphanumerics to hyphens, trimmed. */
-function slugify(title: string): string {
-  const slug = title
-    .toLowerCase()
-    .normalize('NFKD')
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/^-+|-+$/g, '');
-  // Non-Latin titles (e.g. Hindi) can slugify to empty — fall back to a stub.
-  return slug || 'article';
 }
 
 /** Map a lean Article document to the public ArticleView. Never leak raw docs. */

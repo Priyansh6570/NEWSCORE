@@ -8,6 +8,7 @@ import { DatabaseModule } from './database/database.module';
 import { NotificationsModule } from './notifications/notifications.module';
 import { RbacModule } from './rbac/rbac.module';
 import { RedisModule } from './redis/redis.module';
+import { TaxonomyModule } from './taxonomy/taxonomy.module';
 import { TenancyModule } from './tenancy/tenancy.module';
 import { UsersModule } from './users/users.module';
 
@@ -32,6 +33,7 @@ import { UsersModule } from './users/users.module';
     RbacModule,
     AuthModule,
     ContentModule,
+    TaxonomyModule,
   ],
 })
 export class AppModule {}
