@@ -3,6 +3,7 @@ import { ConfigModule } from '@nestjs/config';
 import { ClsModule } from 'nestjs-cls';
 import { validateEnv } from './config/env.schema';
 import { AuthModule } from './auth/auth.module';
+import { ContentModule } from './content/content.module';
 import { DatabaseModule } from './database/database.module';
 import { NotificationsModule } from './notifications/notifications.module';
 import { RbacModule } from './rbac/rbac.module';
@@ -30,6 +31,7 @@ import { UsersModule } from './users/users.module';
     NotificationsModule,
     RbacModule,
     AuthModule,
+    ContentModule,
   ],
 })
 export class AppModule {}
