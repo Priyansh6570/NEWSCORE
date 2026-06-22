@@ -4,7 +4,7 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { NotificationService } from '../notifications/notification.service';
+import { NotificationsService } from '../notifications/notifications.service';
 import { TenantContextService } from '../tenancy/tenant-context.service';
 import { UsersService } from '../users/users.service';
 import type { UserDoc } from '../users/user.schema';
@@ -33,7 +33,7 @@ export class AuthService {
     private readonly users: UsersService,
     private readonly refresh: RefreshTokenService,
     private readonly jwt: JwtService,
-    private readonly notifications: NotificationService,
+    private readonly notifications: NotificationsService,
     private readonly ctx: TenantContextService,
   ) {}
 
@@ -42,8 +42,9 @@ export class AuthService {
    * an existing user — we generate + send a code regardless of account existence.
    */
   async requestOtp(phone: string): Promise<void> {
+    // Store the code (in Redis, via OtpService) FIRST, then hand it to delivery.
     const code = await this.otp.generate(phone);
-    await this.notifications.sendSms(phone, `Your verification code is ${code}`);
+    await this.notifications.sendOtp(phone, code);
   }
 
   /** Verify an OTP; find-or-create the reader, then mint a token pair. */

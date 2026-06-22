@@ -1,6 +1,7 @@
 import { Type } from 'class-transformer';
 import {
   IsArray,
+  IsIn,
   IsNotEmpty,
   IsObject,
   IsOptional,
@@ -66,6 +67,26 @@ export class SetRazorpayKeysDto {
   @IsString() @IsNotEmpty() @MaxLength(400) webhookSecret!: string;
 }
 
+/**
+ * Set/rotate the tenant's MSG91 SMS config. authKey is the secret (stored
+ * encrypted); senderId/otpTemplateId are the tenant's DLT-approved onboarding
+ * values. Plaintext in; only status (no secret) comes back.
+ */
+export class SetSmsConfigDto {
+  @IsOptional() @IsIn(['msg91']) provider?: 'msg91';
+  @IsString() @IsNotEmpty() @MaxLength(400) authKey!: string;
+  @IsString() @IsNotEmpty() @MaxLength(100) senderId!: string;
+  @IsString() @IsNotEmpty() @MaxLength(100) otpTemplateId!: string;
+}
+
+/** Decrypted MSG91 credentials — INTERNAL only (the notifications module). */
+export interface DecryptedSms {
+  provider: 'msg91';
+  authKey: string;
+  senderId: string;
+  otpTemplateId: string;
+}
+
 // ── View shapes ──────────────────────────────────────────────────────────────
 
 /** The public, brandable config — never carries integrations or any secret. */
@@ -96,4 +117,10 @@ export interface AdminSiteConfigView extends PublicSiteConfigView {
 export interface RazorpayStatus {
   configured: true;
   keyId: string;
+}
+
+/** Returned after setting SMS config — confirmation only, never the authKey. */
+export interface SmsStatus {
+  configured: true;
+  senderId: string;
 }

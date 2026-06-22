@@ -54,7 +54,9 @@ export interface PageLayout {
 /** Per-tenant integration secrets — encrypted at rest, NEVER returned publicly. */
 export interface SiteConfigIntegrations {
   razorpay?: { keyId: string; keySecretEnc: string; webhookSecretEnc: string };
-  sms?: { senderId: string; dltTemplateId: string };
+  // MSG91 SMS: authKey is the secret (encrypted); provider/senderId/otpTemplateId
+  // are DLT onboarding values (not secret). senderId surfaces in admin STATUS only.
+  sms?: { provider: string; authKeyEnc: string; senderId: string; otpTemplateId: string };
 }
 
 export interface SiteConfigDoc {
@@ -103,7 +105,7 @@ const IntegrationsSchema = new Schema<SiteConfigIntegrations>(
       default: undefined,
     },
     sms: {
-      type: { senderId: String, dltTemplateId: String },
+      type: { provider: String, authKeyEnc: String, senderId: String, otpTemplateId: String },
       required: false,
       default: undefined,
     },

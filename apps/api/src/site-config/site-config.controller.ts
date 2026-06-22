@@ -2,7 +2,7 @@ import { Body, Controller, Get, Patch, Put } from '@nestjs/common';
 import { Public } from '../auth/public.decorator';
 import { RequirePermissions } from '../rbac/permissions.guard';
 import { SiteConfigService } from './site-config.service';
-import { SetRazorpayKeysDto, UpdateSiteConfigDto } from './dto/site-config.dto';
+import { SetRazorpayKeysDto, SetSmsConfigDto, UpdateSiteConfigDto } from './dto/site-config.dto';
 
 @Controller('site-config')
 export class SiteConfigController {
@@ -29,5 +29,11 @@ export class SiteConfigController {
   @RequirePermissions('settings:edit') @Put('integrations/razorpay')
   setRazorpay(@Body() dto: SetRazorpayKeysDto) {
     return this.siteConfig.setRazorpayKeys(dto);
+  }
+
+  // ── Set/rotate MSG91 SMS config; authKey encrypted, only status returned ──
+  @RequirePermissions('settings:edit') @Put('integrations/sms')
+  setSms(@Body() dto: SetSmsConfigDto) {
+    return this.siteConfig.setSmsConfig(dto);
   }
 }

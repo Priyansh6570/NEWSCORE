@@ -8,9 +8,12 @@ import { buildDefaultSiteConfig } from './site-config.defaults';
 import { SITE_CONFIG_MODEL, type FeatureFlags, type SiteConfigDoc } from './site-config.schema';
 import {
   type AdminSiteConfigView,
+  type DecryptedSms,
   type PublicSiteConfigView,
   type RazorpayStatus,
   type SetRazorpayKeysDto,
+  type SetSmsConfigDto,
+  type SmsStatus,
   type UpdateSiteConfigDto,
 } from './dto/site-config.dto';
 
@@ -144,6 +147,48 @@ export class SiteConfigService {
       keyId: r.keyId,
       keySecret: this.encryption.decrypt(r.keySecretEnc),
       webhookSecret: this.encryption.decrypt(r.webhookSecretEnc),
+    };
+  }
+
+  /**
+   * Encrypt and store the tenant's MSG91 SMS config (authKey encrypted; provider/
+   * senderId/otpTemplateId are DLT onboarding values). Returns only a status — the
+   * authKey is never echoed back, logged, or cached. Mirrors setRazorpayKeys.
+   */
+  async setSmsConfig(dto: SetSmsConfigDto): Promise<SmsStatus> {
+    await this.getOrCreateDefault();
+    await this.model()
+      .updateOne(
+        { tenantId: this.tenantId() },
+        {
+          $set: {
+            'integrations.sms': {
+              provider: dto.provider ?? 'msg91',
+              authKeyEnc: this.encryption.encrypt(dto.authKey),
+              senderId: dto.senderId,
+              otpTemplateId: dto.otpTemplateId,
+            },
+          },
+        },
+      )
+      .exec();
+    await this.invalidate();
+    return { configured: true, senderId: dto.senderId };
+  }
+
+  /**
+   * INTERNAL ONLY — for the notifications module. No endpoint exposes this.
+   * Returns the decrypted MSG91 credentials, or null if none are configured.
+   */
+  async getDecryptedSms(): Promise<DecryptedSms | null> {
+    const doc = await this.getOrCreateDefault();
+    const s = doc.integrations?.sms;
+    if (!s) return null;
+    return {
+      provider: (s.provider as 'msg91') ?? 'msg91',
+      authKey: this.encryption.decrypt(s.authKeyEnc),
+      senderId: s.senderId,
+      otpTemplateId: s.otpTemplateId,
     };
   }
 

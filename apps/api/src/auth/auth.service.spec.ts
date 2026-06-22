@@ -1,6 +1,6 @@
 import { UnauthorizedException } from '@nestjs/common';
 import type { JwtService } from '@nestjs/jwt';
-import type { NotificationService } from '../notifications/notification.service';
+import type { NotificationsService } from '../notifications/notifications.service';
 import type { TenantContextService } from '../tenancy/tenant-context.service';
 import type { UserDoc } from '../users/user.schema';
 import type { UsersService } from '../users/users.service';
@@ -29,7 +29,7 @@ describe('AuthService.refreshTokens — status enforcement', () => {
     const jwt = { signAsync: jest.fn().mockResolvedValue('access-jwt') } as unknown as JwtService;
     const ctx = { tenantId: 'tenant-1' } as unknown as TenantContextService;
     const otp = {} as OtpService;
-    const notifications = {} as NotificationService;
+    const notifications = {} as NotificationsService;
 
     const auth = new AuthService(otp, users, refresh, jwt, notifications, ctx);
     return { auth, rotate };

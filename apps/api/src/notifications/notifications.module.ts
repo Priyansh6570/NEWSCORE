@@ -1,12 +1,17 @@
 import { Module } from '@nestjs/common';
-import { NotificationService } from './notification.service';
+import { SiteConfigModule } from '../site-config/site-config.module';
+import { TenancyModule } from '../tenancy/tenancy.module';
+import { NotificationsService } from './notifications.service';
 
 /**
- * Notifications (email/SMS/push). Minimal for now — only the SMS stub used by
- * OTP. Email/push + BullMQ queues arrive in later phases (CLAUDE.md §4, §12).
+ * Notifications (CLAUDE.md §4, §12). Per-tenant SMS OTP delivery via MSG91 with a
+ * dev console fallback. Imports SiteConfigModule for the per-tenant decrypted SMS
+ * config (getDecryptedSms). No Redis (OTP storage stays in Auth) and no cycle:
+ * SiteConfig/Tenancy do not depend on Auth.
  */
 @Module({
-  providers: [NotificationService],
-  exports: [NotificationService],
+  imports: [SiteConfigModule, TenancyModule],
+  providers: [NotificationsService],
+  exports: [NotificationsService],
 })
 export class NotificationsModule {}
