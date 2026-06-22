@@ -8,6 +8,7 @@ import { ContentModule } from './content/content.module';
 import { DatabaseModule } from './database/database.module';
 import { EngagementModule } from './engagement/engagement.module';
 import { MediaModule } from './media/media.module';
+import { MonetisationModule } from './monetisation/monetisation.module';
 import { NotificationsModule } from './notifications/notifications.module';
 import { RbacModule } from './rbac/rbac.module';
 import { RedisModule } from './redis/redis.module';
@@ -43,6 +44,7 @@ import { UsersModule } from './users/users.module';
     SiteConfigModule,
     MediaModule,
     EngagementModule,
+    MonetisationModule,
     SeoModule,
   ],
 })

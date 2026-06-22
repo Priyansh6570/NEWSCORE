@@ -4,7 +4,10 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 
 async function bootstrap(): Promise<void> {
-  const app = await NestFactory.create(AppModule);
+  // rawBody: true preserves the exact request bytes on req.rawBody (alongside the
+  // parsed body) so the Razorpay webhook can verify its HMAC signature over the
+  // raw payload — the JSON-parsed body would not byte-match the signed content.
+  const app = await NestFactory.create(AppModule, { rawBody: true });
   // SEO/discoverability docs live at the site root, where crawlers expect them —
   // exclude them from the /api/v1 prefix. Everything else is versioned.
   app.setGlobalPrefix('api/v1', {
