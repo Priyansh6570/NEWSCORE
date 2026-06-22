@@ -18,3 +18,14 @@ export const CurrentUser = createParamDecorator(
     return req.user;
   },
 );
+
+/**
+ * Inject the user on an @OptionalAuth() route, or undefined when the request is
+ * anonymous. Unlike CurrentUser this never throws — the route is meant to serve
+ * both logged-in and anonymous readers.
+ */
+export const OptionalUser = createParamDecorator(
+  (_data: unknown, ctx: ExecutionContext): AuthUser | undefined => {
+    return ctx.switchToHttp().getRequest<Request & { user?: AuthUser }>().user;
+  },
+);

@@ -75,6 +75,22 @@ export class SubscriptionService {
     };
   }
 
+  /**
+   * Whether the user has a subscription that is active AND still within its paid
+   * period. This is the paywall's single source of truth (consumed by Content).
+   */
+  async hasActiveSubscription(userId: string): Promise<boolean> {
+    if (!Types.ObjectId.isValid(userId)) return false;
+    const found = await this.model()
+      .exists({
+        userId: new Types.ObjectId(userId),
+        status: 'active',
+        currentPeriodEnd: { $gt: new Date() },
+      })
+      .exec();
+    return found !== null;
+  }
+
   /** The caller's most recent subscription, or null if they have none. */
   async mine(userId: string): Promise<SubscriptionView | null> {
     const doc = await this.model()

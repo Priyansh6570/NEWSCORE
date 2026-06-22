@@ -9,7 +9,8 @@ import {
   Post,
   Query,
 } from '@nestjs/common';
-import { CurrentUser, type AuthUser } from '../auth/current-user.decorator';
+import { CurrentUser, OptionalUser, type AuthUser } from '../auth/current-user.decorator';
+import { OptionalAuth } from '../auth/optional-auth.decorator';
 import { Public } from '../auth/public.decorator';
 import { RequirePermissions } from '../rbac/permissions.guard';
 import { ArticleService } from './article.service';
@@ -26,9 +27,11 @@ export class ArticleController {
     return this.articles.listPublished(q);
   }
 
-  @Public() @Get(':slug')
-  bySlug(@Param('slug') slug: string) {
-    return this.articles.getPublishedBySlug(slug);
+  // @OptionalAuth: serves anonymous readers, but authenticates a present token so
+  // the paywall can unlock the full body for an active subscriber.
+  @OptionalAuth() @Get(':slug')
+  bySlug(@Param('slug') slug: string, @OptionalUser() user?: AuthUser) {
+    return this.articles.getPublishedBySlug(slug, user?.id);
   }
 
   // ── Protected: JwtAuthGuard + PermissionsGuard apply; gate on a permission, never a role ──

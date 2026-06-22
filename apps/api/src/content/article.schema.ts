@@ -41,6 +41,7 @@ export interface ArticleDoc {
   mediaIds: Types.ObjectId[];
   isBreaking: boolean;
   isFeatured: boolean;
+  isPremium: boolean; // requires an active subscription to read the full body (§13 paywall)
   seo: ArticleSeo;
   scheduledAt?: Date;
   publishedAt?: Date;
@@ -78,6 +79,7 @@ export const ArticleSchema = new Schema<ArticleDoc>(
     mediaIds: { type: [Schema.Types.ObjectId], ref: 'Media', default: [] },
     isBreaking: { type: Boolean, default: false },
     isFeatured: { type: Boolean, default: false },
+    isPremium: { type: Boolean, default: false },
     seo: { type: SeoSchema, default: () => ({}) },
     scheduledAt: { type: Date },
     publishedAt: { type: Date },

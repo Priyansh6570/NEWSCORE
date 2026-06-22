@@ -2,6 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { type FilterQuery, type Model, Types } from 'mongoose';
 import { slugify, uniqueSlug } from '../common/slug';
 import { MongoService } from '../database/mongo.service';
+import { SubscriptionService } from '../monetisation/subscription.service';
 import { TenantContextService } from '../tenancy/tenant-context.service';
 import { ARTICLE_MODEL, type ArticleDoc } from './article.schema';
 import {
@@ -17,6 +18,7 @@ export class ArticleService {
   constructor(
     private readonly mongo: MongoService,
     private readonly ctx: TenantContextService,
+    private readonly subscriptions: SubscriptionService,
   ) {}
 
   /** The Article model on the active tenant's connection. */
@@ -47,6 +49,7 @@ export class ArticleService {
       mediaIds: dto.mediaIds ?? [],
       isBreaking: dto.isBreaking ?? false,
       isFeatured: dto.isFeatured ?? false,
+      isPremium: dto.isPremium ?? false,
       seo: dto.seo ?? {},
     });
     return toView(doc.toObject());
@@ -106,14 +109,23 @@ export class ArticleService {
     if (q.categoryId) filter.categoryId = new Types.ObjectId(q.categoryId);
     if (q.tagId) filter.tagIds = new Types.ObjectId(q.tagId);
     if (q.editionId) filter.editionIds = new Types.ObjectId(q.editionId);
-    return this.paginate(filter, q, { publishedAt: -1 });
+    // Public feed: a premium card carries its metadata + excerpt + isPremium badge
+    // but NEVER the body — the list is ungated, so it must not leak premium bodies.
+    return this.paginate(filter, q, { publishedAt: -1 }, publicListView);
   }
 
   /**
    * Public single read by slug — only a published, already-live article.
-   * Atomically increments the view counter; 404 if none matches.
+   * Atomically increments the view counter (always, even when paywalled); 404 if
+   * none matches.
+   *
+   * Paywall (§13): a premium article's full body is served only to an active
+   * subscriber. An anonymous reader or a logged-in non-subscriber gets the
+   * PAYWALLED view — metadata + excerpt, isPremium/paywalled flags, body OMITTED.
+   * A non-subscriber must NEVER receive the full premium body. `userId` is
+   * undefined for anonymous requests (the route is @OptionalAuth).
    */
-  async getPublishedBySlug(slug: string): Promise<ArticleView> {
+  async getPublishedBySlug(slug: string, userId?: string): Promise<ArticleView> {
     const updated = await this.model()
       .findOneAndUpdate(
         { slug, status: 'published', publishedAt: { $lte: new Date() } },
@@ -123,7 +135,12 @@ export class ArticleService {
       .lean<ArticleDoc>()
       .exec();
     if (!updated) throw new NotFoundException('Article not found');
-    return toView(updated);
+
+    if (!updated.isPremium) return toView(updated);
+
+    // Premium: full body only for an active subscriber; otherwise paywalled.
+    const unlocked = userId ? await this.subscriptions.hasActiveSubscription(userId) : false;
+    return unlocked ? toView(updated) : toPaywalledView(updated);
   }
 
   /** Admin listing: every status, newest first. Gated by article:viewAll. */
@@ -137,11 +154,16 @@ export class ArticleService {
 
   // ── Helpers ────────────────────────────────────────────────────────────
 
-  /** Shared page-based query: count + sorted/skipped/limited fetch. */
+  /**
+   * Shared page-based query: count + sorted/skipped/limited fetch. `map` decides
+   * how each doc is projected — admin listings use the full view; the public feed
+   * paywalls premium cards (no body). Defaults to the full view.
+   */
   private async paginate(
     filter: FilterQuery<ArticleDoc>,
     q: ArticleQueryDto,
     sort: Record<string, 1 | -1>,
+    map: (doc: ArticleDoc) => ArticleView = toView,
   ): Promise<ArticlePage> {
     const page = q.page ?? 1;
     const limit = q.limit ?? 20;
@@ -156,7 +178,7 @@ export class ArticleService {
         .exec(),
       model.countDocuments(filter).exec(),
     ]);
-    return { items: docs.map(toView), page, limit, total };
+    return { items: docs.map(map), page, limit, total };
   }
 
   /** Parse an id param, returning a 404 (not a 500) on a malformed id. */
@@ -183,6 +205,7 @@ function toView(doc: ArticleDoc): ArticleView {
     mediaIds: (doc.mediaIds ?? []).map((m) => m.toString()),
     isBreaking: doc.isBreaking,
     isFeatured: doc.isFeatured,
+    isPremium: doc.isPremium ?? false,
     seo: {
       title: doc.seo?.title,
       description: doc.seo?.description,
@@ -195,4 +218,18 @@ function toView(doc: ArticleDoc): ArticleView {
     createdAt: doc.createdAt.toISOString(),
     updatedAt: doc.updatedAt.toISOString(),
   };
+}
+
+/**
+ * The paywalled view of a premium article: the full ArticleView minus the body
+ * (the gated content), with paywalled:true. Built by stripping the body from the
+ * normal view so it can never accidentally include it. See CLAUDE.md §13.
+ */
+function toPaywalledView(doc: ArticleDoc): ArticleView {
+  return { ...toView(doc), body: null, paywalled: true };
+}
+
+/** Public-feed projection: premium cards are paywalled (no body), free ones full. */
+function publicListView(doc: ArticleDoc): ArticleView {
+  return doc.isPremium ? toPaywalledView(doc) : toView(doc);
 }

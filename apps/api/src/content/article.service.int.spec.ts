@@ -1,5 +1,6 @@
 import { NotFoundException } from '@nestjs/common';
 import { type Model, Types } from 'mongoose';
+import type { SubscriptionService } from '../monetisation/subscription.service';
 import { startIntDb, TEST_DB_NAME, type IntDb } from '../test/int-db';
 import { ARTICLE_MODEL, ArticleSchema, type ArticleDoc } from './article.schema';
 import { ArticleService } from './article.service';
@@ -15,9 +16,14 @@ describe('ArticleService (integration, real Mongo)', () => {
   let db: IntDb;
   let service: ArticleService;
 
+  // These specs use only non-premium articles, so the paywall never consults it.
+  const noSubscriptions = {
+    hasActiveSubscription: async () => false,
+  } as unknown as SubscriptionService;
+
   beforeAll(async () => {
     db = await startIntDb([[ARTICLE_MODEL, ArticleSchema]]);
-    service = new ArticleService(db.mongo, db.ctx);
+    service = new ArticleService(db.mongo, db.ctx, noSubscriptions);
   }, 60_000);
 
   afterAll(async () => {

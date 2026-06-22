@@ -81,6 +81,10 @@ export class CreateArticleDto {
   isFeatured?: boolean;
 
   @IsOptional()
+  @IsBoolean()
+  isPremium?: boolean;
+
+  @IsOptional()
   @ValidateNested()
   @Type(() => ArticleSeoDto)
   seo?: ArticleSeoDto;
@@ -142,6 +146,10 @@ export class UpdateArticleDto {
   isFeatured?: boolean;
 
   @IsOptional()
+  @IsBoolean()
+  isPremium?: boolean;
+
+  @IsOptional()
   @ValidateNested()
   @Type(() => ArticleSeoDto)
   seo?: ArticleSeoDto;
@@ -181,7 +189,8 @@ export interface ArticleView {
   title: string;
   slug: string;
   excerpt?: string;
-  body: Record<string, unknown>;
+  // null on a PAYWALLED premium read — a non-subscriber never receives the body.
+  body: Record<string, unknown> | null;
   status: string;
   categoryId?: string;
   tagIds: string[];
@@ -191,6 +200,10 @@ export interface ArticleView {
   mediaIds: string[];
   isBreaking: boolean;
   isFeatured: boolean;
+  isPremium: boolean;
+  // true only on a premium article served to an anonymous/non-subscriber reader:
+  // metadata + excerpt are present, body is omitted.
+  paywalled?: boolean;
   seo: { title?: string; description?: string; ogImage?: string };
   scheduledAt?: string;
   publishedAt?: string;
