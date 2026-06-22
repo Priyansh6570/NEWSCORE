@@ -47,6 +47,7 @@ export interface ArticleDoc {
   publishedAt?: Date;
   views: number;
   likeCount: number; // denormalized reaction count, maintained by the engagement module
+  searchText: string; // flattened title+excerpt+body text — Atlas Search fuel; NEVER in a view
   createdAt: Date;
   updatedAt: Date;
 }
@@ -85,6 +86,10 @@ export const ArticleSchema = new Schema<ArticleDoc>(
     publishedAt: { type: Date },
     views: { type: Number, default: 0 },
     likeCount: { type: Number, default: 0, min: 0 },
+    // select:false so it's NEVER returned by a default/lean query — it holds the
+    // flattened body text (incl. premium bodies); structural defense for the
+    // paywall (CLAUDE.md §2). Read it explicitly with .select('+searchText').
+    searchText: { type: String, default: '', select: false },
   },
   { collection: 'articles', timestamps: true },
 );

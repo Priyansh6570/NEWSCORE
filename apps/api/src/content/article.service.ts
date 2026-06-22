@@ -5,6 +5,7 @@ import { MongoService } from '../database/mongo.service';
 import { SubscriptionService } from '../monetisation/subscription.service';
 import { TenantContextService } from '../tenancy/tenant-context.service';
 import { ARTICLE_MODEL, type ArticleDoc } from './article.schema';
+import { buildSearchText } from './article.search-text';
 import {
   type ArticlePage,
   type ArticleView,
@@ -51,14 +52,31 @@ export class ArticleService {
       isFeatured: dto.isFeatured ?? false,
       isPremium: dto.isPremium ?? false,
       seo: dto.seo ?? {},
+      searchText: buildSearchText({ title: dto.title, excerpt: dto.excerpt, body: dto.body }),
     });
     return toView(doc.toObject());
   }
 
   /** Patch editable fields. status is NOT settable here (see publish/archive). */
   async update(id: string, dto: UpdateArticleDto): Promise<ArticleView> {
+    const _id = this.objectId(id);
+    const $set: Record<string, unknown> = { ...dto };
+
+    // Keep the search index fuel in sync when any of its sources change. The new
+    // value depends on the MERGED article, so read the current doc to fill the
+    // fields the patch didn't touch.
+    if (dto.title !== undefined || dto.excerpt !== undefined || dto.body !== undefined) {
+      const current = await this.model().findById(_id).lean<ArticleDoc>().exec();
+      if (!current) throw new NotFoundException('Article not found');
+      $set.searchText = buildSearchText({
+        title: dto.title ?? current.title,
+        excerpt: dto.excerpt ?? current.excerpt,
+        body: dto.body ?? current.body,
+      });
+    }
+
     const updated = await this.model()
-      .findByIdAndUpdate(this.objectId(id), { $set: dto }, { new: true })
+      .findByIdAndUpdate(_id, { $set }, { new: true })
       .lean<ArticleDoc>()
       .exec();
     if (!updated) throw new NotFoundException('Article not found');

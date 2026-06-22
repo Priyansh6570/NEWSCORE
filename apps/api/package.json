@@ -7,6 +7,7 @@
     "dev": "nest start --watch",
     "start": "node dist/main.js",
     "seed:dev": "tsx scripts/seed-dev.ts",
+    "ensure-search-index": "tsx scripts/ensure-search-index.ts",
     "typecheck": "tsc --noEmit -p tsconfig.json",
     "test": "jest --runInBand",
     "test:watch": "jest --watch",
