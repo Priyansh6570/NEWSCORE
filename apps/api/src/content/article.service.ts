@@ -233,3 +233,13 @@ function toPaywalledView(doc: ArticleDoc): ArticleView {
 function publicListView(doc: ArticleDoc): ArticleView {
   return doc.isPremium ? toPaywalledView(doc) : toView(doc);
 }
+
+/**
+ * The body-free card projection — the public ArticleView with the body stripped,
+ * regardless of premium status. For surfaces that list article cards but must
+ * NEVER return the body (e.g. the analytics dashboard). Reuses toView's field
+ * mapping so a premium body can never leak. See CLAUDE.md §13.
+ */
+export function toArticleCardView(doc: ArticleDoc): ArticleView {
+  return { ...toView(doc), body: null };
+}

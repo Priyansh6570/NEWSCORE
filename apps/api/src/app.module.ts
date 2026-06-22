@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { ClsModule } from 'nestjs-cls';
 import { validateEnv } from './config/env.schema';
+import { AnalyticsModule } from './analytics/analytics.module';
 import { AuthModule } from './auth/auth.module';
 import { EncryptionModule } from './common/encryption.module';
 import { ContentModule } from './content/content.module';
@@ -45,6 +46,7 @@ import { UsersModule } from './users/users.module';
     MediaModule,
     EngagementModule,
     MonetisationModule,
+    AnalyticsModule,
     SeoModule,
   ],
 })
