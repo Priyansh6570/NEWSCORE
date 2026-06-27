@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vārta — Home</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;0,6..72,800;1,6..72,400;1,6..72,500&family=Eczar:wght@400;500;600;700;800&family=Tiro+Devanagari+Hindi:ital@0;1&family=Tiro+Tamil:ital@0;1&family=Tiro+Bangla:ital@0;1&family=Noto+Nastaliq+Urdu:wght@400;500;600;700&family=Mukta:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles/editorial-tokens.css">
+<link rel="stylesheet" href="styles/editorial-components.css">
+<style>
+/* ---- Variation B: persistent sticky LIVE RAIL beside the magazine ---- */
+.b-shell { display: grid; grid-template-columns: minmax(0,1fr) 348px; gap: var(--s-8); align-items: start; padding-top: var(--s-6); }
+.b-rail { position: sticky; top: 70px; border-inline-start: var(--rule-strong) solid var(--line-ink); padding-inline-start: var(--s-5); display: flex; flex-direction: column; }
+.rail-section { padding-bottom: var(--s-5); margin-bottom: var(--s-5); }
+.rail-top { display: flex; align-items: center; justify-content: space-between; gap: var(--s-3); padding-bottom: var(--s-3); }
+.rail-top .wire-more { font-family: var(--font-ui); font-size: var(--fs-micro); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-soft); }
+:lang(ta) .rail-top .wire-more, :lang(bn) .rail-top .wire-more, :lang(ur) .rail-top .wire-more { letter-spacing: 0.02em; text-transform: none; }
+.b-rail .wire-item { grid-template-columns: 1fr; gap: 4px; padding: var(--s-3) 0; }
+.b-rail .wire-item .wire-meta { display: flex; align-items: center; gap: 8px; }
+.b-rail .wire-item .wire-h { font-size: var(--fs-h4); font-weight: 700; }
+.b-rail .wire-item .wire-cat { color: var(--ink-faint); }
+.b-rail .rail-divide { border-top: var(--rule-strong) solid var(--line-ink); padding-top: var(--s-4); }
+
+/* lead hero adapted to the narrower main column */
+.b-lead-grid { display: grid; grid-template-columns: 1.05fr 1fr; gap: var(--s-6); align-items: center; }
+.b-lead-grid .collage { aspect-ratio: 4/3.4; }
+.b-main .stories { grid-template-columns: 1fr 1fr; }
+.b-main .fourup { grid-template-columns: repeat(2, 1fr); gap: var(--s-6) var(--gutter); }
+.menu-only { display: none; }
+
+@media (max-width: 1080px){
+  .b-lead-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 980px){
+  .b-shell { grid-template-columns: 1fr; gap: var(--s-7); }
+  .b-rail { position: static; order: -1; border-inline-start: 0; padding-inline-start: 0; border: var(--rule-strong) solid var(--line-ink); border-radius: var(--r-md); padding: var(--s-5); }
+  .b-rail .rail-section { margin-bottom: 0; }
+  .b-rail [data-wire-rotate] { display: grid; grid-template-columns: 1fr 1fr; column-gap: var(--gutter); }
+  .b-main .stories { grid-template-columns: 1fr; }
+  .b-main .fourup { grid-template-columns: 1fr; }
+}
+@media (max-width: 620px){
+  .b-main .stories { grid-template-columns: 1fr; }
+  .b-rail [data-wire-rotate] { grid-template-columns: 1fr; }
+}
+@media (max-width: 720px){
+  .menu-only { display: grid; }
+}
+</style>
+</head>
+<body>
+
+<!-- ============ TOP BAR ============ -->
+<div class="topbar">
+  <div class="wrap row">
+    <div class="left">
+      <button class="icon-btn menu-only" aria-label="Menu"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
+      <span class="search">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+        <input placeholder="Search…">
+      </span>
+    </div>
+    <div class="right">
+      <button class="icon-btn" data-theme-toggle aria-label="Theme"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+      <div class="lang">
+        <button class="lang-btn">
+          <svg class="globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.5 2.5 15 0 18M12 3c-2.5 2.5-2.5 15 0 18"/></svg>
+          <span data-lang-current>English</span>
+          <svg class="car" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m6 9 6 6 6-6"/></svg>
+        </button>
+        <div class="lang-menu">
+          <button data-set-lang="en"><span>English</span><span class="en">EN</span></button>
+          <button data-set-lang="hi"><span>हिन्दी</span><span class="en">Hindi</span></button>
+          <button data-set-lang="ta"><span>தமிழ்</span><span class="en">Tamil</span></button>
+          <button data-set-lang="bn"><span>বাংলা</span><span class="en">Bengali</span></button>
+          <button data-set-lang="ur"><span>اردو</span><span class="en">Urdu</span></button>
+        </div>
+      </div>
+      <button class="btn btn-outline btn-sm" data-i18n="login">Log in</button>
+      <button class="btn btn-primary btn-sm" data-i18n="subscribe">Subscribe</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ MASTHEAD ============ -->
+<header class="wrap masthead">
+  <div class="flanks wrap" style="padding-inline:0;">
+    <div class="dateblock">
+      <div class="d1" data-i18n="date">Thursday, 25 June 2026</div>
+      <div class="d2" data-i18n="edition">International Edition</div>
+    </div>
+    <div class="weather">
+      <svg class="wx-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4 12H2M22 12h-2M5 5l1.5 1.5M17.5 17.5 19 19M19 5l-1.5 1.5M6.5 17.5 5 19"/></svg>
+      <div>
+        <div class="wx-t">34°</div>
+        <div class="wx-m"><span data-i18n="wxCity">New Delhi</span> · <span data-i18n="wxMeta">Clear sky</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="edition" data-i18n="edition">International Edition</div>
+  <div class="wordmark">Vārta<span class="ast">✲</span></div>
+</header>
+
+<!-- ============ SECTION PILLS ============ -->
+<nav class="wrap sections">
+  <a class="chip active" data-i18n="navHome">Home</a>
+  <a class="chip" data-i18n="navIndia">India</a>
+  <a class="chip" data-i18n="navWorld">World</a>
+  <a class="chip" data-i18n="navBiz">Business</a>
+  <a class="chip" data-i18n="navSport">Sport</a>
+  <a class="chip" data-i18n="navCulture">Culture</a>
+</nav>
+
+<!-- ============ SHELL: MAGAZINE + STICKY LIVE RAIL (Variation B) ============ -->
+<div class="wrap b-shell">
+
+  <!-- ===== MAIN MAGAZINE COLUMN ===== -->
+  <main class="b-main">
+    <!-- COLLAGE HERO (lead story only) -->
+    <section class="lead" style="padding-top:0;">
+      <div class="b-lead-grid">
+        <div class="collage">
+          <div class="frag ph f1"></div>
+          <div class="frag ph f2"></div>
+          <div class="frag ph f3"></div>
+          <div class="frag ph f4"></div>
+          <div class="stamp" data-i18n="leadStamp">Read the people behind the numbers</div>
+        </div>
+        <div class="lead-side is-left">
+          <span class="kicker" data-i18n="leadKicker">Lead Story of the Day</span>
+          <h1 class="lead-h" data-i18n="leadH">The quiet rewiring of India's middle class</h1>
+          <p data-i18n="leadP">Across the country's fast-growing cities, a generation is redrawing what financial security means.</p>
+          <div class="byline">
+            <span class="av">A</span><span class="nm" data-i18n="nm1">Arya Mehta</span>
+            <span class="dot-sep"></span><span class="ro" data-i18n="roSr">Senior Correspondent</span>
+            <span class="dot-sep"></span><span class="mt" data-read="8">8 min read</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"><h2 data-i18n="divToday">Today's Report</h2></div>
+
+    <!-- TYPOGRAPHIC GRID (2-up in the narrower column) -->
+    <section class="stories">
+      <div class="col">
+        <article class="story size-l lead-in">
+          <div class="st-media ph"></div>
+          <span class="tag" data-i18n="s1cat">Economy</span>
+          <h3 class="st-h" data-i18n="s1H">Economy shows resilience as growth beats every estimate</h3>
+          <p data-i18n="s1P">Domestic demand and a rebound in exports point to steady momentum.</p>
+          <div class="byline"><span class="av">A</span><span class="nm" data-i18n="nm1">Arya Mehta</span><span class="dot-sep"></span><span class="mt" data-read="6">6 min read</span></div>
+        </article>
+        <article class="story size-s">
+          <span class="tag" data-i18n="s5cat">Policy</span>
+          <h3 class="st-h" data-i18n="s5H">Government offers guidance to avoid a fiscal standoff</h3>
+          <div class="byline"><span class="nm" data-i18n="nm3">Rohan Gupta</span><span class="dot-sep"></span><span class="ro" data-i18n="roStaff">Staff Reporter</span></div>
+        </article>
+      </div>
+      <div class="col ruled">
+        <article class="story size-m lead-in">
+          <span class="tag" data-i18n="s2cat">Science</span>
+          <h3 class="st-h" data-i18n="s2H">Scientists unveil a more diverse map of the human genome</h3>
+          <p class="readtail" data-read="7">7 min read</p>
+          <div class="byline"><span class="av">N</span><span class="nm" data-i18n="nm2">Neha Verma</span></div>
+        </article>
+        <article class="story size-m">
+          <div class="st-media ph"></div>
+          <span class="tag" data-i18n="s3cat">Cities</span>
+          <h3 class="st-h" data-i18n="s3H">A subway killing stuns, and divides, the capital</h3>
+          <div class="byline"><span class="nm" data-i18n="nm3">Rohan Gupta</span><span class="dot-sep"></span><span class="mt" data-read="5">5 min read</span></div>
+        </article>
+      </div>
+    </section>
+
+    <!-- DARK SPOTLIGHT -->
+    <section style="margin-top:var(--s-8);">
+      <div class="spotlight">
+        <div class="sl-grid">
+          <div class="sl-body">
+            <div class="sl-top"><span class="chip" data-i18n="slChip">Longform</span><span class="chip" data-i18n="slChip2">Investigation</span></div>
+            <h2 class="sl-h" data-i18n="slH">The real-world costs of India's race to the cloud</h2>
+            <p class="sl-p" data-i18n="slP">Data centres are multiplying across the country — and so is their thirst for power and water.</p>
+            <div class="sl-stats">
+              <span class="chip-stat"><b>20</b><span data-i18n="slStat1">Related</span></span>
+              <span class="chip-stat"><b>45</b><span data-i18n="slStat2">Trending</span></span>
+              <span class="chip-stat"><b>12</b><span data-i18n="slStat3">Data topics</span></span>
+            </div>
+            <div class="sl-byline"><span class="av">V</span><span data-i18n="slByline">Vikram Kher</span><span class="dot-sep"></span><span data-i18n="slRole">Photographer</span><span class="date-chip" data-i18n="slDate">10 June 2026</span></div>
+          </div>
+          <div class="sl-media ph"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SHORTS RAIL -->
+    <section style="margin-top:var(--s-8);">
+      <div class="rail-head" style="display:flex;align-items:baseline;justify-content:space-between;gap:var(--s-4);margin-bottom:var(--s-4);padding-bottom:var(--s-3);border-bottom:var(--rule) solid var(--line);">
+        <div style="display:flex;align-items:center;gap:10px;"><span class="live-dot" style="background:var(--accent)"></span><span class="serif" style="font-weight:700;font-size:var(--fs-h3);color:var(--ink-strong);" data-i18n="shortsLabel">Shorts</span></div>
+      </div>
+      <div class="shorts">
+        <a class="short"><div class="sh-media ph"><span class="dur">0:48</span><span class="play"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span></div><h4 class="sh-h" data-i18n="sh1">Inside the newsroom at 4 a.m.</h4><div class="sh-m"><span data-views="120k">120k views</span></div></a>
+        <a class="short"><div class="sh-media ph"><span class="dur">1:00</span><span class="play"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span></div><h4 class="sh-h" data-i18n="sh2">How a monsoon forms, in sixty seconds</h4><div class="sh-m"><span data-views="89k">89k views</span></div></a>
+        <a class="short"><div class="sh-media ph"><span class="dur">0:36</span><span class="play"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span></div><h4 class="sh-h" data-i18n="sh3">The vanishing stepwells of the north</h4><div class="sh-m"><span data-views="54k">54k views</span></div></a>
+        <a class="short"><div class="sh-media ph"><span class="dur">0:52</span><span class="play"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span></div><h4 class="sh-h" data-i18n="sh4">A day with the city's last typewriter mechanic</h4><div class="sh-m"><span data-views="31k">31k views</span></div></a>
+    </div>
+    </section>
+
+    <div class="divider"><h2 data-i18n="fourLabel">More to read</h2></div>
+
+    <section class="fourup">
+      <article class="story"><div class="st-media ph"></div><span class="tag" data-i18n="navIndia">India</span><h3 class="st-h size-s" data-i18n="f1">A guilty ex-minister and the limits of accountability</h3><div class="byline"><span class="nm" data-i18n="nm3">Rohan Gupta</span><span class="dot-sep"></span><span class="mt" data-views="18k">18k views</span></div></article>
+      <article class="story"><div class="st-media ph"></div><span class="tag" data-i18n="navCulture">Culture</span><h3 class="st-h size-s" data-i18n="f2">Listen to The Briefing: the week, in twenty minutes</h3><div class="byline"><span class="nm" data-i18n="nm2">Neha Verma</span><span class="dot-sep"></span><span class="mt" data-views="9k">9k views</span></div></article>
+      <article class="story"><div class="st-media ph"></div><span class="tag" data-i18n="navBiz">Business</span><h3 class="st-h size-s" data-i18n="f3">The startups betting everything on profitability</h3><div class="byline"><span class="nm" data-i18n="nm1">Arya Mehta</span><span class="dot-sep"></span><span class="mt" data-views="23k">23k views</span></div></article>
+      <article class="story"><div class="st-media ph"></div><span class="tag" data-i18n="s3cat">Cities</span><h3 class="st-h size-s" data-i18n="f4">A subway mural divides a neighbourhood</h3><div class="byline"><span class="nm" data-i18n="nm3">Rohan Gupta</span><span class="dot-sep"></span><span class="mt" data-views="12k">12k views</span></div></article>
+    </section>
+  </main>
+
+  <!-- ===== STICKY LIVE RAIL (the fast lane) ===== -->
+  <aside class="b-rail">
+    <div class="rail-section">
+      <div class="rail-top">
+        <span class="wire-label"><span class="live-dot"></span><span data-i18n="wireLabel">Live Wire</span></span>
+        <a class="wire-more" data-i18n="wireMore">Full live coverage</a>
+      </div>
+      <div data-wire-rotate>
+        <a class="wire-item urgent"><div class="wire-meta"><span class="wire-time" data-i18n="w1t">2 min</span><span class="wire-cat" data-i18n="w1cat">Parliament</span></div><span class="wire-h" data-i18n="w1">Privacy bill clears Lok Sabha after a late-night debate</span></a>
+        <a class="wire-item"><div class="wire-meta"><span class="wire-time" data-i18n="w2t">9 min</span><span class="wire-cat" data-i18n="w2cat">Markets</span></div><span class="wire-h" data-i18n="w2">Sensex closes at a record high</span></a>
+        <a class="wire-item"><div class="wire-meta"><span class="wire-time" data-i18n="w3t">16 min</span><span class="wire-cat" data-i18n="w3cat">Monsoon</span></div><span class="wire-h" data-i18n="w3">Monsoon reaches Kerala ahead of schedule</span></a>
+        <a class="wire-item"><div class="wire-meta"><span class="wire-time" data-i18n="w4t">24 min</span><span class="wire-cat" data-i18n="w4cat">Cricket</span></div><span class="wire-h" data-i18n="w4">Selectors name a youthful squad for the series</span></a>
+        <a class="wire-item"><div class="wire-meta"><span class="wire-time" data-i18n="w5t">33 min</span><span class="wire-cat" data-i18n="w5cat">Diplomacy</span></div><span class="wire-h" data-i18n="w5">Trade talks resume after a deadlock</span></a>
+      </div>
+    </div>
+
+    <div class="rail-section rail-divide">
+      <div class="thread-head" style="margin-bottom:var(--s-3);">
+        <span class="wire-label"><span class="live-dot"></span><span data-i18n="thLabel">Developing</span></span>
+      </div>
+      <div class="th-h" style="font-family:var(--font-display);font-weight:800;font-size:var(--fs-h3);color:var(--ink-strong);margin-bottom:var(--s-3);" data-i18n="thH">Monsoon session, day three</div>
+      <div class="thread-list">
+        <div class="update now"><div class="up-time" data-i18n="u1t">11:42</div><h4 class="up-h" data-i18n="u1H">Data protection bill passes 248–119</h4></div>
+        <div class="update"><div class="up-time" data-i18n="u2t">10:30</div><h4 class="up-h" data-i18n="u2H">Opposition stages a walkout</h4></div>
+        <div class="update"><div class="up-time" data-i18n="u3t">09:15</div><h4 class="up-h" data-i18n="u3H">Session begins amid tight security</h4></div>
+      </div>
+    </div>
+  </aside>
+</div>
+
+<!-- ============ FOOTER ============ -->
+<footer class="wrap foot">
+  <div class="foot-top">
+    <div class="foot-brand">
+      <div class="fm">Vārta<span class="ast">✲</span></div>
+      <p data-i18n="footTag">Independent, ad-light journalism — in your language.</p>
+      <div class="foot-lang">
+        <button data-set-lang="en">English</button>
+        <button data-set-lang="hi">हिन्दी</button>
+        <button data-set-lang="ta">தமிழ்</button>
+        <button data-set-lang="bn">বাংলা</button>
+        <button data-set-lang="ur">اردو</button>
+      </div>
+    </div>
+    <div class="foot-col"><h4 data-i18n="colSections">Sections</h4><ul><li><a data-i18n="fSec1">India</a></li><li><a data-i18n="fSec2">World</a></li><li><a data-i18n="fSec3">Business</a></li><li><a data-i18n="fSec4">Sport</a></li><li><a data-i18n="fSec5">Culture</a></li><li><a data-i18n="fSec6">Opinion</a></li></ul></div>
+    <div class="foot-col"><h4 data-i18n="colEditions">Editions</h4><ul><li><a data-i18n="fEd1">International</a></li><li><a data-i18n="fEd2">हिन्दी</a></li><li><a data-i18n="fEd3">தமிழ்</a></li><li><a data-i18n="fEd4">বাংলা</a></li><li><a data-i18n="fEd5">اردو</a></li></ul></div>
+    <div class="foot-col"><h4 data-i18n="colCompany">Company</h4><ul><li><a data-i18n="fCo1">About us</a></li><li><a data-i18n="fCo2">Editorial code</a></li><li><a data-i18n="fCo3">Careers</a></li><li><a data-i18n="fCo4">Contact</a></li><li><a data-i18n="fCo5">RSS feeds</a></li></ul></div>
+    <div class="foot-col"><h4 data-i18n="colFollow">Follow</h4>
+      <div class="foot-social">
+        <a class="icon-btn" aria-label="X"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.2 2H21l-6.5 7.4L22 22h-6l-4.7-6.1L5.8 22H3l7-8L2 2h6.2l4.2 5.6zM17 20.2h1.6L7 3.7H5.3z"/></svg></a>
+        <a class="icon-btn" aria-label="Instagram"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a>
+        <a class="icon-btn" aria-label="YouTube"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M22 8.2a3 3 0 0 0-2.1-2.1C18 5.5 12 5.5 12 5.5s-6 0-7.9.6A3 3 0 0 0 2 8.2 31 31 0 0 0 2 12a31 31 0 0 0 .1 3.8 3 3 0 0 0 2.1 2.1c1.9.6 7.8.6 7.8.6s6 0 7.9-.6a3 3 0 0 0 2.1-2.1A31 31 0 0 0 22 12a31 31 0 0 0-.1-3.8zM10 15V9l5.2 3z"/></svg></a>
+      </div>
+    </div>
+  </div>
+  <div class="foot-bar">
+    <p data-i18n="footLegal">© 2026 Vārta Media · White-label default brand</p>
+    <p>Vārta✲</p>
+  </div>
+</footer>
+
+<script src="scripts/i18n.js"></script>
+<script src="scripts/editorial.js"></script>
+</body>
+</html>

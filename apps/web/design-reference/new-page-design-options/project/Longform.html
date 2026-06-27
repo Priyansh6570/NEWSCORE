@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light" data-skin="ivory">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>What the data protection bill changes — Vārta</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;0,6..72,800;1,6..72,400;1,6..72,500&family=Eczar:wght@400;500;600;700;800&family=Tiro+Devanagari+Hindi:ital@0;1&family=Tiro+Tamil&family=Tiro+Bangla&family=Noto+Nastaliq+Urdu:wght@400;500;600;700&family=Mukta:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles/editorial-tokens.css">
+<link rel="stylesheet" href="styles/editorial-components.css">
+<link rel="stylesheet" href="styles/skins.css">
+<link rel="stylesheet" href="styles/longform.css">
+</head>
+<body>
+
+<!-- mobile reading-progress hairline -->
+<div class="lf-toprule"><i id="topProg"></i></div>
+
+<!-- ============ MASTHEAD ============ -->
+<div class="topbar">
+  <div class="wrap row">
+    <div class="left">
+      <a class="search" href="home-A.html" style="text-decoration:none">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 18-6-6 6-6"/></svg>
+        <span style="font-family:var(--font-ui);font-weight:600;color:var(--ink-soft)">Front page</span>
+      </a>
+    </div>
+    <div class="right">
+      <button class="icon-btn" data-theme-toggle aria-label="Theme"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+      <div class="lang">
+        <button class="lang-btn">
+          <svg class="globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.5 2.5 15 0 18M12 3c-2.5 2.5-2.5 15 0 18"/></svg>
+          <span data-lang-current>English</span>
+          <svg class="car" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m6 9 6 6 6-6"/></svg>
+        </button>
+        <div class="lang-menu">
+          <button data-goto="Longform.html" class="active"><span>English</span><span class="en">EN</span></button>
+          <button data-goto="Longform-Hindi.html"><span>हिन्दी</span><span class="en">Hindi</span></button>
+          <button data-set-lang="ta"><span>தமிழ்</span><span class="en">Tamil</span></button>
+          <button data-set-lang="bn"><span>বাংলা</span><span class="en">Bengali</span></button>
+          <button data-set-lang="ur"><span>اردو</span><span class="en">Urdu</span></button>
+        </div>
+      </div>
+      <button class="btn btn-outline btn-sm" data-i18n="login">Log in</button>
+      <button class="btn btn-primary btn-sm" data-i18n="support">Become a member</button>
+    </div>
+  </div>
+</div>
+
+<header class="wrap masthead" style="padding-block:var(--s-5) var(--s-4)">
+  <div class="wordmark" style="font-size:clamp(2rem,1.2rem+3vw,3rem)">Vārta<span class="ast">✲</span></div>
+</header>
+<nav class="wrap sections" style="margin-bottom:0">
+  <a class="chip" data-i18n="navHome">Home</a>
+  <a class="chip active" data-i18n="navIndia">India</a>
+  <a class="chip" data-i18n="navWorld">World</a>
+  <a class="chip" data-i18n="navBiz">Business</a>
+  <a class="chip" data-i18n="navSport">Sport</a>
+  <a class="chip" data-i18n="navCulture">Culture</a>
+</nav>
+
+<!-- ============ LONGFORM ============ -->
+<div class="lf">
+
+  <!-- LEFT RAIL — the editorial apparatus -->
+  <aside class="lf-rail" aria-label="Article apparatus">
+    <div class="rail-block">
+      <span class="rail-label">Section</span>
+      <span class="rail-section">India · Policy Analysis</span>
+    </div>
+    <div class="rail-block">
+      <span class="rail-label">Dateline</span>
+      <span class="rail-dateline">New Delhi<br>25 June 2026</span>
+      <span class="rail-readtime">8 min read</span>
+    </div>
+    <div class="rail-block">
+      <span class="rail-label">Progress</span>
+      <div class="rail-progress">
+        <div class="track"><i id="railProg"></i></div>
+        <span class="pct" id="railPct">0%</span>
+      </div>
+    </div>
+    <div class="rail-block">
+      <span class="rail-label">Share</span>
+      <div class="rail-share">
+        <button class="ib" aria-label="Share on X"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M18.2 2H21l-6.5 7.4L22 22h-6l-4.7-6.1L5.8 22H3l7-8L2 2h6.2l4.2 5.6zM17 20.2h1.6L7 3.7H5.3z"/></svg></button>
+        <button class="ib" aria-label="Share on WhatsApp"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.5 15.2L2 22l4.9-1.4A10 10 0 1 0 12 2zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.2-.7-2.7-1.1-4.4-3.9-4.5-4-.1-.2-1-1.4-1-2.6s.6-1.8.9-2c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.3 0 .5l-.4.5-.3.3c-.2.2-.3.4-.2.6.2.4.8 1.3 1.6 2 .9.8 1.7 1.1 2 1.2.2.1.4.1.6-.1l.7-.8c.2-.2.4-.2.6-.1l1.9.9c.3.1.4.2.5.3z"/></svg></button>
+        <button class="ib" aria-label="Copy link"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1 1M14 11a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1-1"/></svg></button>
+        <button class="ib" id="bm" aria-label="Bookmark"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 3h12v18l-6-4-6 4z"/></svg></button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- READING COLUMN -->
+  <div class="lf-main">
+    <article class="lf-article">
+      <div class="a-kicker">
+        <span class="tag">Policy · Analysis</span>
+        <span class="dot-sep"></span>
+        <span class="live-tag"><span class="live-dot"></span>Developing</span>
+      </div>
+      <h1 class="a-headline">What the data protection bill changes — and what it doesn't</h1>
+      <p class="a-standfirst">Parliament passed the long-delayed data protection law after a marathon overnight sitting. Here is what it means for the people whose data it governs — and the questions it leaves open.</p>
+
+      <!-- mobile-only dateline mirrors the rail -->
+      <div class="a-mobile-dateline">
+        <span class="md-sec">India · Policy Analysis</span>
+        <span class="dot-sep"></span><span>New Delhi</span>
+        <span class="dot-sep"></span><span>25 June 2026 · 8 min read</span>
+      </div>
+
+      <div class="a-meta">
+        <div class="byline">
+          <span class="av">A</span>
+          <div class="meta">
+            <span class="nm">Arya Mehta</span>
+            <span class="stamp">Senior Correspondent · New Delhi<span class="dot-sep" style="margin-inline:6px"></span>Updated 11:48, 25 Jun 2026</span>
+          </div>
+        </div>
+        <div class="a-actions">
+          <button class="ib" aria-label="Comments"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a8 8 0 0 1-11.3 7.3L3 21l1.7-6.7A8 8 0 1 1 21 12z"/></svg></button>
+          <button class="ib" aria-label="Bookmark"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 3h12v18l-6-4-6 4z"/></svg></button>
+          <button class="ib" aria-label="Share"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4"/></svg></button>
+        </div>
+      </div>
+
+      <figure class="a-figure">
+        <div class="a-img ph"></div>
+        <figcaption><span>The Lok Sabha during the overnight session that cleared the bill, hours before dawn.</span><span class="credit">Vārta · placeholder</span></figcaption>
+      </figure>
+
+      <div class="a-body">
+        <p class="lead-para">After nearly four years of drafts, withdrawals and redrafts, India finally has a data protection law. The bill cleared the Lok Sabha at a quarter to midnight, 248 votes to 119, and is expected to pass the upper house within the week. For a country that adds more first-time internet users than any other, it is a foundational moment — and a deeply contested one.</p>
+
+        <aside class="mnote mn-stat">
+          <span class="mn-label">By the numbers</span>
+          <div class="mn-fig">248–119</div>
+          <p class="mn-body">The margin by which the Lok Sabha passed the bill, just before midnight.</p>
+        </aside>
+
+        <p>At its centre is a simple promise: that the companies and government departments holding your personal information must tell you why they have it, use it only for that reason, and delete it when the reason ends. Around that promise the law builds a scaffold of consent notices, a new regulator, and penalties large enough, in theory, to make the largest platforms pay attention.</p>
+        <p>What it does not settle is who watches the watchers. The same state that enforces the law also exempts itself from large parts of it — and that tension runs through every clause.</p>
+
+        <h2><span class="h-mark">§</span>What actually changes</h2>
+
+        <aside class="mnote">
+          <span class="mn-label">Note · Definition</span>
+          <div class="mn-term">The Eighth Schedule</div>
+          <p class="mn-body">The part of the Constitution that lists India's 22 officially recognised languages. Consent notices must now be offered in any of them.</p>
+        </aside>
+
+        <p>For an ordinary reader, the most visible shift will be the consent notice: a plain-language explanation, available in every language in the Eighth Schedule, of what an app intends to do with your data before you agree. Buried checkboxes and pre-ticked permissions are, on paper, finished.</p>
+        <ul class="a-list">
+          <li><strong>A right to correction and erasure.</strong> You can ask a company to fix wrong data, or to delete it once it is no longer needed.</li>
+          <li><strong>Consent in your language.</strong> Notices must be offered in any of the twenty-two scheduled languages, not English alone.</li>
+          <li><strong>A Data Protection Board.</strong> A new body to hear complaints and levy penalties of up to ₹250 crore for serious breaches.</li>
+          <li><strong>Limits on children's data.</strong> Tracking and targeted advertising aimed at under-eighteens is restricted.</li>
+        </ul>
+
+        <aside class="mnote mn-stat">
+          <span class="mn-label">Penalty ceiling</span>
+          <div class="mn-fig">₹250cr</div>
+          <p class="mn-body">The maximum fine the new board can levy for a serious or repeated breach.</p>
+        </aside>
+
+        <p>Taken together, these are real protections that did not exist a day ago. Privacy advocates who have fought for them since the Supreme Court's 2017 judgment recognising privacy as a fundamental right call the framework, at last, a beginning.</p>
+
+        <aside class="mnote">
+          <span class="mn-label">Context · 2017</span>
+          <div class="mn-term">Puttaswamy v. Union of India</div>
+          <p class="mn-body">The Supreme Court ruling that held privacy to be a fundamental right — the legal foundation this law is built on.</p>
+        </aside>
+
+        <div class="pullquote">
+          <span class="pq-mark">“</span>
+          <p class="pq">A right is only as strong as the body that enforces it — and that body is still being built.</p>
+          <div class="pq-cite">Ananya Iyer, technology lawyer</div>
+        </div>
+
+        <h2><span class="h-mark">§</span>What it leaves open</h2>
+        <p>The law's critics point to a single recurring word: exemption. Government agencies can be released from its obligations in the interest of national security or public order — terms the bill does not define narrowly. The board that hears complaints is appointed by the government it may be asked to investigate. And cross-border data transfer rules were softened in the final draft, to the relief of large platforms.</p>
+
+        <aside class="mnote mn-link">
+          <span class="mn-label">Read next</span>
+          <a href="#related">A law that protects you from companies, but not the state <span aria-hidden="true">→</span></a>
+        </aside>
+
+        <figure class="a-inline-fig a-figure">
+          <div class="a-img ph"></div>
+          <figcaption><span>Outside the house, activists who campaigned for narrower exemptions watched the vote on their phones.</span><span class="credit">Vārta · placeholder</span></figcaption>
+        </figure>
+
+        <p>None of this makes the law toothless. But it does mean the protections an individual can claim against a private company are stronger than those they can claim against the state — an asymmetry that lawyers expect to be tested in court within months.</p>
+        <p>For now, the practical timeline matters most. The Data Protection Board must be constituted, rules must be notified, and companies will be given a window — likely a year — to comply. Until then, the consent notice you are promised remains, like much of the law, a thing that exists on paper and waits to be built.</p>
+      </div>
+
+      <!-- live thread (developing) -->
+      <div class="a-thread">
+        <div class="thread">
+          <div class="thread-head">
+            <span class="wire-label"><span class="live-dot"></span>Developing</span>
+            <span class="th-h">Monsoon session, day three</span>
+          </div>
+          <div class="thread-list">
+            <div class="update now"><div class="up-time">11:42</div><h4 class="up-h">Data protection bill passes 248–119</h4><p>The Lok Sabha clears the bill after a marathon overnight sitting.</p></div>
+            <div class="update"><div class="up-time">10:30</div><h4 class="up-h">Opposition stages a walkout</h4><p>Members leave the house objecting to the pace of the debate.</p></div>
+            <div class="update"><div class="up-time">09:15</div><h4 class="up-h">Session begins amid tight security</h4><p>The day opens with three bills listed for discussion.</p></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="a-tags">
+        <span class="chip">Data protection</span><span class="chip">Privacy</span><span class="chip">Parliament</span><span class="chip">Technology policy</span><span class="chip">Supreme Court</span>
+      </div>
+
+      <div class="author-bio">
+        <div class="bio-av">A</div>
+        <div class="bio-main">
+          <div class="bio-name">Arya Mehta</div>
+          <div class="bio-role">Senior Correspondent · Technology &amp; Policy</div>
+          <p>Arya covers the intersection of technology, law and the state from New Delhi. She has reported on India's privacy debate since the 2017 Supreme Court judgment.</p>
+        </div>
+      </div>
+    </article>
+  </div>
+</div>
+
+<!-- ============ SUPPORT (no paywall) ============ -->
+<section class="support">
+  <div class="support-inner">
+    <div class="s-text">
+      <span class="s-kicker">Free &amp; open to all</span>
+      <h2 class="s-h">Every Vārta story stays open. No wall, ever.</h2>
+      <p class="s-p">We don't lock our journalism behind a paywall. If reporting like this is useful to you, becoming a member keeps it free for the next reader — and funds the newsroom in five languages.</p>
+    </div>
+    <div class="s-actions">
+      <button class="btn btn-primary">Become a member</button>
+      <button class="btn btn-outline">One-time contribution</button>
+      <span class="free">From ₹99/month · cancel anytime</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ RELATED ============ -->
+<section class="related" id="related">
+  <div class="divider"><h2>Read more</h2></div>
+  <div class="stories">
+    <article class="story size-l lead-in">
+      <span class="tag">Explainer</span>
+      <h3 class="st-h">How the consent notice will actually work on your phone</h3>
+      <p class="readtail">5 min read</p>
+      <div class="byline"><span class="nm">Neha Verma</span></div>
+    </article>
+    <article class="story size-m lead-in ruled" style="border-top:0">
+      <div class="st-media ph"></div>
+      <span class="tag">Profile</span>
+      <h3 class="st-h">The lawyer who has argued privacy cases for a decade</h3>
+      <div class="byline"><span class="nm">Rohan Gupta</span><span class="dot-sep"></span><span class="mt">7 min read</span></div>
+    </article>
+    <article class="story size-m lead-in">
+      <div class="st-media ph"></div>
+      <span class="tag">Opinion</span>
+      <h3 class="st-h">A law that protects you from companies, but not from the state</h3>
+      <div class="byline"><span class="nm">Ananya Iyer</span><span class="dot-sep"></span><span class="mt">6 min read</span></div>
+    </article>
+  </div>
+</section>
+
+<!-- ============ COMMENTS ============ -->
+<section class="comments">
+  <div class="comments-head">
+    <h2>Comments</h2>
+    <span class="c-count">128 comments · sorted by most recent</span>
+  </div>
+  <div class="composer">
+    <span class="av">YO</span>
+    <div class="c-field">
+      <textarea placeholder="Add your perspective…  Comments are moderated and held to our community guidelines."></textarea>
+      <div class="c-foot">
+        <span class="c-rules">Posting as a logged-in reader · be civil, stay on topic</span>
+        <button class="btn btn-primary btn-sm">Post comment</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="comment">
+    <span class="av">DK</span>
+    <div class="c-main">
+      <div class="c-top"><span class="c-name">Devika K.</span><span class="c-badge">Member</span><span class="c-time">18 min ago</span></div>
+      <p class="c-text">The exemptions for government agencies are the whole story here. A privacy law the state can opt out of is a strange kind of privacy law. Good, careful piece.</p>
+      <div class="c-act"><button><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 10v11M18 21H7V10l5-8a2 2 0 0 1 2 2v4h5a2 2 0 0 1 2 2l-2 9z"/></svg>34</button><button>Reply</button></div>
+    </div>
+  </div>
+  <div class="comment">
+    <span class="av">MR</span>
+    <div class="c-main">
+      <div class="c-top"><span class="c-name">Mahesh R.</span><span class="c-time">42 min ago</span></div>
+      <p class="c-text">Consent notices in twenty-two languages is genuinely a big deal for my parents, who have never been able to read a single one. Small thing, huge in practice.</p>
+      <div class="c-act"><button><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 10v11M18 21H7V10l5-8a2 2 0 0 1 2 2v4h5a2 2 0 0 1 2 2l-2 9z"/></svg>61</button><button>Reply</button></div>
+    </div>
+  </div>
+  <div class="comment">
+    <span class="av">SF</span>
+    <div class="c-main">
+      <div class="c-top"><span class="c-name">Sana F.</span><span class="c-badge">Member</span><span class="c-time">1 hr ago</span></div>
+      <p class="c-text">Would love a follow-up on the one-year compliance window — what happens to all the data already collected without these notices?</p>
+      <div class="c-act"><button><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 10v11M18 21H7V10l5-8a2 2 0 0 1 2 2v4h5a2 2 0 0 1 2 2l-2 9z"/></svg>27</button><button>Reply</button></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="wrap foot">
+  <div class="foot-top">
+    <div class="foot-brand">
+      <div class="fm">Vārta<span class="ast">✲</span></div>
+      <p data-i18n="footTag">Independent, reader-funded journalism — in your language.</p>
+      <div class="foot-lang">
+        <button data-goto="Longform.html">English</button>
+        <button data-goto="Longform-Hindi.html">हिन्दी</button>
+        <button data-set-lang="ta">தமிழ்</button>
+        <button data-set-lang="bn">বাংলা</button>
+        <button data-set-lang="ur">اردو</button>
+      </div>
+    </div>
+    <div class="foot-col"><h4 data-i18n="colSections">Sections</h4><ul><li><a data-i18n="fSec1">India</a></li><li><a data-i18n="fSec2">World</a></li><li><a data-i18n="fSec3">Business</a></li><li><a data-i18n="fSec4">Sport</a></li><li><a data-i18n="fSec5">Culture</a></li><li><a data-i18n="fSec6">Opinion</a></li></ul></div>
+    <div class="foot-col"><h4 data-i18n="colEditions">Editions</h4><ul><li><a data-i18n="fEd1">International</a></li><li><a data-i18n="fEd2">हिन्दी</a></li><li><a data-i18n="fEd3">தமிழ்</a></li><li><a data-i18n="fEd4">বাংলা</a></li><li><a data-i18n="fEd5">اردو</a></li></ul></div>
+    <div class="foot-col"><h4 data-i18n="colCompany">Company</h4><ul><li><a data-i18n="fCo1">About us</a></li><li><a data-i18n="fCo2">Editorial code</a></li><li><a data-i18n="fCo3">Careers</a></li><li><a data-i18n="fCo4">Contact</a></li><li><a data-i18n="fCo5">RSS feeds</a></li></ul></div>
+    <div class="foot-col"><h4 data-i18n="colFollow">Follow</h4>
+      <div class="foot-social">
+        <a class="icon-btn" aria-label="X"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.2 2H21l-6.5 7.4L22 22h-6l-4.7-6.1L5.8 22H3l7-8L2 2h6.2l4.2 5.6zM17 20.2h1.6L7 3.7H5.3z"/></svg></a>
+        <a class="icon-btn" aria-label="Instagram"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a>
+        <a class="icon-btn" aria-label="YouTube"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M22 8.2a3 3 0 0 0-2.1-2.1C18 5.5 12 5.5 12 5.5s-6 0-7.9.6A3 3 0 0 0 2 8.2 31 31 0 0 0 2 12a31 31 0 0 0 .1 3.8 3 3 0 0 0 2.1 2.1c1.9.6 7.8.6 7.8.6s6 0 7.9-.6a3 3 0 0 0 2.1-2.1A31 31 0 0 0 22 12a31 31 0 0 0-.1-3.8zM10 15V9l5.2 3z"/></svg></a>
+      </div>
+    </div>
+  </div>
+  <div class="foot-bar">
+    <p data-i18n="footLegal">© 2026 Vārta Media · White-label default brand</p>
+    <p>Vārta✲</p>
+  </div>
+</footer>
+
+<script src="scripts/i18n.js"></script>
+<script src="scripts/editorial.js"></script>
+<script>
+  // edition navigation (en / hi are separate editions)
+  document.querySelectorAll('[data-goto]').forEach(b => b.addEventListener('click', e => { e.stopPropagation(); location.href = b.getAttribute('data-goto'); }));
+  // bookmark toggle
+  const bm = document.getElementById('bm');
+  if (bm) bm.addEventListener('click', e => e.currentTarget.classList.toggle('on'));
+
+  // reading progress — vertical rail + mobile top hairline, measured over the article body
+  (function(){
+    const art = document.querySelector('.lf-article');
+    const railProg = document.getElementById('railProg');
+    const railPct  = document.getElementById('railPct');
+    const topProg  = document.getElementById('topProg');
+    if (!art) return;
+    let ticking = false;
+    function update(){
+      ticking = false;
+      const rect = art.getBoundingClientRect();
+      const vh = window.innerHeight;
+      const total = rect.height - vh;
+      const scrolled = Math.min(Math.max(-rect.top, 0), Math.max(total, 0));
+      const pct = total > 0 ? Math.round((scrolled / total) * 100) : (rect.top < 0 ? 100 : 0);
+      if (railProg) railProg.style.height = pct + '%';
+      if (railPct)  railPct.textContent = pct + '%';
+      if (topProg)  topProg.style.width = pct + '%';
+    }
+    function onScroll(){ if (!ticking){ ticking = true; requestAnimationFrame(update); } }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll, { passive: true });
+    update();
+  })();
+</script>
+</body>
+</html>

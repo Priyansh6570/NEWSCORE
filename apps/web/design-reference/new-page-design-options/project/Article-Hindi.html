@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="hi" data-theme="light" data-skin="ivory">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>डेटा सुरक्षा विधेयक से क्या बदलेगा — वार्ता</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;0,6..72,700;0,6..72,800&family=Eczar:wght@400;500;600;700;800&family=Tiro+Devanagari+Hindi:ital@0;1&family=Mukta:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles/editorial-tokens.css">
+<link rel="stylesheet" href="styles/editorial-components.css">
+<link rel="stylesheet" href="styles/skins.css">
+<link rel="stylesheet" href="styles/article.css">
+</head>
+<body>
+
+<!-- ============ MASTHEAD ============ -->
+<div class="topbar">
+  <div class="wrap row">
+    <div class="left">
+      <a class="search" href="home-A.html?lang=hi" style="text-decoration:none">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 18-6-6 6-6"/></svg>
+        <span style="font-family:var(--font-ui);font-weight:600;color:var(--ink-soft)">मुख पृष्ठ</span>
+      </a>
+    </div>
+    <div class="right">
+      <button class="icon-btn" id="themeBtn" aria-label="थीम"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+      <div class="lang">
+        <button class="lang-btn"><svg class="globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.5 2.5 15 0 18M12 3c-2.5 2.5-2.5 15 0 18"/></svg><span>हिन्दी</span><svg class="car" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m6 9 6 6 6-6"/></svg></button>
+        <div class="lang-menu">
+          <button data-goto="Article.html"><span>English</span><span class="en">EN</span></button>
+          <button class="active" data-goto="Article-Hindi.html"><span>हिन्दी</span><span class="en">Hindi</span></button>
+          <button data-goto="Article.html"><span>தமிழ்</span><span class="en">Tamil</span></button>
+          <button data-goto="Article.html"><span>বাংলা</span><span class="en">Bengali</span></button>
+          <button data-goto="Article.html"><span>اردو</span><span class="en">Urdu</span></button>
+        </div>
+      </div>
+      <button class="btn btn-outline btn-sm">लॉग इन</button>
+      <button class="btn btn-primary btn-sm">सदस्यता लें</button>
+    </div>
+  </div>
+</div>
+
+<header class="wrap masthead" style="padding-block:var(--s-5) var(--s-4)">
+  <div class="wordmark" style="font-size:clamp(2rem,1.2rem+3vw,3rem)">Vārta<span class="ast">✲</span></div>
+</header>
+<nav class="wrap sections" style="margin-bottom:0">
+  <a class="chip">मुख्य</a><a class="chip active">देश</a><a class="chip">विदेश</a><a class="chip">बिज़नेस</a><a class="chip">खेल</a><a class="chip">संस्कृति</a>
+</nav>
+
+<!-- ============ ARTICLE ============ -->
+<div class="article-shell">
+  <aside class="share-rail">
+    <span class="sr-label">साझा</span>
+    <button class="ib" aria-label="X"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M18.2 2H21l-6.5 7.4L22 22h-6l-4.7-6.1L5.8 22H3l7-8L2 2h6.2l4.2 5.6zM17 20.2h1.6L7 3.7H5.3z"/></svg></button>
+    <button class="ib" aria-label="WhatsApp"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.5 15.2L2 22l4.9-1.4A10 10 0 1 0 12 2zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.2-.7-2.7-1.1-4.4-3.9-4.5-4-.1-.2-1-1.4-1-2.6s.6-1.8.9-2c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.3 0 .5l-.4.5-.3.3c-.2.2-.3.4-.2.6.2.4.8 1.3 1.6 2 .9.8 1.7 1.1 2 1.2.2.1.4.1.6-.1l.7-.8c.2-.2.4-.2.6-.1l1.9.9c.3.1.4.2.5.3z"/></svg></button>
+    <button class="ib" aria-label="लिंक"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1 1M14 11a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1-1"/></svg></button>
+    <button class="ib" id="bm" aria-label="बुकमार्क"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 3h12v18l-6-4-6 4z"/></svg></button>
+  </aside>
+
+  <article class="article read" data-access="locked">
+    <div class="a-kicker">
+      <span class="tag">नीति · विश्लेषण</span>
+      <span class="dot-sep"></span>
+      <span class="live-tag"><span class="live-dot"></span>जारी घटनाक्रम</span>
+    </div>
+    <h1 class="a-headline">डेटा सुरक्षा विधेयक से क्या बदलेगा — और क्या नहीं</h1>
+    <p class="a-standfirst">रातभर चली मैराथन बैठक के बाद संसद ने लंबे समय से लटका डेटा सुरक्षा क़ानून पारित कर दिया। जानिए इसका उन लोगों के लिए क्या मतलब है जिनके डेटा पर यह लागू होगा — और कौन से सवाल अब भी खुले हैं।</p>
+
+    <div class="a-meta">
+      <div class="byline">
+        <span class="av">आ</span>
+        <div class="meta">
+          <span class="nm">आर्या मेहता</span>
+          <span class="stamp">वरिष्ठ संवाददाता · नई दिल्ली<span class="dot-sep" style="margin-inline:6px"></span>अपडेट 11:48, 25 जून 2026 · 8 मिनट पढ़ें</span>
+        </div>
+      </div>
+      <div class="a-actions">
+        <button class="ib" aria-label="टिप्पणियाँ"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a8 8 0 0 1-11.3 7.3L3 21l1.7-6.7A8 8 0 1 1 21 12z"/></svg></button>
+        <button class="ib" aria-label="बुकमार्क"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 3h12v18l-6-4-6 4z"/></svg></button>
+        <button class="ib" aria-label="साझा"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4"/></svg></button>
+      </div>
+    </div>
+
+    <figure class="a-figure">
+      <div class="a-img ph"></div>
+      <figcaption><span>लोकसभा में रातभर चली बैठक, जिसमें भोर से ठीक पहले विधेयक पारित हुआ।</span><span class="credit">वार्ता · प्रतीकात्मक</span></figcaption>
+    </figure>
+
+    <div class="a-body">
+      <p class="lead-para">चार साल के मसौदों, वापसी और दोबारा लिखे जाने के बाद आख़िरकार भारत के पास एक डेटा सुरक्षा क़ानून है। लोकसभा ने आधी रात से कुछ पहले इसे 248 के मुक़ाबले 119 मतों से पारित किया, और हफ़्ते भर में इसके उच्च सदन से भी पास होने की उम्मीद है। दुनिया में सबसे ज़्यादा नए इंटरनेट उपयोगकर्ता जोड़ने वाले देश के लिए यह एक बुनियादी पल है — और गहराई से विवादित भी।</p>
+      <p>इसके केंद्र में एक सीधा वादा है: आपकी निजी जानकारी रखने वाली कंपनियों और सरकारी विभागों को आपको बताना होगा कि वे इसे क्यों रखते हैं, इसका इस्तेमाल केवल उसी मक़सद के लिए करें, और मक़सद पूरा होने पर उसे मिटा दें। इसी वादे के इर्द-गिर्द क़ानून सहमति-सूचनाओं, एक नए नियामक और इतने बड़े जुर्मानों का ढाँचा खड़ा करता है कि बड़े मंच ध्यान देने को मजबूर हों।</p>
+      <p>जो बात यह तय नहीं करता, वह यह है कि निगरानी रखने वालों पर नज़र कौन रखेगा। जो राज्य इस क़ानून को लागू करता है, वही ख़ुद को इसके बड़े हिस्सों से छूट भी देता है — और यही तनाव हर धारा में बहता है।</p>
+
+      <div class="gated">
+        <h2>असल में क्या बदलेगा</h2>
+        <p>आम पाठक के लिए सबसे साफ़ बदलाव सहमति-सूचना होगी: सहमति देने से पहले सरल भाषा में यह बताया जाना कि कोई ऐप आपके डेटा का क्या करना चाहता है, और वह भी आठवीं अनुसूची की हर भाषा में उपलब्ध। छिपे हुए चेकबॉक्स और पहले से सही के निशान लगे विकल्प, काग़ज़ पर, अब ख़त्म हैं।</p>
+        <ul class="a-list">
+          <li><strong>सुधार और मिटाने का अधिकार।</strong> आप किसी कंपनी से ग़लत डेटा ठीक करने, या ज़रूरत ख़त्म होने पर उसे मिटाने को कह सकते हैं।</li>
+          <li><strong>आपकी भाषा में सहमति।</strong> सूचनाएँ केवल अंग्रेज़ी में नहीं, बाईस अनुसूचित भाषाओं में से किसी में भी देनी होंगी।</li>
+          <li><strong>डेटा संरक्षण बोर्ड।</strong> शिकायतें सुनने और गंभीर उल्लंघनों पर ₹250 करोड़ तक जुर्माना लगाने वाली एक नई संस्था।</li>
+          <li><strong>बच्चों के डेटा पर सीमा।</strong> अठारह वर्ष से कम उम्र के बच्चों पर निशाना साधती ट्रैकिंग और विज्ञापन पर रोक।</li>
+        </ul>
+        <p>कुल मिलाकर ये असली सुरक्षाएँ हैं जो एक दिन पहले तक मौजूद नहीं थीं। 2017 के उस उच्चतम न्यायालय फ़ैसले के बाद से, जिसने निजता को मौलिक अधिकार माना, इनके लिए लड़ते आए पैरोकार इस ढाँचे को आख़िरकार एक शुरुआत कहते हैं।</p>
+
+        <div class="pullquote">
+          <span class="pq-mark">“</span>
+          <p class="pq">कोई अधिकार उतना ही मज़बूत होता है जितनी उसे लागू करने वाली संस्था — और वह संस्था अभी बन ही रही है।</p>
+          <div class="pq-cite">अनन्या अय्यर, तकनीक मामलों की वकील</div>
+        </div>
+
+        <h2>क्या अनसुलझा रह गया</h2>
+        <p>क़ानून के आलोचक एक बार-बार लौटते शब्द की ओर इशारा करते हैं: छूट। राष्ट्रीय सुरक्षा या लोक व्यवस्था के नाम पर सरकारी एजेंसियों को इसके दायित्वों से मुक्त किया जा सकता है — और इन शब्दों को विधेयक संकीर्ण रूप से परिभाषित नहीं करता। शिकायतें सुनने वाला बोर्ड उसी सरकार द्वारा नियुक्त होता है जिसकी जाँच उससे माँगी जा सकती है।</p>
+
+        <figure class="a-inline-fig a-figure">
+          <div class="a-img ph"></div>
+          <figcaption><span>सदन के बाहर, संकरी छूटों के लिए अभियान चलाने वाले कार्यकर्ताओं ने अपने फ़ोन पर मतदान देखा।</span><span class="credit">वार्ता · प्रतीकात्मक</span></figcaption>
+        </figure>
+
+        <p>इससे क़ानून दंतहीन नहीं हो जाता। लेकिन इसका मतलब यह है कि किसी निजी कंपनी के ख़िलाफ़ एक व्यक्ति जो सुरक्षा माँग सकता है, वह राज्य के ख़िलाफ़ माँगी जा सकने वाली सुरक्षा से अधिक मज़बूत है — एक असंतुलन, जिसके महीनों के भीतर अदालत में परखे जाने की उम्मीद वकील कर रहे हैं।</p>
+        <p>फ़िलहाल सबसे ज़्यादा मायने व्यावहारिक समय-सीमा रखती है। बोर्ड का गठन होना है, नियम अधिसूचित होने हैं, और कंपनियों को पालन के लिए एक खिड़की — संभवतः एक साल — दी जाएगी। तब तक आपसे वादा की गई सहमति-सूचना, इस क़ानून के बहुत हिस्से की तरह, काग़ज़ पर मौजूद रहती है और बनने का इंतज़ार करती है।</p>
+      </div>
+
+      <div class="gate">
+        <span class="g-kicker"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.6 6.3L21 9l-4.8 4.3L17.5 21 12 17.3 6.5 21l1.3-7.7L3 9l6.4-.7z"/></svg>प्रीमियम</span>
+        <h2 class="g-h">यह विश्लेषण पढ़ना जारी रखें</h2>
+        <p class="g-p">आपने एक वार्ता प्रीमियम कहानी की शुरुआत पढ़ी है। अपनी भाषा में तीखी, विज्ञापन-मुक्त पत्रकारिता के लिए जुड़ें — पूरा संग्रह और रोज़ाना की ब्रीफ़िंग।</p>
+        <div class="g-actions">
+          <button class="btn btn-primary">सदस्यता लें · ₹99/माह</button>
+          <button class="btn btn-outline" id="unlockBtn">मैं पहले से सदस्य हूँ</button>
+        </div>
+        <div class="g-note">पहले 14 दिन निःशुल्क · कभी भी रद्द करें · <a href="#">हम पेवॉल क्यों रखते हैं</a></div>
+      </div>
+    </div>
+
+    <div class="post-read">
+      <div class="a-thread">
+        <div class="thread">
+          <div class="thread-head">
+            <span class="wire-label"><span class="live-dot"></span>जारी घटनाक्रम</span>
+            <span class="th-h">मानसून सत्र, तीसरा दिन</span>
+          </div>
+          <div class="thread-list">
+            <div class="update now"><div class="up-time">11:42</div><h4 class="up-h">डेटा संरक्षण विधेयक 248–119 से पारित</h4><p>रातभर चली मैराथन बैठक के बाद लोकसभा ने विधेयक को मंज़ूरी दी।</p></div>
+            <div class="update"><div class="up-time">10:30</div><h4 class="up-h">विपक्ष का सदन से वॉकआउट</h4><p>बहस की रफ़्तार पर आपत्ति जताते हुए सदस्य सदन से बाहर चले गए।</p></div>
+            <div class="update"><div class="up-time">09:15</div><h4 class="up-h">कड़ी सुरक्षा के बीच सत्र शुरू</h4><p>दिन की शुरुआत तीन विधेयकों पर चर्चा के साथ हुई।</p></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="a-tags">
+        <span class="chip">डेटा संरक्षण</span><span class="chip">निजता</span><span class="chip">संसद</span><span class="chip">तकनीक नीति</span><span class="chip">उच्चतम न्यायालय</span>
+      </div>
+
+      <div class="author-bio">
+        <div class="bio-av">आ</div>
+        <div class="bio-main">
+          <div class="bio-name">आर्या मेहता</div>
+          <div class="bio-role">वरिष्ठ संवाददाता · तकनीक और नीति</div>
+          <p>आर्या नई दिल्ली से तकनीक, क़ानून और राज्य के बीच की दुनिया पर रिपोर्ट करती हैं। वे 2017 के उच्चतम न्यायालय फ़ैसले के बाद से भारत की निजता बहस को कवर करती आई हैं।</p>
+        </div>
+      </div>
+    </div>
+  </article>
+</div>
+
+<!-- ============ RELATED ============ -->
+<section class="related">
+  <div class="divider"><h2>और पढ़ें</h2></div>
+  <div class="stories">
+    <article class="story size-l lead-in">
+      <span class="tag">समझिए</span>
+      <h3 class="st-h">आपके फ़ोन पर सहमति-सूचना असल में कैसे काम करेगी</h3>
+      <p class="readtail">5 मिनट पढ़ें</p>
+      <div class="byline"><span class="nm">नेहा वर्मा</span></div>
+    </article>
+    <article class="story size-m lead-in ruled" style="border-top:0">
+      <div class="st-media ph"></div>
+      <span class="tag">प्रोफ़ाइल</span>
+      <h3 class="st-h">वह वकील जो एक दशक से निजता के मुक़दमे लड़ रही हैं</h3>
+      <div class="byline"><span class="nm">रोहन गुप्ता</span><span class="dot-sep"></span><span class="mt">7 मिनट</span></div>
+    </article>
+    <article class="story size-m lead-in">
+      <div class="st-media ph"></div>
+      <span class="tag">विचार</span>
+      <h3 class="st-h">एक क़ानून जो कंपनियों से तो बचाता है, राज्य से नहीं</h3>
+      <div class="byline"><span class="nm">अनन्या अय्यर</span><span class="dot-sep"></span><span class="mt">6 मिनट</span></div>
+    </article>
+  </div>
+</section>
+
+<!-- ============ COMMENTS ============ -->
+<section class="comments">
+  <div class="comments-head">
+    <h2>टिप्पणियाँ</h2>
+    <span class="c-count">128 टिप्पणियाँ · सबसे नई पहले</span>
+  </div>
+  <div class="composer">
+    <span class="av">आप</span>
+    <div class="c-field">
+      <textarea placeholder="अपनी राय जोड़ें…  टिप्पणियाँ मॉडरेट की जाती हैं और हमारे सामुदायिक दिशानिर्देशों के अधीन हैं।"></textarea>
+      <div class="c-foot">
+        <span class="c-rules">लॉग-इन पाठक के रूप में · शालीन रहें, विषय पर रहें</span>
+        <button class="btn btn-primary btn-sm">टिप्पणी करें</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="comment">
+    <span class="av">दे</span>
+    <div class="c-main">
+      <div class="c-top"><span class="c-name">देविका के.</span><span class="c-badge">सदस्य</span><span class="c-time">18 मिनट पहले</span></div>
+      <p class="c-text">सरकारी एजेंसियों के लिए छूट ही असली कहानी है। एक निजता क़ानून जिससे राज्य ख़ुद बाहर निकल सके, अजीब किस्म की निजता है। संतुलित, सोचा-समझा लेख।</p>
+      <div class="c-act"><button><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 10v11M18 21H7V10l5-8a2 2 0 0 1 2 2v4h5a2 2 0 0 1 2 2l-2 9z"/></svg>34</button><button>जवाब दें</button></div>
+    </div>
+  </div>
+  <div class="comment">
+    <span class="av">म</span>
+    <div class="c-main">
+      <div class="c-top"><span class="c-name">महेश आर.</span><span class="c-time">42 मिनट पहले</span></div>
+      <p class="c-text">बाईस भाषाओं में सहमति-सूचना मेरे माता-पिता के लिए सचमुच बड़ी बात है, जो आज तक एक भी सूचना पढ़ नहीं पाए। छोटी बात, पर व्यवहार में बहुत बड़ी।</p>
+      <div class="c-act"><button><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 10v11M18 21H7V10l5-8a2 2 0 0 1 2 2v4h5a2 2 0 0 1 2 2l-2 9z"/></svg>61</button><button>जवाब दें</button></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="wrap foot">
+  <div class="foot-top">
+    <div class="foot-brand">
+      <div class="fm">Vārta<span class="ast">✲</span></div>
+      <p>स्वतंत्र, विज्ञापन-मुक्त पत्रकारिता — आपकी भाषा में।</p>
+      <div class="foot-lang">
+        <button data-goto="Article.html">English</button>
+        <button class="active" data-goto="Article-Hindi.html">हिन्दी</button>
+        <button data-goto="Article.html">தமிழ்</button>
+        <button data-goto="Article.html">বাংলা</button>
+        <button data-goto="Article.html">اردو</button>
+      </div>
+    </div>
+    <div class="foot-col"><h4>वर्ग</h4><ul><li><a>देश</a></li><li><a>विदेश</a></li><li><a>बिज़नेस</a></li><li><a>खेल</a></li><li><a>संस्कृति</a></li><li><a>विचार</a></li></ul></div>
+    <div class="foot-col"><h4>संस्करण</h4><ul><li><a>International</a></li><li><a>हिन्दी</a></li><li><a>தமிழ்</a></li><li><a>বাংলা</a></li><li><a>اردو</a></li></ul></div>
+    <div class="foot-col"><h4>कंपनी</h4><ul><li><a>हमारे बारे में</a></li><li><a>संपादकीय संहिता</a></li><li><a>करियर</a></li><li><a>संपर्क</a></li><li><a>RSS फ़ीड</a></li></ul></div>
+    <div class="foot-col"><h4>फ़ॉलो करें</h4>
+      <div class="foot-social">
+        <a class="icon-btn" aria-label="X"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.2 2H21l-6.5 7.4L22 22h-6l-4.7-6.1L5.8 22H3l7-8L2 2h6.2l4.2 5.6zM17 20.2h1.6L7 3.7H5.3z"/></svg></a>
+        <a class="icon-btn" aria-label="Instagram"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a>
+        <a class="icon-btn" aria-label="YouTube"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M22 8.2a3 3 0 0 0-2.1-2.1C18 5.5 12 5.5 12 5.5s-6 0-7.9.6A3 3 0 0 0 2 8.2 31 31 0 0 0 2 12a31 31 0 0 0 .1 3.8 3 3 0 0 0 2.1 2.1c1.9.6 7.8.6 7.8.6s6 0 7.9-.6a3 3 0 0 0 2.1-2.1A31 31 0 0 0 22 12a31 31 0 0 0-.1-3.8zM10 15V9l5.2 3z"/></svg></a>
+      </div>
+    </div>
+  </div>
+  <div class="foot-bar">
+    <p>© 2026 वार्ता मीडिया · व्हाइट-लेबल डिफ़ॉल्ट ब्रांड</p>
+    <p>Vārta✲</p>
+  </div>
+</footer>
+
+<div class="demo-toggle">
+  <span class="dt-label">झलक</span>
+  <div class="dt-btns">
+    <button class="active" data-access-set="locked">पाठक</button>
+    <button data-access-set="unlocked">सदस्य</button>
+  </div>
+</div>
+
+<script>
+  const root = document.documentElement;
+  // theme
+  document.getElementById('themeBtn').addEventListener('click', () => root.setAttribute('data-theme', root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'));
+  // lang dropdown
+  const lw = document.querySelector('.lang'), lb = document.querySelector('.lang-btn');
+  lb.addEventListener('click', e => { e.stopPropagation(); lw.classList.toggle('open'); });
+  document.addEventListener('click', () => lw.classList.remove('open'));
+  document.querySelectorAll('[data-goto]').forEach(b => b.addEventListener('click', e => { e.stopPropagation(); location.href = b.getAttribute('data-goto'); }));
+  // paywall demo
+  const art = document.querySelector('.article');
+  function setAccess(a){ art.setAttribute('data-access', a); document.querySelectorAll('[data-access-set]').forEach(x => x.classList.toggle('active', x.getAttribute('data-access-set') === a)); }
+  document.querySelectorAll('[data-access-set]').forEach(b => b.addEventListener('click', () => setAccess(b.getAttribute('data-access-set'))));
+  document.getElementById('unlockBtn').addEventListener('click', () => setAccess('unlocked'));
+  document.getElementById('bm').addEventListener('click', e => e.currentTarget.classList.toggle('on'));
+</script>
+</body>
+</html>

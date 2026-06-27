@@ -1,0 +1,10 @@
+/* Global stylesheet for the public website.
+   Order matters: the single-source token layer first, then the ported
+   editorial base/components, then Tailwind's component + utility layers.
+   Tailwind's `base` (preflight) is intentionally disabled in
+   tailwind.config.ts so the editorial reset stays authoritative. */
+@import "./styles/tokens.css";
+@import "./styles/editorial.css";
+
+@tailwind components;
+@tailwind utilities;

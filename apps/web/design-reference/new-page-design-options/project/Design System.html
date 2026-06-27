@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VĀRTA — Design System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;0,6..72,800;1,6..72,400;1,6..72,500&family=Eczar:wght@400;500;600;700;800&family=Tiro+Devanagari+Hindi:ital@0;1&family=Mukta:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles/tokens.css">
+<link rel="stylesheet" href="styles/components.css">
+<style>
+/* ============ DOC PAGE CHROME (not part of the kit) ============ */
+.ds-topbar { position: sticky; top: 0; z-index: 80; background: color-mix(in oklch, var(--paper) 85%, transparent); backdrop-filter: blur(18px) saturate(1.3); border-bottom: var(--bw) solid var(--border); }
+.ds-topbar .inner { display: flex; align-items: center; gap: var(--s-5); padding-block: var(--s-3); }
+.ds-topbar .brand .word { font-size: 1.35rem; }
+.ds-topbar nav { display: flex; gap: 2px; margin-left: var(--s-5); overflow-x: auto; scrollbar-width: none; }
+.ds-topbar nav::-webkit-scrollbar { display: none; }
+.ds-topbar nav a { font-family: var(--font-ui); font-size: 0.82rem; font-weight: 600; color: var(--ink-muted); padding: 7px 12px; border-radius: var(--r-pill); white-space: nowrap; transition: all var(--t-fast); }
+.ds-topbar nav a:hover { color: var(--ink-strong); background: var(--surface-2); }
+.ds-topbar .spacer { margin-left: auto; }
+.theme-toggle { display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-ui); font-size: 0.85rem; font-weight: 600; color: var(--ink-strong); background: var(--surface); border: var(--bw) solid var(--border); border-radius: var(--r-pill); padding: 8px 16px; transition: all var(--t-fast); }
+.theme-toggle:hover { border-color: var(--border-strong); background: var(--surface-2); }
+
+.ds-section { padding-block: var(--s-9); border-top: var(--bw) solid var(--hairline); scroll-margin-top: 80px; }
+.ds-section:first-of-type { border-top: 0; }
+.ds-section-head { display: flex; align-items: baseline; gap: var(--s-4); margin-bottom: var(--s-7); }
+.ds-section-head .num { font-family: var(--font-ui); font-size: 0.78rem; font-weight: 700; letter-spacing: 0.12em; color: var(--accent); padding-top: 6px; }
+.ds-section-head h2 { margin: 0; font-family: var(--font-display); font-weight: 700; font-size: clamp(1.8rem, 1.4rem + 1.8vw, 2.6rem); letter-spacing: var(--ls-snug); color: var(--ink-strong); }
+.ds-section-head p { margin: 8px 0 0; font-family: var(--font-ui); font-size: var(--fs-small); color: var(--ink-muted); max-width: 56ch; line-height: 1.6; }
+
+.ds-block { margin-bottom: var(--s-8); }
+.ds-block:last-child { margin-bottom: 0; }
+.ds-label { font-family: var(--font-ui); font-size: var(--fs-caption); font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: var(--s-4); display: flex; align-items: center; gap: var(--s-3); }
+.ds-label::after { content: ""; flex: 1; height: 1px; background: var(--hairline); }
+
+/* stage: surface to display a component on */
+.stage { background: var(--surface-2); border: var(--bw) solid var(--border); border-radius: var(--r-xl); padding: var(--s-6); position: relative; overflow: hidden; }
+.stage.flush { padding: 0; }
+.stage-dark { background: oklch(0.16 0.012 278); }
+.stage-tag { position: absolute; top: 14px; right: 16px; font-family: ui-monospace, Menlo, monospace; font-size: 0.66rem; letter-spacing: 0.05em; color: var(--ink-faint); text-transform: uppercase; z-index: 3; }
+.stage-grid { display: grid; gap: var(--s-5); }
+.cols-2 { grid-template-columns: 1fr 1fr; }
+.cols-3 { grid-template-columns: repeat(3, 1fr); }
+@media (max-width: 860px){ .cols-2, .cols-3 { grid-template-columns: 1fr; } }
+
+/* type specimen */
+.specimen { display: grid; grid-template-columns: 132px 1fr; gap: var(--s-5); align-items: baseline; padding: var(--s-5) 0; border-bottom: var(--bw) solid var(--hairline); }
+.specimen:last-child { border-bottom: 0; }
+.specimen .spec-meta { font-family: var(--font-ui); display: flex; flex-direction: column; gap: 3px; padding-top: 6px; }
+.specimen .spec-meta .role { font-size: 0.8rem; font-weight: 700; color: var(--ink-strong); }
+.specimen .spec-meta .det { font-size: 0.72rem; color: var(--ink-faint); font-variant-numeric: tabular-nums; }
+.specimen .spec-sample { min-width: 0; }
+.dual { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-5); }
+@media (max-width: 720px){ .specimen { grid-template-columns: 1fr; gap: var(--s-2); } .dual { grid-template-columns: 1fr; } }
+
+/* color swatches */
+.swatch-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(168px, 1fr)); gap: var(--s-4); }
+.swatch { border-radius: var(--r-md); border: var(--bw) solid var(--border); overflow: hidden; background: var(--surface); transition: transform var(--t-fast) var(--ease-out), box-shadow var(--t-base); }
+.swatch:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+.swatch .chip { height: 76px; }
+.swatch .info { padding: 11px 13px; }
+.swatch .info .nm { font-family: var(--font-ui); font-size: 0.82rem; font-weight: 700; color: var(--ink-strong); }
+.swatch .info .vr { font-family: ui-monospace, Menlo, monospace; font-size: 0.66rem; color: var(--ink-faint); margin-top: 2px; }
+
+/* spacing / radii / shadow viz */
+.scale-row { display: flex; align-items: flex-end; gap: var(--s-4); flex-wrap: wrap; }
+.scale-item { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+.scale-item .bar { background: var(--accent); border-radius: 3px; width: 28px; }
+.scale-item .lbl { font-family: ui-monospace, Menlo, monospace; font-size: 0.66rem; color: var(--ink-faint); }
+.radii-row, .shadow-row { display: flex; gap: var(--s-5); flex-wrap: wrap; }
+.radii-item { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+.radii-item .box { width: 92px; height: 72px; background: var(--accent-soft); border: var(--bw-thick) solid var(--accent); }
+.radii-item .lbl, .shadow-item .lbl { font-family: ui-monospace, Menlo, monospace; font-size: 0.68rem; color: var(--ink-muted); }
+.shadow-item { display: flex; flex-direction: column; align-items: center; gap: 12px; }
+.shadow-item .box { width: 104px; height: 76px; border-radius: var(--r-md); background: var(--surface); }
+
+/* grid viz */
+.grid-viz { display: grid; grid-template-columns: repeat(12, 1fr); gap: var(--gutter); }
+.grid-viz .col { height: 90px; background: var(--accent-soft); border: var(--bw) solid color-mix(in oklch, var(--accent) 30%, transparent); border-radius: var(--r-xs); display: grid; place-items: center; font-family: ui-monospace, Menlo, monospace; font-size: 0.66rem; color: var(--accent); }
+@media (max-width: 720px){ .grid-viz { grid-template-columns: 1fr; } .grid-viz .col:nth-child(n+2){ display: none; } }
+
+/* cover */
+.ds-cover { position: relative; overflow: hidden; padding-block: var(--s-10) var(--s-9); }
+.ds-cover .blob { position: absolute; border-radius: 50%; filter: blur(48px); opacity: 0.5; z-index: 0; pointer-events: none; }
+.ds-cover .b1 { width: 460px; height: 460px; background: var(--accent); top: -160px; right: -80px; opacity: 0.22; }
+.ds-cover .b2 { width: 360px; height: 360px; background: var(--premium); bottom: -180px; left: 8%; opacity: 0.16; }
+.ds-cover .inner { position: relative; z-index: 1; }
+.ds-cover .eyebrow { display: inline-flex; align-items: center; gap: 10px; font-family: var(--font-ui); font-size: 0.8rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); }
+.ds-cover h1 { font-family: var(--font-display); font-weight: 800; font-size: clamp(3rem, 1.8rem + 6vw, 6rem); line-height: 0.98; letter-spacing: -0.03em; color: var(--ink-strong); margin: var(--s-4) 0 var(--s-4); }
+.ds-cover h1 .alt { font-family: var(--font-display-hi); font-weight: 700; color: var(--accent); }
+.ds-cover .sub { font-family: var(--font-read); font-size: var(--fs-lead); line-height: 1.6; color: var(--ink-muted); max-width: 58ch; }
+.ds-cover .cover-meta { display: flex; gap: var(--s-6); flex-wrap: wrap; margin-top: var(--s-7); }
+.ds-cover .cm { display: flex; flex-direction: column; gap: 3px; }
+.ds-cover .cm .k { font-family: var(--font-ui); font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-faint); }
+.ds-cover .cm .v { font-family: var(--font-display); font-size: 1.05rem; font-weight: 600; color: var(--ink-strong); }
+
+.btn-row { display: flex; gap: var(--s-3); flex-wrap: wrap; align-items: center; }
+.note { font-family: var(--font-ui); font-size: var(--fs-caption); color: var(--ink-faint); margin-top: var(--s-3); }
+.principle-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--s-4); }
+@media (max-width: 720px){ .principle-grid { grid-template-columns: 1fr; } }
+.principle { background: var(--surface); border: var(--bw) solid var(--border); border-radius: var(--r-lg); padding: var(--s-5); display: flex; flex-direction: column; gap: var(--s-2); }
+.principle h4 { margin: 0; font-family: var(--font-display); font-weight: 700; font-size: var(--fs-h4); color: var(--ink-strong); }
+.principle p { margin: 0; font-family: var(--font-ui); font-size: var(--fs-small); color: var(--ink-muted); line-height: 1.55; }
+.principle .pic { width: 40px; height: 40px; border-radius: var(--r-md); background: var(--accent-soft); color: var(--accent); display: grid; place-items: center; margin-bottom: 4px; }
+</style>
+</head>
+<body>
+
+<!-- ============ DOC TOP BAR ============ -->
+<header class="ds-topbar">
+  <div class="container inner">
+    <a class="brand" href="#top">
+      <svg viewBox="0 0 40 40" class="mark" aria-hidden="true"><rect width="40" height="40" rx="13" fill="var(--accent)"/><path d="M9 11 Q20 31 31 11" fill="none" stroke="white" stroke-width="4.6" stroke-linecap="round"/></svg>
+      <span class="word">Vārta<span class="dot">.</span></span>
+    </a>
+    <nav>
+      <a href="#type">Type</a>
+      <a href="#color">Color</a>
+      <a href="#grid">Grid</a>
+      <a href="#motion">Motion</a>
+      <a href="#components">Components</a>
+      <a href="#cards">Cards</a>
+      <a href="#paywall">Paywall</a>
+      <a href="#compose">In&nbsp;Use</a>
+    </nav>
+    <div class="spacer"></div>
+    <button class="theme-toggle" data-theme-toggle>
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+      <span data-theme-label>Dark</span>
+    </button>
+  </div>
+</header>
+
+<main id="top">
+
+<!-- ============ COVER ============ -->
+<section class="ds-cover">
+  <div class="blob b1" data-parallax="0.06"></div>
+  <div class="blob b2" data-parallax="-0.04"></div>
+  <div class="container inner">
+    <span class="eyebrow">Design System · v1.0 · White-label default</span>
+    <h1>Vārta <span class="alt">वार्ता</span></h1>
+    <p class="sub">A premium bilingual news platform — editorial restraint, first-class Devanagari, and a curved, dimensional language that feels nothing like a legacy portal. Tokens and components below apply to every screen.</p>
+    <div class="cover-meta">
+      <div class="cm"><span class="k">Scripts</span><span class="v">हिन्दी · English</span></div>
+      <div class="cm"><span class="k">Surfaces</span><span class="v">Light · Dark</span></div>
+      <div class="cm"><span class="k">Base grid</span><span class="v">8px · 12-col</span></div>
+      <div class="cm"><span class="k">Signature</span><span class="v">Curves · Depth</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 01 · TYPOGRAPHY ============ -->
+<section class="ds-section" id="type">
+  <div class="container">
+    <div class="ds-section-head">
+      <span class="num">01</span>
+      <div>
+        <h2>Typography</h2>
+        <p>Two editorial roles, each with a Latin and a Devanagari cut. A confident serif carries the journalism; a clean grotesque runs the interface. Hindi is treated as a first-class reading script, not a fallback.</p>
+      </div>
+    </div>
+
+    <!-- families -->
+    <div class="ds-block">
+      <div class="ds-label">Families</div>
+      <div class="stage-grid cols-2">
+        <div class="stage">
+          <div class="t-kicker">Editorial Serif</div>
+          <div style="font-family:var(--font-display); font-weight:800; font-size:3.2rem; line-height:1.05; color:var(--ink-strong); margin:14px 0 4px;">Newsreader</div>
+          <div style="font-family:var(--font-display-hi); font-weight:700; font-size:2.6rem; color:var(--ink-strong); margin-bottom:10px;">एज़ार · Eczar</div>
+          <p class="t-caption" style="margin:0;">Headlines, decks &amp; long-form. Newsreader (Latin, optical sizing) pairs with Eczar for Devanagari headlines; Tiro Devanagari Hindi handles long Hindi reading.</p>
+        </div>
+        <div class="stage">
+          <div class="t-kicker">UI / System Sans</div>
+          <div style="font-family:var(--font-ui); font-weight:700; font-size:3.2rem; line-height:1.05; color:var(--ink-strong); margin:14px 0 4px;">Mukta</div>
+          <div style="font-family:var(--font-ui); font-weight:600; font-size:2.6rem; color:var(--ink-strong); margin-bottom:10px;">मुक्ता · नेविगेशन</div>
+          <p class="t-caption" style="margin:0;">Kickers, nav, bylines, captions, buttons, inputs. One family covers both scripts so the interface layer stays perfectly consistent.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- scale -->
+    <div class="ds-block">
+      <div class="ds-label">The scale — English &amp; हिन्दी</div>
+      <div class="stage">
+        <div class="specimen">
+          <div class="spec-meta"><span class="role">Display</span><span class="det">Serif · 800 · clamp→80px</span></div>
+          <div class="spec-sample dual">
+            <div class="t-display">Beyond the portal</div>
+            <div class="t-display hi">पन्ने से परे</div>
+          </div>
+        </div>
+        <div class="specimen">
+          <div class="spec-meta"><span class="role">H1</span><span class="det">Serif · 700 · clamp→52px</span></div>
+          <div class="spec-sample dual">
+            <div class="t-h1">Economy beats estimates</div>
+            <div class="t-h1 hi">अर्थव्यवस्था ने तोड़े अनुमान</div>
+          </div>
+        </div>
+        <div class="specimen">
+          <div class="spec-meta"><span class="role">H2</span><span class="det">Serif · 700 · clamp→37px</span></div>
+          <div class="spec-sample dual">
+            <div class="t-h2">Monsoon arrives early</div>
+            <div class="t-h2 hi">मानसून समय से पहले</div>
+          </div>
+        </div>
+        <div class="specimen">
+          <div class="spec-meta"><span class="role">H3</span><span class="det">Serif · 600 · →26px</span></div>
+          <div class="spec-sample dual">
+            <div class="t-h3">Metro expansion cleared</div>
+            <div class="t-h3 hi">मेट्रो विस्तार को मंज़ूरी</div>
+          </div>
+        </div>
+        <div class="specimen">
+          <div class="spec-meta"><span class="role">H4</span><span class="det">Serif · 600 · →20px</span></div>
+          <div class="spec-sample dual">
+            <div class="t-h4">A quieter way to read the news</div>
+            <div class="t-h4 hi">ख़बर पढ़ने का शांत तरीक़ा</div>
+          </div>
+        </div>
+        <div class="specimen">
+          <div class="spec-meta"><span class="role">Lead / Dek</span><span class="det">Serif · →21px · 1.72</span></div>
+          <div class="spec-sample dual">
+            <div class="t-lead">Domestic demand and a recovery in exports point to steady momentum through the coming quarters.</div>
+            <div class="t-lead hi">घरेलू माँग और निर्यात में सुधार से आने वाली तिमाहियों में रफ़्तार बनी रहने के संकेत हैं।</div>
+          </div>
+        </div>
+        <div class="specimen">
+          <div class="spec-meta"><span class="role">Body</span><span class="det">Serif · 17px · 1.72 / 1.95 hi</span></div>
+          <div class="spec-sample dual">
+            <p class="t-body" style="margin:0;">Analysts expect the trend to hold, though inflation and global uncertainty remain the central risks to the outlook for the year ahead.</p>
+            <p class="t-body hi" style="margin:0;" lang="hi">विशेषज्ञों का मानना है कि यह रुझान बना रहेगा, हालाँकि महँगाई और वैश्विक अनिश्चितता आने वाले वर्ष की सबसे बड़ी चुनौती बनी हुई हैं।</p>
+          </div>
+        </div>
+        <div class="specimen">
+          <div class="spec-meta"><span class="role">Byline</span><span class="det">Sans · 600 · 14px</span></div>
+          <div class="spec-sample dual">
+            <div style="font-family:var(--font-ui); font-weight:600; font-size:var(--fs-byline); color:var(--ink-strong);">By Arya Mehta · Senior Correspondent</div>
+            <div style="font-family:var(--font-ui); font-weight:600; font-size:var(--fs-byline); color:var(--ink-strong);">रिपोर्ट · आर्या मेहता · वरिष्ठ संवाददाता</div>
+          </div>
+        </div>
+        <div class="specimen">
+          <div class="spec-meta"><span class="role">Caption</span><span class="det">Sans · 13px</span></div>
+          <div class="spec-sample dual">
+            <div class="t-caption">Photograph · placeholder credit line</div>
+            <div class="t-caption" style="font-family:var(--font-read-hi);">तस्वीर · प्रतीकात्मक चित्र</div>
+          </div>
+        </div>
+        <div class="specimen">
+          <div class="spec-meta"><span class="role">Kicker</span><span class="det">Sans · 700 · 12px · tracked</span></div>
+          <div class="spec-sample dual">
+            <div class="t-kicker">Economy</div>
+            <div class="t-kicker hi">अर्थव्यवस्था</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 02 · COLOR ============ -->
+<section class="ds-section" id="color">
+  <div class="container">
+    <div class="ds-section-head">
+      <span class="num">02</span>
+      <div>
+        <h2>Color</h2>
+        <p>A restrained palette: warm paper neutrals, a cool ink-blue editorial accent, and two semantic signals — breaking red and premium gold. Light is primary; every token has a dark-mode counterpart.</p>
+      </div>
+    </div>
+
+    <div class="ds-block">
+      <div class="ds-label">Neutrals — warm paper · cool ink</div>
+      <div class="swatch-grid">
+        <div class="swatch"><div class="chip" style="background:var(--paper)"></div><div class="info"><div class="nm">Paper</div><div class="vr">--paper</div></div></div>
+        <div class="swatch"><div class="chip" style="background:var(--surface); border-bottom:1px solid var(--border)"></div><div class="info"><div class="nm">Surface</div><div class="vr">--surface</div></div></div>
+        <div class="swatch"><div class="chip" style="background:var(--surface-2)"></div><div class="info"><div class="nm">Surface 2</div><div class="vr">--surface-2</div></div></div>
+        <div class="swatch"><div class="chip" style="background:var(--surface-3)"></div><div class="info"><div class="nm">Surface 3</div><div class="vr">--surface-3</div></div></div>
+        <div class="swatch"><div class="chip" style="background:var(--border-strong)"></div><div class="info"><div class="nm">Border</div><div class="vr">--border-strong</div></div></div>
+        <div class="swatch"><div class="chip" style="background:var(--ink-muted)"></div><div class="info"><div class="nm">Ink muted</div><div class="vr">--ink-muted</div></div></div>
+        <div class="swatch"><div class="chip" style="background:var(--ink)"></div><div class="info"><div class="nm">Ink</div><div class="vr">--ink</div></div></div>
+        <div class="swatch"><div class="chip" style="background:var(--ink-strong)"></div><div class="info"><div class="nm">Ink strong</div><div class="vr">--ink-strong</div></div></div>
+      </div>
+    </div>
+
+    <div class="ds-block">
+      <div class="ds-label">Accent &amp; semantic</div>
+      <div class="swatch-grid">
+        <div class="swatch"><div class="chip" style="background:var(--accent)"></div><div class="info"><div class="nm">Accent</div><div class="vr">ink-blue · editorial</div></div></div>
+        <div class="swatch"><div class="chip" style="background:var(--accent-soft)"></div><div class="info"><div class="nm">Accent soft</div><div class="vr">tints · focus rings</div></div></div>
+        <div class="swatch"><div class="chip" style="background:var(--breaking)"></div><div class="info"><div class="nm">Breaking</div><div class="vr">red · alerts</div></div></div>
+        <div class="swatch"><div class="chip" style="background:var(--premium); background:linear-gradient(135deg,var(--premium),var(--premium-deep))"></div><div class="info"><div class="nm">Premium</div><div class="vr">gold / amber</div></div></div>
+        <div class="swatch"><div class="chip" style="background:var(--success)"></div><div class="info"><div class="nm">Success</div><div class="vr">confirm · perks</div></div></div>
+      </div>
+    </div>
+
+    <div class="ds-block">
+      <div class="ds-label">Both surfaces</div>
+      <div class="stage-grid cols-2">
+        <div class="stage" style="background:var(--paper)">
+          <span class="stage-tag">light</span>
+          <div class="t-kicker">Economy</div>
+          <h3 class="t-h3" style="margin:10px 0 6px;">Markets touch a new high</h3>
+          <p class="t-body" style="margin:0 0 14px; font-size:0.95rem;">Investor optimism lifts the benchmark index to a record close.</p>
+          <div class="btn-row"><button class="btn btn-primary btn-sm">Subscribe</button><span class="badge badge-breaking">Breaking</span><span class="badge badge-premium"><svg class="star" viewBox="0 0 24 24"><path d="M12 2l2.6 6.3L21 9l-4.8 4.3L17.5 21 12 17.3 6.5 21l1.3-7.7L3 9l6.4-.7z"/></svg>Premium</span></div>
+        </div>
+        <div class="stage" data-theme="dark" style="background:var(--paper)">
+          <span class="stage-tag">dark</span>
+          <div class="t-kicker">Economy</div>
+          <h3 class="t-h3" style="margin:10px 0 6px;">Markets touch a new high</h3>
+          <p class="t-body" style="margin:0 0 14px; font-size:0.95rem;">Investor optimism lifts the benchmark index to a record close.</p>
+          <div class="btn-row"><button class="btn btn-primary btn-sm">Subscribe</button><span class="badge badge-breaking">Breaking</span><span class="badge badge-premium"><svg class="star" viewBox="0 0 24 24"><path d="M12 2l2.6 6.3L21 9l-4.8 4.3L17.5 21 12 17.3 6.5 21l1.3-7.7L3 9l6.4-.7z"/></svg>Premium</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 03 · GRID & SPACING ============ -->
+<section class="ds-section" id="grid">
+  <div class="container">
+    <div class="ds-section-head">
+      <span class="num">03</span>
+      <div>
+        <h2>Grid · Spacing · Form</h2>
+        <p>A 12-column desktop grid collapses to a single mobile column. Everything sits on an 8px rhythm. Generous radii and soft, layered shadows give the system its curved, dimensional feel.</p>
+      </div>
+    </div>
+
+    <div class="ds-block">
+      <div class="ds-label">12-column grid · 24px gutter · 1240 max</div>
+      <div class="grid-viz">
+        <div class="col">1</div><div class="col">2</div><div class="col">3</div><div class="col">4</div><div class="col">5</div><div class="col">6</div><div class="col">7</div><div class="col">8</div><div class="col">9</div><div class="col">10</div><div class="col">11</div><div class="col">12</div>
+      </div>
+    </div>
+
+    <div class="ds-block">
+      <div class="ds-label">8px spacing scale</div>
+      <div class="stage">
+        <div class="scale-row">
+          <div class="scale-item"><div class="bar" style="height:4px"></div><span class="lbl">4</span></div>
+          <div class="scale-item"><div class="bar" style="height:8px"></div><span class="lbl">8</span></div>
+          <div class="scale-item"><div class="bar" style="height:12px"></div><span class="lbl">12</span></div>
+          <div class="scale-item"><div class="bar" style="height:16px"></div><span class="lbl">16</span></div>
+          <div class="scale-item"><div class="bar" style="height:24px"></div><span class="lbl">24</span></div>
+          <div class="scale-item"><div class="bar" style="height:32px"></div><span class="lbl">32</span></div>
+          <div class="scale-item"><div class="bar" style="height:48px"></div><span class="lbl">48</span></div>
+          <div class="scale-item"><div class="bar" style="height:64px"></div><span class="lbl">64</span></div>
+          <div class="scale-item"><div class="bar" style="height:96px"></div><span class="lbl">96</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="stage-grid cols-2">
+      <div class="ds-block" style="margin:0;">
+        <div class="ds-label">Radii — the curve signature</div>
+        <div class="stage"><div class="radii-row">
+          <div class="radii-item"><div class="box" style="border-radius:var(--r-sm)"></div><span class="lbl">sm 10</span></div>
+          <div class="radii-item"><div class="box" style="border-radius:var(--r-md)"></div><span class="lbl">md 16</span></div>
+          <div class="radii-item"><div class="box" style="border-radius:var(--r-lg)"></div><span class="lbl">lg 24</span></div>
+          <div class="radii-item"><div class="box" style="border-radius:var(--r-xl)"></div><span class="lbl">xl 34</span></div>
+          <div class="radii-item"><div class="box" style="border-radius:var(--r-pill)"></div><span class="lbl">pill</span></div>
+        </div></div>
+      </div>
+      <div class="ds-block" style="margin:0;">
+        <div class="ds-label">Elevation</div>
+        <div class="stage"><div class="shadow-row">
+          <div class="shadow-item"><div class="box" style="box-shadow:var(--shadow-sm)"></div><span class="lbl">sm</span></div>
+          <div class="shadow-item"><div class="box" style="box-shadow:var(--shadow-md)"></div><span class="lbl">md</span></div>
+          <div class="shadow-item"><div class="box" style="box-shadow:var(--shadow-lg)"></div><span class="lbl">lg</span></div>
+          <div class="shadow-item"><div class="box" style="box-shadow:var(--shadow-accent)"></div><span class="lbl">accent</span></div>
+        </div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 04 · MOTION & DEPTH ============ -->
+<section class="ds-section" id="motion">
+  <div class="container">
+    <div class="ds-section-head">
+      <span class="num">04</span>
+      <div>
+        <h2>Motion &amp; Depth</h2>
+        <p>The brand moves. Curves, gentle parallax, tactile 3D tilt and seamless UI shifts replace the static density of a portal. Motion is purposeful and calm — and always respects <code style="font-family:ui-monospace,monospace;font-size:0.85em;">prefers-reduced-motion</code>.</p>
+      </div>
+    </div>
+
+    <div class="stage-grid cols-2" style="align-items:start;">
+      <div class="stage stage-dark" data-theme="dark" style="min-height:300px; display:grid; place-items:center;">
+        <span class="stage-tag">hover · move pointer</span>
+        <article class="card-hero" data-tilt="9" style="width:100%; max-width:380px; cursor:pointer;">
+          <div class="thumb ph" data-tilt-layer><div class="ph-label">[ feature image ]</div></div>
+          <div class="hero-badges"><span class="badge badge-breaking">Breaking</span></div>
+          <div class="hero-body">
+            <div class="t-kicker">Science</div>
+            <h2 style="font-size:1.7rem;">India readies its next deep-space mission</h2>
+            <div class="byline"><div class="avatar">A</div><div class="meta"><span class="author">Arya Mehta</span><span class="stamp">5 hours ago<span class="sep"></span>4 min read</span></div></div>
+          </div>
+        </article>
+      </div>
+      <div class="principle-grid">
+        <div class="principle">
+          <div class="pic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12c4-7 14-7 18 0-4 7-14 7-18 0z"/></svg></div>
+          <h4>Curves first</h4>
+          <p>Generous radii on every card, pill controls and curved section dividers. Corners are never sharp — softness is the identity.</p>
+        </div>
+        <div class="principle">
+          <div class="pic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 18l5-5 4 3 7-8"/></svg></div>
+          <h4>Parallax</h4>
+          <p>Backgrounds and decorative blobs drift slower than content on scroll, adding quiet depth without distraction.</p>
+        </div>
+        <div class="principle">
+          <div class="pic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="4"/><path d="M9 4v16"/></svg></div>
+          <h4>3D tilt</h4>
+          <p>Hero cards respond to the pointer with a subtle perspective tilt and a parallax image layer — tactile, not gimmicky.</p>
+        </div>
+        <div class="principle">
+          <div class="pic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+          <h4>UI shift</h4>
+          <p>Transitions glide on a single eased curve (<code style="font-family:ui-monospace,monospace;font-size:0.8em">--ease-out</code>). Elements move and morph rather than blink in and out.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 05 · COMPONENTS ============ -->
+<section class="ds-section" id="components">
+  <div class="container">
+    <div class="ds-section-head">
+      <span class="num">05</span>
+      <div>
+        <h2>Components</h2>
+        <p>The reusable kit. Header, ticker, controls, badges and meta — each shown on light and dark surfaces, built entirely from the tokens above.</p>
+      </div>
+    </div>
+
+    <!-- HEADER -->
+    <div class="ds-block">
+      <div class="ds-label">Header &amp; navigation</div>
+      <div class="stage flush" style="overflow:visible;">
+        <div class="site-header" style="position:relative; border-radius:var(--r-xl) var(--r-xl) 0 0; overflow:hidden;">
+          <div class="container">
+            <div class="header-top">
+              <a class="brand" href="#"><svg viewBox="0 0 40 40" class="mark"><rect width="40" height="40" rx="13" fill="var(--accent)"/><path d="M9 11 Q20 31 31 11" fill="none" stroke="white" stroke-width="4.6" stroke-linecap="round"/></svg><span class="word">Vārta<span class="dot">.</span></span></a>
+              <div class="search" style="max-width:340px; flex:1;">
+                <svg class="ic" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+                <input placeholder="Search news, topics, authors…  /  ख़बर खोजें">
+              </div>
+              <div class="header-actions">
+                <button class="icon-btn" data-theme-toggle aria-label="Theme"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+                <button class="btn btn-secondary btn-sm">Log in</button>
+                <button class="btn btn-primary btn-sm">Subscribe</button>
+              </div>
+            </div>
+            <nav class="main-nav">
+              <a class="nav-link active" href="#">Home</a>
+              <a class="nav-link" href="#">India</a>
+              <a class="nav-link" href="#">World</a>
+              <a class="nav-link" href="#">Economy</a>
+              <a class="nav-link" href="#">Politics</a>
+              <a class="nav-link" href="#">Science</a>
+              <a class="nav-link" href="#">Sport</a>
+              <a class="nav-link" href="#">Culture</a>
+              <a class="nav-link" href="#">Opinion</a>
+              <a class="nav-link live" href="#"><span class="badge-live"><span class="dot"></span></span>Live</a>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TICKER -->
+    <div class="ds-block">
+      <div class="ds-label">Breaking-news ticker</div>
+      <div class="stage-grid" style="gap:var(--s-4);">
+        <div class="stage" style="padding:var(--s-5);">
+          <div class="ticker">
+            <span class="label"><span class="dot"></span>Breaking</span>
+            <div class="track"><div class="scroll">
+              <a href="#">Parliament clears digital privacy bill in late session <span class="time">12 min</span></a>
+              <a href="#">Benchmark index closes at record high <span class="time">38 min</span></a>
+              <a href="#">मानसून समय से पहले पहुँचा, किसानों को राहत <span class="time">1 घंटा</span></a>
+              <a href="#">National team names squad for the series <span class="time">2 hr</span></a>
+              <a href="#">Parliament clears digital privacy bill in late session <span class="time">12 min</span></a>
+              <a href="#">Benchmark index closes at record high <span class="time">38 min</span></a>
+              <a href="#">मानसून समय से पहले पहुँचा, किसानों को राहत <span class="time">1 घंटा</span></a>
+              <a href="#">National team names squad for the series <span class="time">2 hr</span></a>
+            </div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BUTTONS + INPUTS -->
+    <div class="stage-grid cols-2">
+      <div class="ds-block" style="margin:0;">
+        <div class="ds-label">Buttons</div>
+        <div class="stage" style="display:flex; flex-direction:column; gap:var(--s-4);">
+          <div class="btn-row"><button class="btn btn-primary">Subscribe</button><button class="btn btn-secondary">Log in</button><button class="btn btn-premium">Go Premium</button></div>
+          <div class="btn-row"><button class="btn btn-primary btn-sm">Small</button><button class="btn btn-secondary btn-sm">Small</button><button class="btn btn-ghost btn-sm">Ghost</button></div>
+          <div class="btn-row"><button class="btn btn-primary btn-lg">Read full story</button></div>
+        </div>
+      </div>
+      <div class="ds-block" style="margin:0;">
+        <div class="ds-label">Inputs</div>
+        <div class="stage" style="display:flex; flex-direction:column; gap:var(--s-4);">
+          <div class="search"><svg class="ic" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg><input placeholder="Search news, topics, authors…"></div>
+          <div class="field"><label>Email address</label><input class="input" placeholder="you@example.com" type="email"></div>
+          <div class="field"><label>ईमेल पता</label><input class="input" placeholder="naam@udaharan.com"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BADGES + BYLINE -->
+    <div class="stage-grid cols-2">
+      <div class="ds-block" style="margin:0;">
+        <div class="ds-label">Badges &amp; signals</div>
+        <div class="stage" style="display:flex; gap:var(--s-3); flex-wrap:wrap; align-items:center;">
+          <span class="badge badge-breaking">Breaking</span>
+          <span class="badge badge-live"><span class="dot"></span>Live</span>
+          <span class="badge badge-premium"><svg class="star" viewBox="0 0 24 24"><path d="M12 2l2.6 6.3L21 9l-4.8 4.3L17.5 21 12 17.3 6.5 21l1.3-7.7L3 9l6.4-.7z"/></svg>Premium</span>
+          <span class="badge badge-cat">Economy</span>
+          <span class="badge badge-cat">अर्थव्यवस्था</span>
+        </div>
+      </div>
+      <div class="ds-block" style="margin:0;">
+        <div class="ds-label">Byline + timestamp</div>
+        <div class="stage" style="display:flex; flex-direction:column; gap:var(--s-4);">
+          <div class="byline"><div class="avatar">AM</div><div class="meta"><span class="author">By Arya Mehta</span><span class="stamp">June 22, 2026<span class="sep"></span>5 min read<span class="sep"></span>Updated 2h ago</span></div></div>
+          <div class="byline"><div class="avatar">रि</div><div class="meta"><span class="author">रिपोर्ट · आर्या मेहता</span><span class="stamp" style="font-family:var(--font-read-hi)">२२ जून २०२६<span class="sep"></span>५ मिनट पढ़ें</span></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION HEADER -->
+    <div class="ds-block">
+      <div class="ds-label">Section header</div>
+      <div class="stage">
+        <div class="section-head">
+          <div class="sh-left"><div class="t-kicker">Most Read</div><h2>Economy &amp; Markets</h2></div>
+          <a class="sh-link" href="#">View all<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </div>
+        <div class="section-head" style="margin-bottom:0;">
+          <div class="sh-left"><div class="t-kicker hi">सबसे ज़्यादा पढ़ी गई</div><h2 style="font-family:var(--font-display-hi)">अर्थव्यवस्था और बाज़ार</h2></div>
+          <a class="sh-link" href="#">सभी देखें<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 06 · ARTICLE CARDS ============ -->
+<section class="ds-section" id="cards">
+  <div class="container">
+    <div class="ds-section-head">
+      <span class="num">06</span>
+      <div>
+        <h2>Article cards</h2>
+        <p>Three variants for every density of layout — an immersive hero, a standard grid card, and a compact list-row for rankings and feeds. Shown in both scripts, light and dark.</p>
+      </div>
+    </div>
+
+    <!-- HERO -->
+    <div class="ds-block">
+      <div class="ds-label">Hero / large</div>
+      <div class="stage-grid cols-2">
+        <div class="stage" style="background:var(--surface-2)">
+          <article class="card-hero" data-tilt="6">
+            <div class="thumb ph" data-tilt-layer><div class="ph-label">[ lead photograph · 16:10 ]</div></div>
+            <div class="hero-badges"><span class="badge badge-breaking">Breaking</span></div>
+            <div class="hero-body">
+              <div class="t-kicker">Economy</div>
+              <h2>India's economy shows resilience as growth beats estimates</h2>
+              <div class="byline"><div class="avatar">AM</div><div class="meta"><span class="author">Arya Mehta</span><span class="stamp">5 hours ago<span class="sep"></span>4 min read</span></div></div>
+            </div>
+          </article>
+        </div>
+        <div class="stage" data-theme="dark" style="background:var(--surface-2)">
+          <article class="card-hero" data-tilt="6">
+            <div class="thumb ph" data-tilt-layer><div class="ph-label">[ लीड तस्वीर · 16:10 ]</div></div>
+            <div class="hero-badges"><span class="badge badge-premium"><svg class="star" viewBox="0 0 24 24"><path d="M12 2l2.6 6.3L21 9l-4.8 4.3L17.5 21 12 17.3 6.5 21l1.3-7.7L3 9l6.4-.7z"/></svg>Premium</span></div>
+            <div class="hero-body">
+              <div class="t-kicker hi">अर्थव्यवस्था</div>
+              <h2 style="font-family:var(--font-display-hi); font-weight:700;">विकास दर अनुमान से बेहतर, अर्थव्यवस्था में मज़बूती के संकेत</h2>
+              <div class="byline"><div class="avatar">रि</div><div class="meta"><span class="author">आर्या मेहता</span><span class="stamp" style="font-family:var(--font-read-hi)">५ घंटे पहले<span class="sep"></span>४ मिनट</span></div></div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <!-- STANDARD -->
+    <div class="ds-block">
+      <div class="ds-label">Standard grid card</div>
+      <div class="stage">
+        <div class="stage-grid cols-3">
+          <article class="card">
+            <div class="thumb ph"><div class="ph-label">[ image · 16:10 ]</div></div>
+            <div class="card-body">
+              <div class="card-cat"><span class="t-kicker">Science</span></div>
+              <h3>India readies its next deep-space mission for launch</h3>
+              <p class="dek">Engineers complete final checks as the orbiter enters its pre-flight window next month.</p>
+              <div class="card-foot"><div class="byline"><div class="avatar">VK</div><div class="meta"><span class="author">Vikram KHe­r</span><span class="stamp">2h ago<span class="sep"></span>3 min</span></div></div></div>
+            </div>
+          </article>
+          <article class="card">
+            <div class="thumb ph"><div class="ph-label">[ image · 16:10 ]</div></div>
+            <div class="card-body">
+              <div class="card-cat"><span class="t-kicker hi">खेल</span><span class="badge badge-premium" style="margin-left:auto"><svg class="star" viewBox="0 0 24 24"><path d="M12 2l2.6 6.3L21 9l-4.8 4.3L17.5 21 12 17.3 6.5 21l1.3-7.7L3 9l6.4-.7z"/></svg></span></div>
+              <h3 class="hi" style="font-family:var(--font-display-hi);font-weight:600">सीरीज़ के लिए टीम का ऐलान, युवाओं को मौक़ा</h3>
+              <p class="dek hi">चयनकर्ताओं ने अनुभव और नए चेहरों का संतुलन बनाते हुए पंद्रह सदस्यीय दल चुना।</p>
+              <div class="card-foot"><div class="byline"><div class="avatar">रि</div><div class="meta"><span class="author">रिपोर्ट · नेहा</span><span class="stamp" style="font-family:var(--font-read-hi)">४ घंटे पहले</span></div></div></div>
+            </div>
+          </article>
+          <article class="card" data-theme="dark">
+            <div class="thumb ph"><div class="ph-label">[ image · 16:10 ]</div></div>
+            <div class="card-body">
+              <div class="card-cat"><span class="t-kicker">Culture</span></div>
+              <h3>A quieter revival for the country's independent bookshops</h3>
+              <p class="dek">Small stores are finding new footing through curation, cafés and community events.</p>
+              <div class="card-foot"><div class="byline"><div class="avatar">SR</div><div class="meta"><span class="author">Sana Rao</span><span class="stamp">Yesterday<span class="sep"></span>6 min</span></div></div></div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <!-- COMPACT -->
+    <div class="ds-block">
+      <div class="ds-label">Compact list-row</div>
+      <div class="stage-grid cols-2">
+        <div class="stage">
+          <div class="row"><span class="row-rank">1</span><div class="row-thumb thumb ph"></div><div class="row-main"><div class="t-kicker">Economy</div><div class="row-title">Markets touch a fresh record as banking stocks rally</div><div class="row-meta">38 min ago<span class="sep"></span>2 min read</div></div></div>
+          <div class="row"><span class="row-rank">2</span><div class="row-thumb thumb ph"></div><div class="row-main"><div class="t-kicker">World</div><div class="row-title">Trade talks resume after a months-long pause</div><div class="row-meta">1 hr ago<span class="sep"></span>4 min read</div></div></div>
+          <div class="row" style="border-bottom:0;"><span class="row-rank">3</span><div class="row-thumb thumb ph"></div><div class="row-main"><div class="t-kicker">Politics</div><div class="row-title">Privacy bill clears the house in a late-night session</div><div class="row-meta">2 hr ago<span class="sep"></span>5 min read</div></div></div>
+        </div>
+        <div class="stage" data-theme="dark">
+          <div class="row"><span class="row-rank">१</span><div class="row-thumb thumb ph"></div><div class="row-main"><div class="t-kicker hi">अर्थव्यवस्था</div><div class="row-title hi">बैंकिंग शेयरों में तेज़ी, बाज़ार ने छुआ नया शिखर</div><div class="row-meta" style="font-family:var(--font-read-hi)">३८ मिनट पहले</div></div></div>
+          <div class="row"><span class="row-rank">२</span><div class="row-thumb thumb ph"></div><div class="row-main"><div class="t-kicker hi">विश्व</div><div class="row-title hi">महीनों के ठहराव के बाद व्यापार वार्ता फिर शुरू</div><div class="row-meta" style="font-family:var(--font-read-hi)">१ घंटा पहले</div></div></div>
+          <div class="row" style="border-bottom:0;"><span class="row-rank">३</span><div class="row-thumb thumb ph"></div><div class="row-main"><div class="t-kicker hi">राजनीति</div><div class="row-title hi">देर रात सत्र में निजता विधेयक को मिली मंज़ूरी</div><div class="row-meta" style="font-family:var(--font-read-hi)">२ घंटे पहले</div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 07 · PAYWALL ============ -->
+<section class="ds-section" id="paywall">
+  <div class="container">
+    <div class="ds-section-head">
+      <span class="num">07</span>
+      <div>
+        <h2>Premium paywall gate</h2>
+        <p>Locked content fades into a gold-accented gate rather than slamming shut. The article stays partly visible to earn the subscription; perks and a clear CTA do the rest.</p>
+      </div>
+    </div>
+    <div class="stage-grid cols-2" style="align-items:start;">
+      <div class="stage" style="padding:var(--s-6);">
+        <span class="stage-tag">light</span>
+        <div class="paywall" style="max-width:560px; margin-inline:auto;">
+          <div class="locked">
+            <span class="badge badge-premium" style="margin-bottom:14px"><svg class="star" viewBox="0 0 24 24"><path d="M12 2l2.6 6.3L21 9l-4.8 4.3L17.5 21 12 17.3 6.5 21l1.3-7.7L3 9l6.4-.7z"/></svg>Premium</span>
+            <h2 class="t-h2" style="margin:0 0 12px;">The quiet rewiring of India's middle class</h2>
+            <p class="t-body">Across the country's fast-growing cities, a generation is rethinking what financial security means — and the institutions built to serve them are scrambling to keep pace with new expectations and habits.</p>
+          </div>
+          <div class="paywall-gate">
+            <div class="lock-ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="11" width="16" height="10" rx="3"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></div>
+            <h3>Continue reading with Premium</h3>
+            <p>Join thousands of readers for sharp, ad-light journalism in हिन्दी and English — the full archive, every newsletter, and the daily briefing.</p>
+            <div class="pw-actions"><button class="btn btn-premium">Subscribe · ₹99/mo</button><button class="btn btn-secondary">Log in</button></div>
+            <div class="pw-note">Cancel anytime · First 14 days free</div>
+            <div class="pw-perks">
+              <span class="perk"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg>Ad-light reading</span>
+              <span class="perk"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg>Full archive</span>
+              <span class="perk"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg>Daily briefing</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="stage" data-theme="dark" style="padding:var(--s-6);">
+        <span class="stage-tag">dark · हिन्दी</span>
+        <div class="paywall" style="max-width:560px; margin-inline:auto;">
+          <div class="locked">
+            <span class="badge badge-premium" style="margin-bottom:14px"><svg class="star" viewBox="0 0 24 24"><path d="M12 2l2.6 6.3L21 9l-4.8 4.3L17.5 21 12 17.3 6.5 21l1.3-7.7L3 9l6.4-.7z"/></svg>प्रीमियम</span>
+            <h2 class="t-h2 hi" style="margin:0 0 12px; font-family:var(--font-display-hi)">बदलते भारत के मध्यवर्ग की ख़ामोश कहानी</h2>
+            <p class="t-body hi" lang="hi">देश के तेज़ी से बढ़ते शहरों में एक पूरी पीढ़ी आर्थिक सुरक्षा के मायने नए सिरे से गढ़ रही है — और उनके लिए बनी संस्थाएँ इन बदलती उम्मीदों के साथ क़दम मिलाने में जुटी हैं।</p>
+          </div>
+          <div class="paywall-gate">
+            <div class="lock-ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="11" width="16" height="10" rx="3"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></div>
+            <h3 class="hi" style="font-family:var(--font-display-hi)">प्रीमियम के साथ पढ़ना जारी रखें</h3>
+            <p class="hi" lang="hi">हज़ारों पाठकों के साथ जुड़ें — पूरा संग्रह, हर न्यूज़लेटर और रोज़ाना की ब्रीफ़िंग, हिन्दी और अंग्रेज़ी दोनों में।</p>
+            <div class="pw-actions"><button class="btn btn-premium">सदस्यता लें · ₹99/माह</button><button class="btn btn-secondary">लॉग इन</button></div>
+            <div class="pw-note" style="font-family:var(--font-read-hi)">कभी भी रद्द करें · पहले १४ दिन निःशुल्क</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 08 · IN USE ============ -->
+<section class="ds-section" id="compose">
+  <div class="container">
+    <div class="ds-section-head">
+      <span class="num">08</span>
+      <div>
+        <h2>The system in use</h2>
+        <p>A front-page fragment assembled entirely from the kit — ticker, section header, hero and standard cards working together with editorial calm.</p>
+      </div>
+    </div>
+    <div class="stage flush" style="padding:var(--s-6); background:var(--paper); border-radius:var(--r-2xl);">
+      <div class="ticker" style="margin-bottom:var(--s-6)">
+        <span class="label"><span class="dot"></span>Breaking</span>
+        <div class="track"><div class="scroll">
+          <a href="#">Privacy bill clears the house <span class="time">12 min</span></a>
+          <a href="#">Benchmark index at record high <span class="time">38 min</span></a>
+          <a href="#">मानसून समय से पहले पहुँचा <span class="time">1 घंटा</span></a>
+          <a href="#">Privacy bill clears the house <span class="time">12 min</span></a>
+          <a href="#">Benchmark index at record high <span class="time">38 min</span></a>
+          <a href="#">मानसून समय से पहले पहुँचा <span class="time">1 घंटा</span></a>
+        </div></div>
+      </div>
+      <div class="section-head"><div class="sh-left"><div class="t-kicker">Top Story</div><h2>This morning</h2></div><a class="sh-link" href="#">Full coverage<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+      <div style="display:grid; grid-template-columns:1.5fr 1fr; gap:var(--s-5); align-items:stretch;" class="compose-grid">
+        <article class="card-hero" data-tilt="5">
+          <div class="thumb ph" data-tilt-layer style="aspect-ratio:16/11"><div class="ph-label">[ lead photograph ]</div></div>
+          <div class="hero-badges"><span class="badge badge-breaking">Breaking</span></div>
+          <div class="hero-body">
+            <div class="t-kicker">Economy</div>
+            <h2>India's economy shows resilience as growth beats estimates</h2>
+            <div class="byline"><div class="avatar">AM</div><div class="meta"><span class="author">Arya Mehta</span><span class="stamp">5 hours ago<span class="sep"></span>4 min read</span></div></div>
+          </div>
+        </article>
+        <div style="display:flex; flex-direction:column; gap:0;">
+          <div class="row" style="padding-top:0"><div class="row-thumb thumb ph"></div><div class="row-main"><div class="t-kicker hi">विज्ञान</div><div class="row-title hi">अगले महीने गहन अंतरिक्ष मिशन की उड़ान</div><div class="row-meta" style="font-family:var(--font-read-hi)">२ घंटे पहले</div></div></div>
+          <div class="row"><div class="row-thumb thumb ph"></div><div class="row-main"><div class="t-kicker">Politics</div><div class="row-title">Privacy bill clears the house after debate</div><div class="row-meta">2 hr ago<span class="sep"></span>5 min</div></div></div>
+          <div class="row"><div class="row-thumb thumb ph"></div><div class="row-main"><div class="t-kicker">Sport</div><div class="row-title">Selectors name a youthful squad for the series</div><div class="row-meta">4 hr ago<span class="sep"></span>3 min</div></div></div>
+          <div class="row" style="border-bottom:0"><div class="row-thumb thumb ph"></div><div class="row-main"><div class="t-kicker hi">संस्कृति</div><div class="row-title hi">स्वतंत्र किताब की दुकानों की वापसी</div><div class="row-meta" style="font-family:var(--font-read-hi)">कल</div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="site-footer" id="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a class="brand" href="#" style="margin-bottom:14px; display:inline-flex"><svg viewBox="0 0 40 40" class="mark" style="width:34px;height:34px"><rect width="40" height="40" rx="13" fill="var(--accent)"/><path d="M9 11 Q20 31 31 11" fill="none" stroke="white" stroke-width="4.6" stroke-linecap="round"/></svg><span class="word">Vārta<span class="dot">.</span></span></a>
+        <p>Independent, ad-light journalism in हिन्दी and English. A calmer way to follow the day.</p>
+        <div class="footer-social">
+          <a class="icon-btn" href="#" aria-label="X"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M18.2 2H21l-6.5 7.4L22 22h-6l-4.7-6.1L5.8 22H3l7-8L2 2h6.2l4.2 5.6zM17 20.2h1.6L7 3.7H5.3z"/></svg></a>
+          <a class="icon-btn" href="#" aria-label="Instagram"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a>
+          <a class="icon-btn" href="#" aria-label="YouTube"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M22 8.2a3 3 0 0 0-2.1-2.1C18 5.5 12 5.5 12 5.5s-6 0-7.9.6A3 3 0 0 0 2 8.2 31 31 0 0 0 2 12a31 31 0 0 0 .1 3.8 3 3 0 0 0 2.1 2.1c1.9.6 7.8.6 7.8.6s6 0 7.9-.6a3 3 0 0 0 2.1-2.1A31 31 0 0 0 22 12a31 31 0 0 0-.1-3.8zM10 15V9l5.2 3z"/></svg></a>
+        </div>
+      </div>
+      <div class="footer-col"><h4>Sections</h4><ul><li><a href="#">India</a></li><li><a href="#">World</a></li><li><a href="#">Economy</a></li><li><a href="#">Science</a></li><li><a href="#">Sport</a></li><li><a href="#">Culture</a></li></ul></div>
+      <div class="footer-col"><h4>Vārta</h4><ul><li><a href="#">About us</a></li><li><a href="#">Newsletters</a></li><li><a href="#">Premium</a></li><li><a href="#">Careers</a></li><li><a href="#">Contact</a></li></ul></div>
+      <div class="footer-col"><h4>Legal</h4><ul><li><a href="#">Privacy</a></li><li><a href="#">Terms</a></li><li><a href="#">Code of ethics</a></li><li><a href="#">Complaints</a></li></ul></div>
+    </div>
+    <div class="footer-bar">
+      <p>© 2026 Vārta Media · White-label default brand · All rights reserved</p>
+      <div class="langs"><button class="active">English</button><button>हिन्दी</button></div>
+    </div>
+  </div>
+</footer>
+
+</main>
+<script src="scripts/ds.js"></script>
+</body>
+</html>

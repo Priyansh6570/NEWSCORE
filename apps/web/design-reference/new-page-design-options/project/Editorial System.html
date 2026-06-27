@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vārta — Editorial System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;0,6..72,800;1,6..72,400&family=Eczar:wght@400;500;600;700;800&family=Tiro+Devanagari+Hindi&family=Tiro+Tamil&family=Tiro+Bangla&family=Noto+Nastaliq+Urdu:wght@400;500;600;700&family=Mukta:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles/editorial-tokens.css">
+<link rel="stylesheet" href="styles/editorial-components.css">
+<style>
+  .ds-bar { position: sticky; top: 0; z-index: 70; background: color-mix(in oklch, var(--paper) 88%, transparent); backdrop-filter: blur(14px); border-bottom: var(--rule) solid var(--line); }
+  .ds-bar .row { display: flex; align-items: center; gap: var(--s-4); height: 58px; }
+  .ds-bar .bm { font-family: var(--font-display); font-weight: 800; font-size: 1.3rem; color: var(--ink-strong); }
+  .ds-bar .bm .ast { color: var(--accent); }
+  .ds-bar nav { display: flex; gap: 2px; margin-left: var(--s-5); overflow-x: auto; scrollbar-width: none; }
+  .ds-bar nav::-webkit-scrollbar { display: none; }
+  .ds-bar nav a { font-family: var(--font-ui); font-size: 0.82rem; font-weight: 600; color: var(--ink-mute); padding: 7px 12px; border-radius: var(--r-sm); white-space: nowrap; }
+  .ds-bar nav a:hover { color: var(--ink-strong); background: var(--paper-2); }
+  .sec { padding-block: var(--s-9); border-top: var(--rule) solid var(--line); scroll-margin-top: 70px; }
+  .sec:first-of-type { border-top: 0; }
+  .sec-h { display: flex; align-items: baseline; gap: var(--s-4); margin-bottom: var(--s-7); }
+  .sec-h .n { font-family: var(--font-ui); font-weight: 700; font-size: 0.8rem; letter-spacing: 0.1em; color: var(--accent); }
+  .sec-h h2 { margin: 0; font-family: var(--font-display); font-weight: 700; font-size: clamp(1.7rem,1.3rem+1.6vw,2.4rem); letter-spacing: -0.01em; color: var(--ink-strong); }
+  .sec-h p { margin: 6px 0 0; font-family: var(--font-ui); font-size: var(--fs-small); color: var(--ink-mute); max-width: 60ch; }
+  .lab { font-family: var(--font-ui); font-size: var(--fs-micro); font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: var(--s-4); display: flex; align-items: center; gap: var(--s-3); }
+  .lab::after { content: ""; flex: 1; height: 1px; background: var(--line); }
+  .block { margin-bottom: var(--s-8); }
+  .stage { border: var(--rule) solid var(--line); border-radius: var(--r-md); padding: var(--s-6); background: var(--surface); position: relative; }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-5); }
+  @media (max-width: 800px){ .grid2 { grid-template-columns: 1fr; } }
+
+  /* multilingual proof */
+  .proof { display: grid; grid-template-columns: 168px 1fr; gap: var(--s-5); align-items: baseline; padding: var(--s-5) 0; border-top: var(--rule) solid var(--line); }
+  .proof:first-child { border-top: 0; }
+  .proof .pm { font-family: var(--font-ui); display: flex; flex-direction: column; gap: 3px; }
+  .proof .pm .ps { font-size: 0.82rem; font-weight: 700; color: var(--ink-strong); }
+  .proof .pm .pf { font-size: 0.72rem; color: var(--ink-faint); }
+  .proof .ph-h { font-family: var(--font-display); font-weight: 700; font-size: clamp(1.5rem, 1.1rem + 1.8vw, 2.3rem); line-height: var(--lh-head); letter-spacing: var(--ls-head); color: var(--ink-strong); }
+
+  .scale-row { display: grid; grid-template-columns: 120px 1fr; gap: var(--s-5); align-items: baseline; padding: var(--s-4) 0; border-top: var(--rule) solid var(--line); }
+  .scale-row:first-child { border-top: 0; }
+  .scale-row .sm { font-family: var(--font-ui); font-size: 0.74rem; color: var(--ink-faint); }
+
+  .sw-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px,1fr)); gap: var(--s-4); }
+  .sw { border: var(--rule) solid var(--line); border-radius: var(--r-sm); overflow: hidden; }
+  .sw .c { height: 64px; }
+  .sw .i { padding: 9px 11px; }
+  .sw .i .nm { font-family: var(--font-ui); font-size: 0.78rem; font-weight: 700; color: var(--ink-strong); }
+  .sw .i .vr { font-family: ui-monospace, Menlo, monospace; font-size: 0.64rem; color: var(--ink-faint); }
+  .toggle { display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-ui); font-size: 0.85rem; font-weight: 600; color: var(--ink-strong); background: var(--surface); border: var(--rule) solid var(--line); border-radius: var(--r-pill); padding: 7px 14px; }
+  .cover { padding-block: var(--s-10) var(--s-8); }
+  .cover .ey { font-family: var(--font-ui); font-size: 0.8rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); }
+  .cover h1 { font-family: var(--font-display); font-weight: 800; font-size: clamp(2.8rem,1.8rem+5vw,5rem); line-height: 1; letter-spacing: -0.03em; color: var(--ink-strong); margin: var(--s-4) 0; }
+  .cover h1 .ast { color: var(--accent); }
+  .cover p { font-family: var(--font-body); font-size: var(--fs-lede); line-height: 1.6; color: var(--ink-soft); max-width: 60ch; }
+</style>
+</head>
+<body>
+
+<div class="ds-bar">
+  <div class="wrap row">
+    <span class="bm">Vārta<span class="ast">✲</span></span>
+    <nav>
+      <a href="#type">Type</a><a href="#scripts">Scripts</a><a href="#color">Color</a><a href="#wire">The Wire</a><a href="#parts">Components</a><a href="#grid">Grid</a>
+    </nav>
+    <div style="margin-left:auto; display:flex; gap:8px;">
+      <button class="toggle" data-theme-toggle><span data-theme-label>Dark</span></button>
+    </div>
+  </div>
+</div>
+
+<main class="wrap">
+
+  <section class="cover">
+    <div class="ey">Editorial Design System · v1.0</div>
+    <h1>Vārta<span class="ast">✲</span></h1>
+    <p>A type-led, multilingual news system. Centred mastheads, hairline-ruled typographic grids, a two-tempo front page — and a script-resilient type stack that renders the same layout cleanly across Latin, Devanagari, Tamil, Bengali and Urdu.</p>
+  </section>
+
+  <!-- TYPE -->
+  <section class="sec" id="type">
+    <div class="sec-h"><span class="n">01</span><div><h2>Typography</h2><p>An editorial serif voice for journalism, a clean sans for the interface — each chosen for genuine multi-script coverage. Headlines are never locked to one script's density.</p></div></div>
+    <div class="block">
+      <div class="lab">Families</div>
+      <div class="grid2">
+        <div class="stage"><div class="kicker">Display / Headlines</div><div style="font-family:var(--font-display);font-weight:800;font-size:3rem;color:var(--ink-strong);margin:10px 0 2px;line-height:1;">Newsreader</div><div style="font-family:'Eczar';font-weight:700;font-size:2.2rem;color:var(--ink-strong);">Eczar · एज़ार</div><p class="t-caption" style="font-family:var(--font-ui);font-size:var(--fs-caption);color:var(--ink-mute);margin:10px 0 0;">Latin via Newsreader (optical sizes); Devanagari headlines via Eczar; Tamil/Bengali via the Tiro family; Urdu via Noto Nastaliq.</p></div>
+        <div class="stage"><div class="kicker">UI / System</div><div style="font-family:var(--font-ui);font-weight:700;font-size:3rem;color:var(--ink-strong);margin:10px 0 2px;line-height:1;">Mukta</div><div style="font-family:var(--font-ui);font-weight:600;font-size:2.2rem;color:var(--ink-strong);">मुक्ता</div><p class="t-caption" style="font-family:var(--font-ui);font-size:var(--fs-caption);color:var(--ink-mute);margin:10px 0 0;">Kickers, bylines, nav, chips, captions — one sans across Latin + Devanagari; script faces carry Tamil/Bengali/Urdu UI.</p></div>
+      </div>
+    </div>
+    <div class="block">
+      <div class="lab">Editorial scale (Latin)</div>
+      <div class="stage">
+        <div class="scale-row"><span class="sm">Lead · 80px</span><div class="display" style="font-size:var(--fs-lead)">Beyond the portal</div></div>
+        <div class="scale-row"><span class="sm">H1 · 2.7rem</span><div class="head" style="font-size:var(--fs-h1)">Economy beats every estimate</div></div>
+        <div class="scale-row"><span class="sm">H2 · 2rem</span><div class="head" style="font-size:var(--fs-h2)">Monsoon arrives early this year</div></div>
+        <div class="scale-row"><span class="sm">H3 · 1.5rem</span><div class="head" style="font-size:var(--fs-h3)">Metro expansion gets the green light</div></div>
+        <div class="scale-row"><span class="sm">Lede · 1.2rem</span><div class="lede">Domestic demand and a rebound in exports point to steady momentum through the coming quarters.</div></div>
+        <div class="scale-row"><span class="sm">Body · 17px</span><div class="t-body" style="font-family:var(--font-body);max-width:60ch;">Analysts expect the trend to hold, though inflation and global uncertainty remain the central risks to the outlook for the year ahead.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SCRIPTS -->
+  <section class="sec" id="scripts">
+    <div class="sec-h"><span class="n">02</span><div><h2>One headline, five scripts</h2><p>The same display size and column, rendered in each script with its own face and line-height. Stories are auto-translated — the layout must hold without per-language tuning.</p></div></div>
+    <div class="stage">
+      <div class="proof" lang="en"><div class="pm"><span class="ps">Latin</span><span class="pf">Newsreader · 1.16</span></div><div class="ph-h">The quiet rewiring of India's middle class</div></div>
+      <div class="proof" lang="hi"><div class="pm"><span class="ps">Devanagari</span><span class="pf">Eczar · 1.28</span></div><div class="ph-h">बदलते भारत के मध्यवर्ग की ख़ामोश कहानी</div></div>
+      <div class="proof" lang="ta"><div class="pm"><span class="ps">Tamil</span><span class="pf">Tiro Tamil · 1.4</span></div><div class="ph-h">இந்திய நடுத்தர வர்க்கத்தின் அமைதியான மறுவடிவம்</div></div>
+      <div class="proof" lang="bn"><div class="pm"><span class="ps">Bengali</span><span class="pf">Tiro Bangla · 1.36</span></div><div class="ph-h">বদলে যাওয়া ভারতের মধ্যবিত্তের নীরব কাহিনি</div></div>
+      <div class="proof" lang="ur"><div class="pm"><span class="ps">Urdu · RTL</span><span class="pf">Noto Nastaliq · 2.0</span></div><div class="ph-h">بدلتے بھارت کے متوسط طبقے کی خاموش کہانی</div></div>
+    </div>
+    <p style="font-family:var(--font-ui);font-size:var(--fs-caption);color:var(--ink-faint);margin-top:var(--s-4);">Switching <code style="font-family:ui-monospace,monospace">&lt;html lang&gt;</code> remaps font + line-height through <code style="font-family:ui-monospace,monospace">:lang()</code> tokens automatically — and flips to RTL for Urdu. The home pages use this for the live language switcher.</p>
+  </section>
+
+  <!-- COLOR -->
+  <section class="sec" id="color">
+    <div class="sec-h"><span class="n">03</span><div><h2>Color</h2><p>Warm ivory paper, warm near-black ink, and a single confident vermilion accent that carries both the brand and the live/breaking signal. Premium gold is the only secondary. Full dark-mode token set.</p></div></div>
+    <div class="block">
+      <div class="lab">Light</div>
+      <div class="sw-grid">
+        <div class="sw"><div class="c" style="background:var(--paper)"></div><div class="i"><div class="nm">Paper</div><div class="vr">--paper</div></div></div>
+        <div class="sw"><div class="c" style="background:var(--paper-2)"></div><div class="i"><div class="nm">Paper 2</div><div class="vr">--paper-2</div></div></div>
+        <div class="sw"><div class="c" style="background:var(--line)"></div><div class="i"><div class="nm">Hairline</div><div class="vr">--line</div></div></div>
+        <div class="sw"><div class="c" style="background:var(--ink-soft)"></div><div class="i"><div class="nm">Ink soft</div><div class="vr">--ink-soft</div></div></div>
+        <div class="sw"><div class="c" style="background:var(--ink-strong)"></div><div class="i"><div class="nm">Ink</div><div class="vr">--ink-strong</div></div></div>
+        <div class="sw"><div class="c" style="background:var(--accent)"></div><div class="i"><div class="nm">Accent</div><div class="vr">vermilion</div></div></div>
+        <div class="sw"><div class="c" style="background:var(--live)"></div><div class="i"><div class="nm">Live</div><div class="vr">--live</div></div></div>
+        <div class="sw"><div class="c" style="background:var(--premium)"></div><div class="i"><div class="nm">Premium</div><div class="vr">gold</div></div></div>
+      </div>
+    </div>
+    <div class="block">
+      <div class="lab">Dark</div>
+      <div class="sw-grid" data-theme="dark" style="background:var(--paper);padding:var(--s-5);border-radius:var(--r-md);">
+        <div class="sw"><div class="c" style="background:var(--paper)"></div><div class="i"><div class="nm">Paper</div><div class="vr">--paper</div></div></div>
+        <div class="sw"><div class="c" style="background:var(--paper-2)"></div><div class="i"><div class="nm">Paper 2</div><div class="vr">--paper-2</div></div></div>
+        <div class="sw"><div class="c" style="background:var(--line)"></div><div class="i"><div class="nm">Hairline</div><div class="vr">--line</div></div></div>
+        <div class="sw"><div class="c" style="background:var(--ink-soft)"></div><div class="i"><div class="nm">Ink soft</div><div class="vr">--ink-soft</div></div></div>
+        <div class="sw"><div class="c" style="background:var(--ink-strong)"></div><div class="i"><div class="nm">Ink</div><div class="vr">--ink-strong</div></div></div>
+        <div class="sw"><div class="c" style="background:var(--accent)"></div><div class="i"><div class="nm">Accent</div><div class="vr">vermilion</div></div></div>
+        <div class="sw"><div class="c" style="background:var(--live)"></div><div class="i"><div class="nm">Live</div><div class="vr">--live</div></div></div>
+        <div class="sw"><div class="c" style="background:var(--premium)"></div><div class="i"><div class="nm">Premium</div><div class="vr">gold</div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- THE WIRE -->
+  <section class="sec" id="wire">
+    <div class="sec-h"><span class="n">04</span><div><h2>The Wire — fast lane</h2><p>The real-time layer, rendered in the same editorial language as everything else: hairline rules, timestamps, a single quiet live pulse. Premium, not a frantic ticker. Two integrations ship — banner and rail.</p></div></div>
+    <div class="stage">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:var(--s-2)"><span class="wire-label"><span class="live-dot"></span>Live Wire</span></div>
+      <a class="wire-item urgent"><span class="wire-time">2 min</span><span class="wire-h">Privacy bill clears Lok Sabha after a late-night debate</span><span class="wire-cat">Parliament</span></a>
+      <a class="wire-item"><span class="wire-time">9 min</span><span class="wire-h">Sensex closes at a record high as banking stocks lead</span><span class="wire-cat">Markets</span></a>
+      <a class="wire-item"><span class="wire-time">16 min</span><span class="wire-h">Monsoon reaches Kerala ahead of schedule</span><span class="wire-cat">Monsoon</span></a>
+    </div>
+  </section>
+
+  <!-- COMPONENTS -->
+  <section class="sec" id="parts">
+    <div class="sec-h"><span class="n">05</span><div><h2>Components</h2><p>The shared kit: section divider, byline row, chips &amp; buttons, the live thread, and the dark spotlight band.</p></div></div>
+
+    <div class="block">
+      <div class="lab">Centred section divider</div>
+      <div class="stage"><div class="divider" style="padding-block:var(--s-2)"><h2>Today's Report</h2></div></div>
+    </div>
+
+    <div class="grid2">
+      <div class="block"><div class="lab">Byline row</div><div class="stage" style="display:flex;flex-direction:column;gap:var(--s-4)">
+        <div class="byline"><span class="av">A</span><span class="nm">Arya Mehta</span><span class="dot-sep"></span><span class="ro">Senior Correspondent</span><span class="dot-sep"></span><span class="mt">6 min read</span></div>
+        <div class="byline"><span class="av">वि</span><span class="nm" style="font-family:var(--font-ui)">विक्रम खेर</span><span class="dot-sep"></span><span class="ro">फ़ोटोग्राफ़र</span><span class="dot-sep"></span><span class="mt">42k views</span></div>
+      </div></div>
+      <div class="block"><div class="lab">Chips &amp; buttons</div><div class="stage" style="display:flex;flex-wrap:wrap;gap:10px;align-items:center">
+        <button class="btn btn-primary">Subscribe</button>
+        <button class="btn btn-outline">Log in</button>
+        <span class="chip active">Home</span><span class="chip">India</span>
+        <span class="tag">Economy</span>
+        <span class="tag tag-premium"><svg viewBox="0 0 24 24"><path d="M12 2l2.6 6.3L21 9l-4.8 4.3L17.5 21 12 17.3 6.5 21l1.3-7.7L3 9l6.4-.7z"/></svg>Premium</span>
+      </div></div>
+    </div>
+
+    <div class="block">
+      <div class="lab">Live thread</div>
+      <div class="stage">
+        <div class="thread" style="border-top:0;padding-top:0">
+          <div class="thread-head"><span class="wire-label"><span class="live-dot"></span>Developing</span><span class="th-h">Monsoon session, day three</span></div>
+          <div class="thread-list">
+            <div class="update now"><div class="up-time">11:42</div><h4 class="up-h">Data protection bill passes 248–119</h4><p>The Lok Sabha clears the bill after a marathon overnight sitting.</p></div>
+            <div class="update"><div class="up-time">10:30</div><h4 class="up-h">Opposition stages a walkout</h4></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="lab">Dark spotlight band</div>
+      <div class="spotlight">
+        <div class="sl-grid">
+          <div class="sl-body">
+            <div class="sl-top"><span class="chip">Longform</span><span class="chip">Investigation</span></div>
+            <h2 class="sl-h">The real-world costs of India's race to the cloud</h2>
+            <div class="sl-stats"><span class="chip-stat"><b>20</b><span>Related</span></span><span class="chip-stat"><b>45</b><span>Trending</span></span></div>
+          </div>
+          <div class="sl-media ph"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GRID -->
+  <section class="sec" id="grid">
+    <div class="sec-h"><span class="n">06</span><div><h2>Grid · rhythm</h2><p>A 12-column field on an 8px spacing scale; restraint over ornament. Cards are replaced by hairline rules and whitespace. Radii stay small — pills for chips, gentle corners for bands.</p></div></div>
+    <div class="stage" style="display:grid;grid-template-columns:repeat(12,1fr);gap:var(--s-3)">
+      <div style="grid-column:span 12;height:1px;background:var(--line-ink)"></div>
+      <div style="grid-column:span 12;font-family:var(--font-ui);font-size:var(--fs-caption);color:var(--ink-mute);padding-top:6px">12 columns · 40px gutter · 1320 max · hairline rules separate, never boxes</div>
+    </div>
+  </section>
+</main>
+
+<footer class="wrap foot">
+  <div class="foot-bar" style="border-top:0;margin-top:0">
+    <p>© 2026 Vārta Media · Editorial Design System · White-label default brand</p>
+    <p style="font-family:var(--font-display);font-weight:800">Vārta✲</p>
+  </div>
+</footer>
+
+<script src="scripts/i18n.js"></script>
+<script src="scripts/editorial.js"></script>
+</body>
+</html>

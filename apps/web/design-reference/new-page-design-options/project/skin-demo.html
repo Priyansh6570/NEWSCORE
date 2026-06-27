@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light" data-skin="ivory">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vārta — Skin demo</title>
+<script>
+  // apply skin/theme before paint to avoid flash
+  (function(){ var p = new URLSearchParams(location.search);
+    if (p.get('skin')) document.documentElement.dataset.skin = p.get('skin');
+    if (p.get('theme')) document.documentElement.setAttribute('data-theme', p.get('theme'));
+  })();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;0,6..72,800;1,6..72,400&family=Eczar:wght@400;500;600;700;800&family=Tiro+Devanagari+Hindi&family=Tiro+Tamil&family=Tiro+Bangla&family=Noto+Nastaliq+Urdu:wght@400;500;600;700&family=Mukta:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles/editorial-tokens.css">
+<link rel="stylesheet" href="styles/editorial-components.css">
+<link rel="stylesheet" href="styles/skins.css">
+<style>
+  .wire-banner { border-bottom: var(--rule-strong) solid var(--line-ink); padding-block: var(--s-4) var(--s-5); }
+  .wire-banner .wire-top { display: flex; align-items: center; justify-content: space-between; gap: var(--s-4); padding-bottom: var(--s-2); }
+  .wire-more { font-family: var(--font-ui); font-size: var(--fs-micro); font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase; color: var(--ink-soft); display: inline-flex; align-items: center; gap: 6px; }
+  :lang(ta) .wire-more, :lang(bn) .wire-more, :lang(ur) .wire-more { letter-spacing: 0.02em; text-transform: none; }
+  .wire-grid { display: grid; grid-template-columns: repeat(3, 1fr); column-gap: var(--gutter); }
+  @media (max-width: 1080px){ .wire-grid { grid-template-columns: repeat(2, 1fr); } .wire-grid .wire-item:nth-child(5){ display: none; } }
+  @media (max-width: 720px){ .wire-grid { grid-template-columns: 1fr; } .wire-grid .wire-item:nth-child(n+5){ display: none; } }
+  .menu-only { display: none; }
+  @media (max-width: 720px){ .menu-only { display: grid; } .topbar .left .search { display: none; } }
+  main { padding-bottom: var(--s-8); }
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="wrap row">
+    <div class="left">
+      <button class="icon-btn menu-only" aria-label="Menu"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
+      <span class="search"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg><input placeholder="Search…"></span>
+    </div>
+    <div class="right">
+      <button class="icon-btn" data-theme-toggle aria-label="Theme"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+      <button class="btn btn-outline btn-sm" data-i18n="login">Log in</button>
+      <button class="btn btn-primary btn-sm" data-i18n="subscribe">Subscribe</button>
+    </div>
+  </div>
+</div>
+
+<!-- MASTHEAD -->
+<header class="wrap masthead">
+  <div class="flanks wrap" style="padding-inline:0;">
+    <div class="dateblock"><div class="d1" data-i18n="date">Thursday, 25 June 2026</div><div class="d2" data-i18n="edition">International Edition</div></div>
+    <div class="weather">
+      <svg class="wx-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4 12H2M22 12h-2M5 5l1.5 1.5M17.5 17.5 19 19M19 5l-1.5 1.5M6.5 17.5 5 19"/></svg>
+      <div><div class="wx-t">34°</div><div class="wx-m"><span data-i18n="wxCity">New Delhi</span> · <span data-i18n="wxMeta">Clear sky</span></div></div>
+    </div>
+  </div>
+  <div class="edition" data-i18n="edition">International Edition</div>
+  <div class="wordmark">Vārta<span class="ast">✲</span></div>
+</header>
+
+<!-- SECTION PILLS -->
+<nav class="wrap sections">
+  <a class="chip active" data-i18n="navHome">Home</a>
+  <a class="chip" data-i18n="navIndia">India</a>
+  <a class="chip" data-i18n="navWorld">World</a>
+  <a class="chip" data-i18n="navBiz">Business</a>
+  <a class="chip" data-i18n="navSport">Sport</a>
+  <a class="chip" data-i18n="navCulture">Culture</a>
+</nav>
+
+<!-- FAST LANE · WIRE BANNER -->
+<section class="wire-banner">
+  <div class="wrap">
+    <div class="wire-top">
+      <span class="wire-label"><span class="live-dot"></span><span data-i18n="wireLabel">Live Wire</span></span>
+      <a class="wire-more" data-i18n="wireMore">Full live coverage</a>
+    </div>
+    <div class="wire-grid">
+      <a class="wire-item urgent"><span class="wire-time" data-i18n="w1t">2 min</span><span class="wire-h" data-i18n="w1">Privacy bill clears Lok Sabha after a late-night debate</span><span class="wire-cat" data-i18n="w1cat">Parliament</span></a>
+      <a class="wire-item"><span class="wire-time" data-i18n="w2t">9 min</span><span class="wire-h" data-i18n="w2">Sensex closes at a record high</span><span class="wire-cat" data-i18n="w2cat">Markets</span></a>
+      <a class="wire-item"><span class="wire-time" data-i18n="w3t">16 min</span><span class="wire-h" data-i18n="w3">Monsoon reaches Kerala ahead of schedule</span><span class="wire-cat" data-i18n="w3cat">Monsoon</span></a>
+      <a class="wire-item"><span class="wire-time" data-i18n="w4t">24 min</span><span class="wire-h" data-i18n="w4">Selectors name a youthful squad</span><span class="wire-cat" data-i18n="w4cat">Cricket</span></a>
+      <a class="wire-item"><span class="wire-time" data-i18n="w5t">33 min</span><span class="wire-h" data-i18n="w5">Trade talks resume</span><span class="wire-cat" data-i18n="w5cat">Diplomacy</span></a>
+    </div>
+  </div>
+</section>
+
+<main class="wrap">
+  <!-- ONE STORY-GRID SECTION -->
+  <div class="divider"><h2 data-i18n="divToday">Today's Report</h2></div>
+  <section class="stories">
+    <div class="col">
+      <article class="story size-xl lead-in">
+        <div class="st-media ph"></div>
+        <span class="tag" data-i18n="s1cat">Economy</span>
+        <h3 class="st-h" data-i18n="s1H">Economy shows resilience as growth beats every estimate</h3>
+        <p data-i18n="s1P">Domestic demand and a rebound in exports point to steady momentum through the coming quarters.</p>
+        <div class="byline"><span class="av">A</span><span class="nm" data-i18n="nm1">Arya Mehta</span><span class="dot-sep"></span><span class="mt" data-read="6">6 min read</span></div>
+      </article>
+      <article class="story size-s">
+        <span class="tag" data-i18n="s5cat">Policy</span>
+        <h3 class="st-h" data-i18n="s5H">Government offers guidance to avoid a fiscal standoff</h3>
+        <div class="byline"><span class="nm" data-i18n="nm3">Rohan Gupta</span><span class="dot-sep"></span><span class="ro" data-i18n="roStaff">Staff Reporter</span></div>
+      </article>
+    </div>
+    <div class="col ruled">
+      <article class="story size-l lead-in">
+        <span class="tag" data-i18n="s2cat">Science</span>
+        <h3 class="st-h" data-i18n="s2H">Scientists unveil a more diverse map of the human genome</h3>
+        <p class="readtail" data-read="7">7 min read</p>
+        <div class="byline"><span class="av">N</span><span class="nm" data-i18n="nm2">Neha Verma</span><span class="dot-sep"></span><span class="ro" data-i18n="roSr">Senior Correspondent</span></div>
+      </article>
+      <article class="story size-m">
+        <div class="st-media ph"></div>
+        <span class="tag" data-i18n="s3cat">Cities</span>
+        <h3 class="st-h" data-i18n="s3H">A subway killing stuns, and divides, the capital</h3>
+        <div class="byline"><span class="nm" data-i18n="nm3">Rohan Gupta</span><span class="dot-sep"></span><span class="mt" data-read="5">5 min read</span></div>
+      </article>
+    </div>
+    <div class="col ruled">
+      <article class="story size-m lead-in">
+        <div class="st-media ph"></div>
+        <span class="tag" data-i18n="s4cat">Culture</span>
+        <h3 class="st-h" data-i18n="s4H">Film festival crowns three independent Indian films</h3>
+        <div class="byline"><span class="nm" data-i18n="nm2">Neha Verma</span><span class="dot-sep"></span><span class="mt" data-read="4">4 min read</span></div>
+      </article>
+      <article class="story size-s">
+        <span class="tag tag-premium"><svg viewBox="0 0 24 24"><path d="M12 2l2.6 6.3L21 9l-4.8 4.3L17.5 21 12 17.3 6.5 21l1.3-7.7L3 9l6.4-.7z"/></svg>Premium</span>
+        <h3 class="st-h" data-i18n="s1H">Economy shows resilience as growth beats every estimate</h3>
+        <div class="byline"><span class="nm" data-i18n="nm1">Arya Mehta</span><span class="dot-sep"></span><span class="mt" data-views="42k">42k views</span></div>
+      </article>
+    </div>
+  </section>
+
+  <!-- DARK SPOTLIGHT BAND -->
+  <section style="margin-top:var(--s-8);">
+    <div class="spotlight">
+      <div class="sl-grid">
+        <div class="sl-body">
+          <div class="sl-top"><span class="chip" data-i18n="slChip">Longform</span><span class="chip" data-i18n="slChip2">Investigation</span></div>
+          <h2 class="sl-h" data-i18n="slH">The real-world costs of India's race to the cloud</h2>
+          <p class="sl-p" data-i18n="slP">Data centres are multiplying across the country — and so is their thirst for power and water.</p>
+          <div class="sl-stats">
+            <span class="chip-stat"><b>20</b><span data-i18n="slStat1">Related</span></span>
+            <span class="chip-stat"><b>45</b><span data-i18n="slStat2">Trending</span></span>
+            <span class="chip-stat"><b>12</b><span data-i18n="slStat3">Data topics</span></span>
+          </div>
+          <div class="sl-byline"><span class="av">V</span><span data-i18n="slByline">Vikram Kher</span><span class="dot-sep"></span><span data-i18n="slRole">Photographer</span><span class="date-chip" data-i18n="slDate">10 June 2026</span></div>
+        </div>
+        <div class="sl-media ph"></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script src="scripts/i18n.js"></script>
+<script src="scripts/editorial.js"></script>
+</body>
+</html>

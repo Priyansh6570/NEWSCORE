@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="hi" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>वार्ता — मुख्य पृष्ठ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;0,6..72,800;1,6..72,400;1,6..72,500&family=Eczar:wght@400;500;600;700;800&family=Tiro+Devanagari+Hindi:ital@0;1&family=Mukta:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles/tokens.css">
+<link rel="stylesheet" href="styles/components.css">
+<link rel="stylesheet" href="styles/homepage.css">
+</head>
+<body>
+
+<!-- ============ UTILITY BAR ============ -->
+<div class="utility-bar">
+  <div class="container inner">
+    <div class="u-date"><span class="full">गुरुवार, २५ जून २०२६</span><span class="sep"></span>नई दिल्ली<span class="sep full"></span><span class="full">मौसम ३४°</span></div>
+    <div class="u-right">
+      <a class="u-link" href="#">ई-पेपर</a>
+      <a class="u-link" href="#">न्यूज़लेटर</a>
+      <div class="lang-toggle"><button class="active">हिं</button><button>EN</button></div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ HEADER ============ -->
+<header class="site-header">
+  <div class="container">
+    <div class="header-top">
+      <button class="icon-btn menu-btn" id="menuBtn" aria-label="मेन्यू"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
+      <a class="brand" href="#"><svg viewBox="0 0 40 40" class="mark" aria-hidden="true"><rect width="40" height="40" rx="13" fill="var(--accent)"/><path d="M9 11 Q20 31 31 11" fill="none" stroke="white" stroke-width="4.6" stroke-linecap="round"/></svg><span class="word">Vārta<span class="dot">.</span></span></a>
+      <div class="search desktop-search" style="max-width:320px; flex:1; margin-left:var(--s-3);">
+        <svg class="ic" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+        <input placeholder="ख़बरें, विषय, लेखक खोजें…">
+      </div>
+      <div class="header-actions">
+        <button class="icon-btn desktop-search" data-theme-toggle aria-label="थीम"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+        <button class="icon-btn menu-btn" aria-label="खोज"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg></button>
+        <button class="btn btn-secondary btn-sm login-text">लॉग इन</button>
+        <button class="btn btn-primary btn-sm">सदस्यता लें</button>
+      </div>
+    </div>
+    <nav class="main-nav">
+      <a class="nav-link active" href="#">मुख्य पृष्ठ</a>
+      <a class="nav-link" href="#">देश</a>
+      <a class="nav-link" href="#">विदेश</a>
+      <a class="nav-link" href="#">खेल</a>
+      <a class="nav-link" href="#">मनोरंजन</a>
+      <a class="nav-link" href="#">बिज़नेस</a>
+      <a class="nav-link" href="#">विज्ञान</a>
+      <a class="nav-link" href="#">विचार</a>
+      <a class="nav-link live" href="#"><span class="badge-live"><span class="dot"></span></span>लाइव</a>
+    </nav>
+  </div>
+</header>
+
+<main class="page">
+  <div class="container">
+
+    <!-- ============ BREAKING TICKER ============ -->
+    <div class="ticker-wrap">
+      <div class="ticker">
+        <span class="label"><span class="dot"></span>ताज़ा ख़बर</span>
+        <div class="track"><div class="scroll">
+          <a href="#">संसद के मानसून सत्र में डिजिटल निजता विधेयक पारित <span class="time">१२ मिनट</span></a>
+          <a href="#">सेंसेक्स रिकॉर्ड ऊँचाई पर बंद, बैंकिंग शेयरों में तेज़ी <span class="time">३८ मिनट</span></a>
+          <a href="#">मानसून समय से पहले केरल पहुँचा, किसानों को राहत <span class="time">१ घंटा</span></a>
+          <a href="#">सीरीज़ के लिए पंद्रह सदस्यीय टीम का ऐलान <span class="time">२ घंटे</span></a>
+          <a href="#">संसद के मानसून सत्र में डिजिटल निजता विधेयक पारित <span class="time">१२ मिनट</span></a>
+          <a href="#">सेंसेक्स रिकॉर्ड ऊँचाई पर बंद, बैंकिंग शेयरों में तेज़ी <span class="time">३८ मिनट</span></a>
+          <a href="#">मानसून समय से पहले केरल पहुँचा, किसानों को राहत <span class="time">१ घंटा</span></a>
+          <a href="#">सीरीज़ के लिए पंद्रह सदस्यीय टीम का ऐलान <span class="time">२ घंटे</span></a>
+        </div></div>
+      </div>
+    </div>
+
+    <!-- ============ HERO BLOCK ============ -->
+    <section class="hero-block block">
+      <div class="hero-lead">
+        <article class="card-hero" data-tilt="5">
+          <div class="thumb ph" data-tilt-layer><div class="ph-label">[ मुख्य तस्वीर · 16:10 ]</div></div>
+          <div class="hero-badges"><span class="badge badge-breaking">ताज़ा</span></div>
+          <div class="hero-body">
+            <div class="t-kicker hi">देश</div>
+            <h2 style="font-family:var(--font-display-hi); font-weight:700;">मानसून सत्र में डिजिटल निजता विधेयक पारित, विपक्ष ने जताई आपत्ति</h2>
+            <p class="t-lead hi" style="color:oklch(0.92 0.01 95); margin:0 0 4px; max-width:54ch;">देर रात तक चली बहस के बाद लोकसभा ने विधेयक को मंज़ूरी दी; आँकड़ों की सुरक्षा को लेकर नए नियम लागू होंगे।</p>
+            <div class="hero-meta">
+              <div class="byline"><div class="avatar">आ</div><div class="meta"><span class="author">आर्या मेहता</span><span class="stamp" style="font-family:var(--font-read-hi)">५ घंटे पहले<span class="sep"></span>४ मिनट पढ़ें</span></div></div>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <div class="hero-side">
+        <a class="feat" href="#">
+          <div class="thumb ph"><div class="ph-label">[ चित्र ]</div></div>
+          <div class="feat-body">
+            <div class="feat-cat"><span class="t-kicker hi">बिज़नेस</span><span class="badge badge-premium"><svg class="star" viewBox="0 0 24 24"><path d="M12 2l2.6 6.3L21 9l-4.8 4.3L17.5 21 12 17.3 6.5 21l1.3-7.7L3 9l6.4-.7z"/></svg></span></div>
+            <h3>सेंसेक्स ने छुआ नया शिखर, निवेशकों की संपत्ति बढ़ी</h3>
+            <div class="feat-meta">३८ मिनट पहले<span class="sep"></span>२ मिनट</div>
+          </div>
+        </a>
+        <a class="feat" href="#">
+          <div class="thumb ph"><div class="ph-label">[ चित्र ]</div></div>
+          <div class="feat-body">
+            <div class="feat-cat"><span class="t-kicker hi">खेल</span></div>
+            <h3>सीरीज़ के लिए युवा टीम का ऐलान, तीन नए चेहरों को मौक़ा</h3>
+            <div class="feat-meta">२ घंटे पहले<span class="sep"></span>३ मिनट</div>
+          </div>
+        </a>
+        <a class="feat" href="#">
+          <div class="thumb ph"><div class="ph-label">[ चित्र ]</div></div>
+          <div class="feat-body">
+            <div class="feat-cat"><span class="t-kicker hi">विदेश</span></div>
+            <h3>महीनों के गतिरोध के बाद व्यापार वार्ता दोबारा शुरू</h3>
+            <div class="feat-meta">१ घंटा पहले<span class="sep"></span>५ मिनट</div>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- ============ LATEST RAIL ============ -->
+    <section class="block">
+      <div class="section-head">
+        <div class="sh-left"><div class="t-kicker hi">अभी-अभी</div><h2 class="hi">ताज़ा ख़बरें</h2></div>
+        <a class="sh-link" href="#">सभी देखें<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </div>
+      <div class="latest-grid">
+        <article class="card">
+          <div class="thumb ph"><div class="ph-label">[ चित्र ]</div></div>
+          <div class="card-body">
+            <div class="card-cat"><span class="t-kicker hi">विज्ञान</span></div>
+            <h3 class="hi">अगले महीने गहन अंतरिक्ष मिशन की उड़ान, तैयारियाँ पूरी</h3>
+            <p class="dek hi">वैज्ञानिकों ने अंतिम जाँच पूरी की; ऑर्बिटर अगले सप्ताह प्री-लॉन्च विंडो में।</p>
+            <div class="card-foot"><div class="byline"><div class="avatar">वि</div><div class="meta"><span class="author">विक्रम खेर</span><span class="stamp" style="font-family:var(--font-read-hi)">२ घंटे पहले</span></div></div></div>
+          </div>
+        </article>
+        <article class="card">
+          <div class="thumb ph"><div class="ph-label">[ चित्र ]</div></div>
+          <div class="card-body">
+            <div class="card-cat"><span class="t-kicker hi">मनोरंजन</span></div>
+            <h3 class="hi">फ़िल्म समारोह में देसी सिनेमा का जलवा, तीन फ़िल्मों को पुरस्कार</h3>
+            <p class="dek hi">स्वतंत्र निर्देशकों की कहानियों ने जूरी और दर्शकों दोनों का दिल जीता।</p>
+            <div class="card-foot"><div class="byline"><div class="avatar">सा</div><div class="meta"><span class="author">साना राव</span><span class="stamp" style="font-family:var(--font-read-hi)">३ घंटे पहले</span></div></div></div>
+          </div>
+        </article>
+        <article class="card">
+          <div class="thumb ph"><div class="ph-label">[ चित्र ]</div></div>
+          <div class="card-body">
+            <div class="card-cat"><span class="t-kicker hi">देश</span><span class="badge badge-premium" style="margin-left:auto"><svg class="star" viewBox="0 0 24 24"><path d="M12 2l2.6 6.3L21 9l-4.8 4.3L17.5 21 12 17.3 6.5 21l1.3-7.7L3 9l6.4-.7z"/></svg></span></div>
+            <h3 class="hi">बदलते भारत के मध्यवर्ग की ख़ामोश कहानी</h3>
+            <p class="dek hi">तेज़ी से बढ़ते शहरों में एक पीढ़ी आर्थिक सुरक्षा के मायने नए सिरे से गढ़ रही है।</p>
+            <div class="card-foot"><div class="byline"><div class="avatar">र</div><div class="meta"><span class="author">रिपोर्ट · नेहा</span><span class="stamp" style="font-family:var(--font-read-hi)">४ घंटे पहले</span></div></div></div>
+          </div>
+        </article>
+        <article class="card">
+          <div class="thumb ph"><div class="ph-label">[ चित्र ]</div></div>
+          <div class="card-body">
+            <div class="card-cat"><span class="t-kicker hi">मौसम</span></div>
+            <h3 class="hi">मानसून समय से पहले केरल पहुँचा, किसानों को राहत</h3>
+            <p class="dek hi">मौसम विभाग ने सामान्य से बेहतर बारिश का अनुमान जताया है।</p>
+            <div class="card-foot"><div class="byline"><div class="avatar">अ</div><div class="meta"><span class="author">अमित सिंह</span><span class="stamp" style="font-family:var(--font-read-hi)">५ घंटे पहले</span></div></div></div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ============ CONTENT + SIDEBAR ============ -->
+    <div class="content-cols">
+      <div class="content-main">
+
+        <!-- POLITICS / देश -->
+        <section>
+          <div class="section-head">
+            <div class="sh-left"><div class="t-kicker hi">राजनीति</div><h2 class="hi">देश</h2></div>
+            <a class="sh-link" href="#">सभी देखें<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          </div>
+          <div class="cat-grid">
+            <article class="card">
+              <div class="thumb ph"><div class="ph-label">[ चित्र ]</div></div>
+              <div class="card-body">
+                <div class="card-cat"><span class="t-kicker hi">संसद</span></div>
+                <h3 class="hi">निजता विधेयक पर देर रात तक चली बहस, आज राज्यसभा में पेश</h3>
+                <div class="card-foot"><div class="byline"><div class="avatar">आ</div><div class="meta"><span class="author">आर्या मेहता</span><span class="stamp" style="font-family:var(--font-read-hi)">१ घंटा पहले</span></div></div></div>
+              </div>
+            </article>
+            <article class="card">
+              <div class="thumb ph"><div class="ph-label">[ चित्र ]</div></div>
+              <div class="card-body">
+                <div class="card-cat"><span class="t-kicker hi">राज्य</span></div>
+                <h3 class="hi">महाराष्ट्र में नई औद्योगिक नीति को कैबिनेट की मंज़ूरी</h3>
+                <div class="card-foot"><div class="byline"><div class="avatar">प</div><div class="meta"><span class="author">प्रिया देसाई</span><span class="stamp" style="font-family:var(--font-read-hi)">२ घंटे पहले</span></div></div></div>
+              </div>
+            </article>
+            <article class="card">
+              <div class="thumb ph"><div class="ph-label">[ चित्र ]</div></div>
+              <div class="card-body">
+                <div class="card-cat"><span class="t-kicker hi">दिल्ली</span><span class="badge badge-premium" style="margin-left:auto"><svg class="star" viewBox="0 0 24 24"><path d="M12 2l2.6 6.3L21 9l-4.8 4.3L17.5 21 12 17.3 6.5 21l1.3-7.7L3 9l6.4-.7z"/></svg></span></div>
+                <h3 class="hi">राजधानी की हवा सुधारने की नई योजना, क्या इस बार बनेगी बात?</h3>
+                <div class="card-foot"><div class="byline"><div class="avatar">र</div><div class="meta"><span class="author">रोहन गुप्ता</span><span class="stamp" style="font-family:var(--font-read-hi)">३ घंटे पहले</span></div></div></div>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <!-- SPORTS / खेल -->
+        <section>
+          <div class="section-head">
+            <div class="sh-left"><div class="t-kicker hi">खेल</div><h2 class="hi">खेल</h2></div>
+            <a class="sh-link" href="#">सभी देखें<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          </div>
+          <div class="cat-grid">
+            <article class="card">
+              <div class="thumb ph"><div class="ph-label">[ चित्र ]</div></div>
+              <div class="card-body">
+                <div class="card-cat"><span class="t-kicker hi">क्रिकेट</span></div>
+                <h3 class="hi">सीरीज़ के लिए युवा टीम का ऐलान, तीन नए चेहरों को मौक़ा</h3>
+                <div class="card-foot"><div class="byline"><div class="avatar">ने</div><div class="meta"><span class="author">नेहा वर्मा</span><span class="stamp" style="font-family:var(--font-read-hi)">२ घंटे पहले</span></div></div></div>
+              </div>
+            </article>
+            <article class="card">
+              <div class="thumb ph"><div class="ph-label">[ चित्र ]</div></div>
+              <div class="card-body">
+                <div class="card-cat"><span class="t-kicker hi">फ़ुटबॉल</span></div>
+                <h3 class="hi">राष्ट्रीय लीग का फ़ाइनल आज, दोनों टीमें पूरी तरह तैयार</h3>
+                <div class="card-foot"><div class="byline"><div class="avatar">क</div><div class="meta"><span class="author">करण जोशी</span><span class="stamp" style="font-family:var(--font-read-hi)">४ घंटे पहले</span></div></div></div>
+              </div>
+            </article>
+            <article class="card">
+              <div class="thumb ph"><div class="ph-label">[ चित्र ]</div></div>
+              <div class="card-body">
+                <div class="card-cat"><span class="t-kicker hi">टेनिस</span></div>
+                <h3 class="hi">युवा खिलाड़ी ने जीता पहला अंतरराष्ट्रीय ख़िताब</h3>
+                <div class="card-foot"><div class="byline"><div class="avatar">स</div><div class="meta"><span class="author">सिमरन कौर</span><span class="stamp" style="font-family:var(--font-read-hi)">६ घंटे पहले</span></div></div></div>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <!-- BUSINESS / बिज़नेस -->
+        <section>
+          <div class="section-head">
+            <div class="sh-left"><div class="t-kicker hi">बाज़ार</div><h2 class="hi">बिज़नेस</h2></div>
+            <a class="sh-link" href="#">सभी देखें<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          </div>
+          <div class="cat-grid">
+            <article class="card">
+              <div class="thumb ph"><div class="ph-label">[ चित्र ]</div></div>
+              <div class="card-body">
+                <div class="card-cat"><span class="t-kicker hi">बाज़ार</span></div>
+                <h3 class="hi">सेंसेक्स रिकॉर्ड ऊँचाई पर, बैंकिंग शेयरों में ज़ोरदार तेज़ी</h3>
+                <div class="card-foot"><div class="byline"><div class="avatar">अ</div><div class="meta"><span class="author">अंकित शाह</span><span class="stamp" style="font-family:var(--font-read-hi)">३८ मिनट पहले</span></div></div></div>
+              </div>
+            </article>
+            <article class="card">
+              <div class="thumb ph"><div class="ph-label">[ चित्र ]</div></div>
+              <div class="card-body">
+                <div class="card-cat"><span class="t-kicker hi">स्टार्टअप</span><span class="badge badge-premium" style="margin-left:auto"><svg class="star" viewBox="0 0 24 24"><path d="M12 2l2.6 6.3L21 9l-4.8 4.3L17.5 21 12 17.3 6.5 21l1.3-7.7L3 9l6.4-.7z"/></svg></span></div>
+                <h3 class="hi">देसी स्टार्टअप्स की नई पीढ़ी, मुनाफ़े पर टिकी नज़र</h3>
+                <div class="card-foot"><div class="byline"><div class="avatar">मे</div><div class="meta"><span class="author">मेघा कपूर</span><span class="stamp" style="font-family:var(--font-read-hi)">१ घंटा पहले</span></div></div></div>
+              </div>
+            </article>
+            <article class="card">
+              <div class="thumb ph"><div class="ph-label">[ चित्र ]</div></div>
+              <div class="card-body">
+                <div class="card-cat"><span class="t-kicker hi">अर्थव्यवस्था</span></div>
+                <h3 class="hi">विकास दर अनुमान से बेहतर, अर्थव्यवस्था में मज़बूती के संकेत</h3>
+                <div class="card-foot"><div class="byline"><div class="avatar">आ</div><div class="meta"><span class="author">आर्या मेहता</span><span class="stamp" style="font-family:var(--font-read-hi)">२ घंटे पहले</span></div></div></div>
+              </div>
+            </article>
+          </div>
+        </section>
+
+      </div>
+
+      <!-- ============ SIDEBAR ============ -->
+      <aside class="sidebar">
+        <div class="trending">
+          <div class="trending-head">
+            <span class="tr-ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 18l5-6 4 3 7-9"/><path d="M21 6v5h-5"/></svg></span>
+            <h3 class="hi">सबसे ज़्यादा पढ़ी गईं</h3>
+          </div>
+          <div class="tr-row"><span class="tr-rank">1</span><div class="tr-main"><div class="tr-title">सेंसेक्स ने छुआ नया शिखर, निवेशकों की संपत्ति में बड़ा उछाल</div><div class="tr-meta">बिज़नेस<span class="sep"></span>३८ मिनट</div></div></div>
+          <div class="tr-row"><span class="tr-rank">2</span><div class="tr-main"><div class="tr-title">मानसून समय से पहले केरल पहुँचा, किसानों को राहत</div><div class="tr-meta">मौसम<span class="sep"></span>१ घंटा</div></div></div>
+          <div class="tr-row"><span class="tr-rank">3</span><div class="tr-main"><div class="tr-title">निजता विधेयक संसद में पारित, नए नियम जल्द लागू</div><div class="tr-meta">देश<span class="sep"></span>१ घंटा</div></div></div>
+          <div class="tr-row cold"><span class="tr-rank">4</span><div class="tr-main"><div class="tr-title">सीरीज़ के लिए युवा टीम का ऐलान, तीन नए चेहरे</div><div class="tr-meta">खेल<span class="sep"></span>२ घंटे</div></div></div>
+          <div class="tr-row cold"><span class="tr-rank">5</span><div class="tr-main"><div class="tr-title">फ़िल्म समारोह में देसी सिनेमा का जलवा</div><div class="tr-meta">मनोरंजन<span class="sep"></span>३ घंटे</div></div></div>
+          <div class="tr-row cold"><span class="tr-rank">6</span><div class="tr-main"><div class="tr-title">गहन अंतरिक्ष मिशन की उड़ान अगले महीने</div><div class="tr-meta">विज्ञान<span class="sep"></span>२ घंटे</div></div></div>
+        </div>
+
+        <div class="side-card">
+          <span class="badge badge-premium" style="margin-bottom:12px"><svg class="star" viewBox="0 0 24 24"><path d="M12 2l2.6 6.3L21 9l-4.8 4.3L17.5 21 12 17.3 6.5 21l1.3-7.7L3 9l6.4-.7z"/></svg>प्रीमियम</span>
+          <h4 class="hi">रोज़ सुबह, दिन की पूरी तस्वीर</h4>
+          <p style="font-family:var(--font-read-hi); line-height:1.6;">हमारी डेली ब्रीफ़िंग — पाँच मिनट में वह सब जो आज मायने रखता है। सीधे आपके इनबॉक्स में।</p>
+          <div class="search" style="background:var(--surface);">
+            <input placeholder="आपका ईमेल पता">
+            <button class="btn btn-primary btn-sm" style="flex-shrink:0">भेजें</button>
+          </div>
+        </div>
+      </aside>
+    </div>
+
+    <!-- ============ SUBSCRIBE BAND ============ -->
+    <section class="block" style="margin-top:var(--s-9)">
+      <div class="subscribe-band">
+        <div class="blob b1" data-parallax="0.05"></div>
+        <div class="blob b2" data-parallax="-0.03"></div>
+        <div class="sb-inner">
+          <div class="sb-text">
+            <span class="badge badge-premium"><svg class="star" viewBox="0 0 24 24"><path d="M12 2l2.6 6.3L21 9l-4.8 4.3L17.5 21 12 17.3 6.5 21l1.3-7.7L3 9l6.4-.7z"/></svg>वार्ता प्रीमियम</span>
+            <h2>विज्ञापनों से परे, गहराई से पढ़िए हर ख़बर</h2>
+            <p>हिन्दी और अंग्रेज़ी में स्वतंत्र, भरोसेमंद पत्रकारिता — पूरा संग्रह, हर न्यूज़लेटर और रोज़ाना की ब्रीफ़िंग, एक ही जगह।</p>
+            <div class="sb-perks">
+              <span class="perk"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg>विज्ञापन-मुक्त पठन</span>
+              <span class="perk"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg>पूरा संग्रह</span>
+              <span class="perk"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg>डेली ब्रीफ़िंग</span>
+            </div>
+          </div>
+          <div class="sb-cta">
+            <button class="btn btn-premium btn-lg">सदस्यता लें</button>
+            <span class="sb-price">मात्र <b>₹99</b>/माह · पहले १४ दिन निःशुल्क</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a class="brand" href="#" style="margin-bottom:14px; display:inline-flex"><svg viewBox="0 0 40 40" class="mark" style="width:34px;height:34px"><rect width="40" height="40" rx="13" fill="var(--accent)"/><path d="M9 11 Q20 31 31 11" fill="none" stroke="white" stroke-width="4.6" stroke-linecap="round"/></svg><span class="word">Vārta<span class="dot">.</span></span></a>
+        <p style="font-family:var(--font-read-hi); line-height:1.7;">हिन्दी और अंग्रेज़ी में स्वतंत्र, विज्ञापन-मुक्त पत्रकारिता। दिन की ख़बरों को समझने का एक शांत तरीक़ा।</p>
+        <div class="footer-social">
+          <a class="icon-btn" href="#" aria-label="X"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M18.2 2H21l-6.5 7.4L22 22h-6l-4.7-6.1L5.8 22H3l7-8L2 2h6.2l4.2 5.6zM17 20.2h1.6L7 3.7H5.3z"/></svg></a>
+          <a class="icon-btn" href="#" aria-label="Instagram"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a>
+          <a class="icon-btn" href="#" aria-label="YouTube"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M22 8.2a3 3 0 0 0-2.1-2.1C18 5.5 12 5.5 12 5.5s-6 0-7.9.6A3 3 0 0 0 2 8.2 31 31 0 0 0 2 12a31 31 0 0 0 .1 3.8 3 3 0 0 0 2.1 2.1c1.9.6 7.8.6 7.8.6s6 0 7.9-.6a3 3 0 0 0 2.1-2.1A31 31 0 0 0 22 12a31 31 0 0 0-.1-3.8zM10 15V9l5.2 3z"/></svg></a>
+        </div>
+      </div>
+      <div class="footer-col"><h4>वर्ग</h4><ul><li><a href="#">देश</a></li><li><a href="#">विदेश</a></li><li><a href="#">खेल</a></li><li><a href="#">मनोरंजन</a></li><li><a href="#">बिज़नेस</a></li><li><a href="#">विज्ञान</a></li></ul></div>
+      <div class="footer-col"><h4>वार्ता</h4><ul><li><a href="#">हमारे बारे में</a></li><li><a href="#">न्यूज़लेटर</a></li><li><a href="#">प्रीमियम</a></li><li><a href="#">करियर</a></li><li><a href="#">संपर्क करें</a></li></ul></div>
+      <div class="footer-col"><h4>नीति</h4><ul><li><a href="#">गोपनीयता</a></li><li><a href="#">शर्तें</a></li><li><a href="#">आचार संहिता</a></li><li><a href="#">शिकायत</a></li></ul></div>
+    </div>
+    <div class="footer-bar">
+      <p>© 2026 वार्ता मीडिया · व्हाइट-लेबल डिफ़ॉल्ट ब्रांड · सर्वाधिकार सुरक्षित</p>
+      <div class="langs"><button>English</button><button class="active">हिन्दी</button></div>
+    </div>
+  </div>
+</footer>
+
+<script src="scripts/ds.js"></script>
+<script>
+  document.getElementById("menuBtn")?.addEventListener("click", () => {
+    const nav = document.querySelector(".main-nav");
+    if (!nav) return;
+    const open = nav.style.display === "flex";
+    nav.style.display = open ? "" : "flex";
+    nav.style.flexWrap = "wrap";
+  });
+</script>
+</body>
+</html>

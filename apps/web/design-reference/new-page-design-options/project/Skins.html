@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="design_doc_mode" content="canvas">
+<title>Vārta — Six identity skins</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,600;6..72,700;6..72,800&family=Mukta:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  body { margin: 0; position: relative; width: 3720px; height: 14600px; background: #e7e5e0; font-family: "Mukta", system-ui, sans-serif; }
+  .doc-head { position: absolute; left: 80px; top: 56px; width: 2400px; }
+  .doc-head .ey { font-size: 13px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: #7a756c; }
+  .doc-head h1 { font-family: "Newsreader", serif; font-weight: 800; font-size: 50px; letter-spacing: -0.02em; color: #1c1a17; margin: 10px 0 12px; }
+  .doc-head p { font-size: 16.5px; line-height: 1.6; color: #4a463f; max-width: 92ch; margin: 0; }
+  .doc-head b { color: #1c1a17; }
+
+  .rowlabel { position: absolute; display: flex; align-items: baseline; gap: 16px; width: 3500px; }
+  .rowlabel .num { font-family: "Newsreader", serif; font-weight: 800; font-size: 26px; color: #b7b1a6; }
+  .rowlabel .nm { font-family: "Newsreader", serif; font-weight: 800; font-size: 27px; color: #1c1a17; letter-spacing: -0.01em; }
+  .rowlabel .rat { font-size: 15px; color: #5c574e; font-style: italic; }
+
+  .frame { position: absolute; }
+  .cap { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+  .cap .cap-d { font-size: 12px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: #8a8479; }
+  .cap .dotk { width: 8px; height: 8px; border-radius: 50%; }
+  .screen { background: #fff; border: 1px solid #cfcabf; border-radius: 12px; overflow: hidden; box-shadow: 0 24px 50px -28px rgba(40,34,28,0.45); }
+  .screen.mobile { border-radius: 26px; padding: 9px; background: #1c1a17; box-shadow: 0 30px 60px -28px rgba(40,34,28,0.5); }
+  .screen.mobile iframe { border-radius: 17px; }
+  iframe { border: 0; display: block; background: #fff; }
+</style>
+</head>
+<body>
+
+<div class="doc-head">
+  <div class="ey">Vārta · Visual identity exploration</div>
+  <h1>Six skins, one layout</h1>
+  <p><b>The home-A layout is identical in every frame</b> — same grid, hairline rules, masthead, fast-lane wire, story grid and dark spotlight. Only the <b>skin</b> changes: paper, ink, hairline weight and the single accent (and its LIVE state). Each direction is shown desktop-light in English, desktop-dark in a non-Latin script, and mobile — so you can judge the accent where it matters: the LIVE pulse, the hairlines, the byline tags and links. Light + dark tokens are defined for all six.</p>
+</div>
+
+<!-- ============ 1 · IVORY ============ -->
+<div class="rowlabel" style="left:80px; top:540px;"><span class="num">01</span><span class="nm">Ivory / Ink / Vermilion</span><span class="rat">Warm ivory, near-black ink, one confident vermilion — the classic, warmest house style.</span></div>
+<div class="frame" style="left:80px; top:610px;"><div class="cap"><span class="dotk" style="background:#c0431f"></span><span class="cap-d">Desktop · Light · English</span></div><div class="screen"><iframe src="skin-demo.html?skin=ivory&theme=light&lang=en" width="1460" height="1520"></iframe></div></div>
+<div class="frame" style="left:1620px; top:610px;"><div class="cap"><span class="dotk" style="background:#c0431f"></span><span class="cap-d">Desktop · Dark · हिन्दी</span></div><div class="screen"><iframe src="skin-demo.html?skin=ivory&theme=dark&lang=hi" width="1460" height="1700"></iframe></div></div>
+<div class="frame" style="left:3160px; top:610px;"><div class="cap"><span class="cap-d">Mobile · हिन्दी</span></div><div class="screen mobile"><iframe src="skin-demo.html?skin=ivory&theme=light&lang=hi" width="402" height="2160"></iframe></div></div>
+
+<!-- ============ 2 · MONO ============ -->
+<div class="rowlabel" style="left:80px; top:2900px;"><span class="num">02</span><span class="nm">Broadsheet Mono</span><span class="rat">True newsprint: cool white, pure black, colour reserved for the LIVE pulse alone.</span></div>
+<div class="frame" style="left:80px; top:2970px;"><div class="cap"><span class="dotk" style="background:#1a1a1a"></span><span class="cap-d">Desktop · Light · English</span></div><div class="screen"><iframe src="skin-demo.html?skin=mono&theme=light&lang=en" width="1460" height="1520"></iframe></div></div>
+<div class="frame" style="left:1620px; top:2970px;"><div class="cap"><span class="dotk" style="background:#1a1a1a"></span><span class="cap-d">Desktop · Dark · தமிழ்</span></div><div class="screen"><iframe src="skin-demo.html?skin=mono&theme=dark&lang=ta" width="1460" height="1760"></iframe></div></div>
+<div class="frame" style="left:3160px; top:2970px;"><div class="cap"><span class="cap-d">Mobile · தமிழ்</span></div><div class="screen mobile"><iframe src="skin-demo.html?skin=mono&theme=light&lang=ta" width="402" height="2240"></iframe></div></div>
+
+<!-- ============ 3 · DEEP ============ -->
+<div class="rowlabel" style="left:80px; top:5320px;"><span class="num">03</span><span class="nm">Deep Editorial</span><span class="rat">Dark-first: near-black canvas, ivory text, a gold accent — serious and premium.</span></div>
+<div class="frame" style="left:80px; top:5390px;"><div class="cap"><span class="dotk" style="background:#c79a3a"></span><span class="cap-d">Desktop · Dark-first · English</span></div><div class="screen"><iframe src="skin-demo.html?skin=deep&theme=light&lang=en" width="1460" height="1520"></iframe></div></div>
+<div class="frame" style="left:1620px; top:5390px;"><div class="cap"><span class="dotk" style="background:#c79a3a"></span><span class="cap-d">Desktop · Deeper · বাংলা</span></div><div class="screen"><iframe src="skin-demo.html?skin=deep&theme=dark&lang=bn" width="1460" height="1740"></iframe></div></div>
+<div class="frame" style="left:3160px; top:5390px;"><div class="cap"><span class="cap-d">Mobile · বাংলা</span></div><div class="screen mobile"><iframe src="skin-demo.html?skin=deep&theme=light&lang=bn" width="402" height="2200"></iframe></div></div>
+
+<!-- ============ 4 · INDIGO ============ -->
+<div class="rowlabel" style="left:80px; top:7740px;"><span class="num">04</span><span class="nm">Indigo Press</span><span class="rat">Cool paper, deep ink-blue brand, a bright coral kept only for breaking.</span></div>
+<div class="frame" style="left:80px; top:7810px;"><div class="cap"><span class="dotk" style="background:#2d3f86"></span><span class="cap-d">Desktop · Light · English</span></div><div class="screen"><iframe src="skin-demo.html?skin=indigo&theme=light&lang=en" width="1460" height="1520"></iframe></div></div>
+<div class="frame" style="left:1620px; top:7810px;"><div class="cap"><span class="dotk" style="background:#2d3f86"></span><span class="cap-d">Desktop · Dark · اردو · RTL</span></div><div class="screen"><iframe src="skin-demo.html?skin=indigo&theme=dark&lang=ur" width="1460" height="1760"></iframe></div></div>
+<div class="frame" style="left:3160px; top:7810px;"><div class="cap"><span class="cap-d">Mobile · اردو</span></div><div class="screen mobile"><iframe src="skin-demo.html?skin=indigo&theme=light&lang=ur" width="402" height="2240"></iframe></div></div>
+
+<!-- ============ 5 · FOREST ============ -->
+<div class="rowlabel" style="left:80px; top:10160px;"><span class="num">05</span><span class="nm">Forest / Bottle Green</span><span class="rat">Warm cream and deep bottle green with a coral live signal — considered, not default.</span></div>
+<div class="frame" style="left:80px; top:10230px;"><div class="cap"><span class="dotk" style="background:#2f6b4f"></span><span class="cap-d">Desktop · Light · English</span></div><div class="screen"><iframe src="skin-demo.html?skin=forest&theme=light&lang=en" width="1460" height="1520"></iframe></div></div>
+<div class="frame" style="left:1620px; top:10230px;"><div class="cap"><span class="dotk" style="background:#2f6b4f"></span><span class="cap-d">Desktop · Dark · हिन्दी</span></div><div class="screen"><iframe src="skin-demo.html?skin=forest&theme=dark&lang=hi" width="1460" height="1700"></iframe></div></div>
+<div class="frame" style="left:3160px; top:10230px;"><div class="cap"><span class="cap-d">Mobile · हिन्दी</span></div><div class="screen mobile"><iframe src="skin-demo.html?skin=forest&theme=light&lang=hi" width="402" height="2160"></iframe></div></div>
+
+<!-- ============ 6 · SAFFRON ============ -->
+<div class="rowlabel" style="left:80px; top:12580px;"><span class="num">06</span><span class="nm">Saffron-Restrained</span><span class="rat">Neutral ink with saffron used sparingly — Indian, without the literal tricolour.</span></div>
+<div class="frame" style="left:80px; top:12650px;"><div class="cap"><span class="dotk" style="background:#d08a2c"></span><span class="cap-d">Desktop · Light · English</span></div><div class="screen"><iframe src="skin-demo.html?skin=saffron&theme=light&lang=en" width="1460" height="1520"></iframe></div></div>
+<div class="frame" style="left:1620px; top:12650px;"><div class="cap"><span class="dotk" style="background:#d08a2c"></span><span class="cap-d">Desktop · Dark · தமிழ்</span></div><div class="screen"><iframe src="skin-demo.html?skin=saffron&theme=dark&lang=ta" width="1460" height="1760"></iframe></div></div>
+<div class="frame" style="left:3160px; top:12650px;"><div class="cap"><span class="cap-d">Mobile · தமிழ்</span></div><div class="screen mobile"><iframe src="skin-demo.html?skin=saffron&theme=light&lang=ta" width="402" height="2240"></iframe></div></div>
+
+</body>
+</html>

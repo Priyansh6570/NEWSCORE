@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="design_doc_mode" content="canvas">
+<title>Vārta — Home · Fast-lane integrations</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,600;6..72,700;6..72,800&family=Mukta:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  body { margin: 0; position: relative; width: 3380px; height: 12700px; background: #e9e7e2; font-family: "Mukta", system-ui, sans-serif; }
+  .doc-head { position: absolute; left: 80px; top: 56px; width: 1900px; }
+  .doc-head .ey { font-size: 13px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: #b0461f; }
+  .doc-head h1 { font-family: "Newsreader", serif; font-weight: 800; font-size: 52px; letter-spacing: -0.02em; color: #1c1a17; margin: 10px 0 14px; }
+  .doc-head p { font-size: 17px; line-height: 1.6; color: #4a463f; max-width: 80ch; margin: 0; }
+  .legend { position: absolute; left: 2040px; top: 56px; width: 1240px; display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  .lc { background: #fff; border: 1px solid #d7d3cb; border-radius: 14px; padding: 20px 22px; }
+  .lc h3 { font-family: "Newsreader", serif; font-size: 21px; margin: 0 0 4px; color: #1c1a17; }
+  .lc .lc-sub { font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #b0461f; margin-bottom: 10px; }
+  .lc p { font-size: 14px; line-height: 1.55; color: #4a463f; margin: 0 0 8px; }
+  .lc ul { margin: 0; padding-left: 18px; }
+  .lc li { font-size: 13.5px; line-height: 1.5; color: #4a463f; margin-bottom: 4px; }
+  .lc li b { color: #1c1a17; }
+
+  .band { position: absolute; font-family: "Newsreader", serif; }
+  .band .bt { font-weight: 800; font-size: 30px; color: #1c1a17; letter-spacing: -0.01em; }
+  .band .bd { font-family: "Mukta", sans-serif; font-size: 15px; color: #6a655c; margin-top: 4px; max-width: 60ch; }
+
+  .frame { position: absolute; }
+  .cap { display: flex; align-items: baseline; gap: 12px; margin-bottom: 12px; }
+  .cap .cap-t { font-family: "Newsreader", serif; font-weight: 700; font-size: 19px; color: #1c1a17; }
+  .cap .cap-d { font-size: 12.5px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: #8a8479; }
+  .cap .pill { font-size: 11px; font-weight: 700; letter-spacing: 0.04em; color: #b0461f; border: 1px solid #e3b9a6; background: #fbeee7; border-radius: 999px; padding: 3px 10px; }
+  .screen { background: #fff; border: 1px solid #cfcabf; border-radius: 12px; overflow: hidden; box-shadow: 0 30px 60px -30px rgba(40,34,28,0.4); }
+  .screen.mobile { border-radius: 28px; padding: 10px; background: #1c1a17; }
+  .screen.mobile iframe { border-radius: 18px; }
+  iframe { border: 0; display: block; background: #fff; }
+</style>
+</head>
+<body>
+
+<div class="doc-head">
+  <div class="ey">Vārta · White-label default</div>
+  <h1>Home page — two fast-lane integrations</h1>
+  <p>Same editorial system, two ways to merge the real-time “fast lane” with the curated magazine. Every frame is the live page (the language switcher works); the bottom row is the identical layout rendered in हिन्दी and தமிழ் to confirm it survives auto-translation. Pick the integration that fits your newsroom — the rest of the system is shared.</p>
+</div>
+
+<div class="legend">
+  <div class="lc">
+    <div class="lc-sub">Variation A</div>
+    <h3>Wire Banner</h3>
+    <p>A full-width, hairline-ruled live band sits directly under the masthead — every reader sees the wire first, then descends into the magazine.</p>
+    <ul>
+      <li><b>Best when</b> breaking news is the headline promise</li>
+      <li>Maximum prominence; clean two-tempo stack</li>
+      <li>Scrolls away — not visible deeper in the page</li>
+    </ul>
+  </div>
+  <div class="lc">
+    <div class="lc-sub">Variation B</div>
+    <h3>Live Rail</h3>
+    <p>A persistent sticky rail runs beside the magazine, so the wire and the developing thread stay in view as the reader scrolls. On mobile it pins to the top as a live panel.</p>
+    <ul>
+      <li><b>Best when</b> live coverage runs all day</li>
+      <li>Always-visible; fast + slow lanes coexist</li>
+      <li>Narrows the editorial column on desktop</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ================= VARIATION A ================= -->
+<div class="band" style="left:80px; top:540px;">
+  <div class="bt">A · Wire Banner</div>
+  <div class="bd">Full-width live band under the masthead, then the curated grid.</div>
+</div>
+
+<div class="frame" style="left:80px; top:620px;">
+  <div class="cap"><span class="cap-t">Wire Banner</span><span class="cap-d">Desktop</span><span class="pill">English</span></div>
+  <div class="screen desktop"><iframe src="home-A.html?lang=en&theme=light" width="1460" height="3180"></iframe></div>
+</div>
+<div class="frame" style="left:1620px; top:620px;">
+  <div class="cap"><span class="cap-t">Wire Banner</span><span class="cap-d">Mobile</span><span class="pill">English</span></div>
+  <div class="screen mobile"><iframe src="home-A.html?lang=en&theme=light" width="402" height="4180"></iframe></div>
+</div>
+
+<!-- ================= VARIATION B ================= -->
+<div class="band" style="left:80px; top:4080px;">
+  <div class="bt">B · Live Rail</div>
+  <div class="bd">Sticky live rail beside the magazine; pins to the top on mobile.</div>
+</div>
+
+<div class="frame" style="left:80px; top:4160px;">
+  <div class="cap"><span class="cap-t">Live Rail</span><span class="cap-d">Desktop</span><span class="pill">English</span></div>
+  <div class="screen desktop"><iframe src="home-B.html?lang=en&theme=light" width="1460" height="3060"></iframe></div>
+</div>
+<div class="frame" style="left:1620px; top:4160px;">
+  <div class="cap"><span class="cap-t">Live Rail</span><span class="cap-d">Mobile</span><span class="pill">English</span></div>
+  <div class="screen mobile"><iframe src="home-B.html?lang=en&theme=light" width="402" height="4360"></iframe></div>
+</div>
+
+<!-- ================= SCRIPT-RESILIENCE PROOF ================= -->
+<div class="band" style="left:80px; top:7560px;">
+  <div class="bt">Same layout, translated</div>
+  <div class="bd">The identical components rendered in non-Latin scripts — premium Devanagari &amp; Tamil faces, generous script-aware line-heights. Nothing is tuned to one language.</div>
+</div>
+
+<div class="frame" style="left:80px; top:7660px;">
+  <div class="cap"><span class="cap-t">Wire Banner</span><span class="cap-d">Desktop</span><span class="pill">हिन्दी</span></div>
+  <div class="screen desktop"><iframe src="home-A.html?lang=hi&theme=light" width="1460" height="3360"></iframe></div>
+</div>
+<div class="frame" style="left:1620px; top:7660px;">
+  <div class="cap"><span class="cap-t">Live Rail</span><span class="cap-d">Mobile</span><span class="pill">தமிழ்</span></div>
+  <div class="screen mobile"><iframe src="home-B.html?lang=ta&theme=light" width="402" height="4600"></iframe></div>
+</div>
+
+</body>
+</html>

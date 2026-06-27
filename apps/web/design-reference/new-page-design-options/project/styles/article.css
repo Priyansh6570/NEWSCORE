@@ -1,0 +1,169 @@
+/* ============================================================
+   VĀRTA — Article / Longform
+   Built on editorial-tokens.css + editorial-components.css.
+   The reading column is the hero: protected measure, generous
+   line-height, script-resilient long-form.
+   ============================================================ */
+
+/* shell: sticky share rail + reading column, centred together */
+.article-shell { max-width: 1000px; margin-inline: auto; padding-inline: var(--gutter); padding-top: var(--s-7); display: grid; grid-template-columns: 52px minmax(0, 1fr); gap: var(--s-7); align-items: start; }
+.read { max-width: 700px; width: 100%; min-width: 0; }
+@media (max-width: 720px){ .article-shell { grid-template-columns: 1fr; gap: 0; padding-inline: var(--gutter-m); } }
+
+/* ---- sticky share rail (desktop) ---- */
+.share-rail { position: sticky; top: 84px; display: flex; flex-direction: column; gap: var(--s-2); align-items: center; }
+.share-rail .sr-label { font-family: var(--font-ui); font-size: var(--fs-micro); font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-faint); writing-mode: vertical-rl; margin-bottom: var(--s-2); }
+.share-rail .ib { width: 42px; height: 42px; border-radius: 50%; border: var(--rule) solid var(--line); background: transparent; color: var(--ink-soft); display: grid; place-items: center; transition: all var(--t-fast) var(--ease); }
+.share-rail .ib:hover { border-color: var(--ink-strong); color: var(--ink-strong); transform: translateY(-2px); }
+@media (max-width: 720px){ .share-rail { display: none; } }
+
+/* ---- article header ---- */
+.a-kicker { display: inline-flex; align-items: center; gap: var(--s-3); margin-bottom: var(--s-4); }
+.a-kicker .tag { font-size: var(--fs-caption); }
+.a-kicker .dot-sep { width: 3px; height: 3px; border-radius: 50%; background: var(--ink-faint); }
+.a-kicker .live-tag { display: inline-flex; align-items: center; gap: 7px; font-family: var(--font-ui); font-size: var(--fs-micro); font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--live); }
+:lang(ta) .a-kicker .live-tag, :lang(bn) .a-kicker .live-tag, :lang(ur) .a-kicker .live-tag { letter-spacing: 0.03em; text-transform: none; }
+
+.a-headline { font-family: var(--font-display); font-weight: 800; font-size: clamp(2.1rem, 1.5rem + 2.6vw, 3.3rem); line-height: var(--lh-display); letter-spacing: var(--ls-display); color: var(--ink-strong); margin: 0 0 var(--s-4); text-wrap: balance; }
+:lang(hi) .a-headline, :lang(ta) .a-headline, :lang(bn) .a-headline, :lang(ur) .a-headline { font-weight: 700; }
+.a-standfirst { font-family: var(--font-body); font-size: var(--fs-lead); line-height: 1.5; color: var(--ink-soft); margin: 0 0 var(--s-5); max-width: 60ch; font-style: italic; }
+:lang(hi) .a-standfirst, :lang(ta) .a-standfirst, :lang(bn) .a-standfirst, :lang(ur) .a-standfirst { font-style: normal; line-height: var(--lh-body); }
+
+/* byline + actions row — hairline-ruled, never boxed */
+.a-meta { display: flex; align-items: center; justify-content: space-between; gap: var(--s-4); flex-wrap: wrap; padding-block: var(--s-4); border-top: var(--rule) solid var(--line); border-bottom: var(--rule) solid var(--line); }
+.a-meta .byline .av { width: 44px; height: 44px; font-size: 0.9rem; }
+.a-meta .byline .nm { font-size: var(--fs-body); }
+.a-meta .byline .stamp { font-size: var(--fs-caption); color: var(--ink-mute); }
+.a-actions { display: flex; align-items: center; gap: var(--s-2); }
+.a-actions .ib { width: 38px; height: 38px; border-radius: 50%; border: var(--rule) solid var(--line); background: transparent; color: var(--ink-soft); display: grid; place-items: center; transition: all var(--t-fast); }
+.a-actions .ib:hover { border-color: var(--ink-strong); color: var(--ink-strong); }
+.a-actions .ib.on { color: var(--accent); border-color: var(--accent); }
+
+/* ---- lead image ---- */
+.a-figure { margin: var(--s-6) 0; }
+.a-figure .a-img { aspect-ratio: 16/9; background: var(--paper-2); filter: grayscale(1) contrast(1.02); overflow: hidden; border-radius: var(--r-sm); }
+.a-figure .a-img.ph { background-image: repeating-linear-gradient(135deg, var(--paper-2) 0 11px, var(--line-soft) 11px 22px); }
+.a-figure figcaption { font-family: var(--font-ui); font-size: var(--fs-caption); color: var(--ink-mute); margin-top: var(--s-3); display: flex; gap: var(--s-3); align-items: baseline; }
+.a-figure figcaption .credit { color: var(--ink-faint); margin-inline-start: auto; font-size: var(--fs-micro); letter-spacing: 0.04em; text-transform: uppercase; white-space: nowrap; }
+:lang(ta) .a-figure figcaption .credit, :lang(bn) .a-figure figcaption .credit, :lang(ur) .a-figure figcaption .credit { text-transform: none; letter-spacing: 0; }
+
+/* ============================================================
+   BODY — the typographic core
+   ============================================================ */
+.a-body { font-family: var(--font-body); }
+.a-body p { font-size: 1.185rem; line-height: 1.78; color: var(--ink); margin: 0 0 var(--s-5); }
+:lang(hi) .a-body p { font-size: 1.22rem; line-height: 2.0; }
+:lang(ta) .a-body p { font-size: 1.2rem; line-height: 2.05; }
+:lang(bn) .a-body p { font-size: 1.2rem; line-height: 2.0; }
+:lang(ur) .a-body p { font-size: 1.3rem; line-height: 2.5; }
+
+/* drop cap (Latin only; disabled for Indic/Urdu where it reads poorly) */
+.a-body p.lead-para::first-letter {
+  font-family: var(--font-display); font-weight: 800;
+  font-size: 3.7em; line-height: 0.78;
+  float: left; margin: 0.02em 0.09em 0 0; color: var(--accent);
+}
+:lang(hi) .a-body p.lead-para::first-letter,
+:lang(ta) .a-body p.lead-para::first-letter,
+:lang(bn) .a-body p.lead-para::first-letter,
+:lang(ur) .a-body p.lead-para::first-letter { font-size: inherit; float: none; margin: 0; color: inherit; font-weight: inherit; font-family: inherit; }
+/* for Indic, a coloured raised first phrase keeps the "opening" gesture */
+.lead-in-mark { display: none; }
+:lang(hi) .lead-in-mark, :lang(ta) .lead-in-mark, :lang(bn) .lead-in-mark, :lang(ur) .lead-in-mark { display: inline; font-family: var(--font-display); font-weight: 700; color: var(--accent); }
+
+.a-body h2 { font-family: var(--font-display); font-weight: 700; font-size: var(--fs-h2); line-height: var(--lh-head); letter-spacing: var(--ls-head); color: var(--ink-strong); margin: var(--s-7) 0 var(--s-4); }
+.a-body h3 { font-family: var(--font-display); font-weight: 700; font-size: var(--fs-h3); color: var(--ink-strong); margin: var(--s-6) 0 var(--s-3); }
+.a-body a.lnk { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }
+.a-body strong { color: var(--ink-strong); font-weight: 700; }
+
+.a-body ul.a-list { margin: 0 0 var(--s-5); padding: 0; list-style: none; }
+.a-body ul.a-list li { position: relative; padding-inline-start: var(--s-5); margin-bottom: var(--s-3); font-size: 1.12rem; line-height: 1.7; color: var(--ink); }
+.a-body ul.a-list li::before { content: ""; position: absolute; inset-inline-start: 2px; top: 0.62em; width: 7px; height: 7px; background: var(--accent); border-radius: 1px; }
+:lang(hi) .a-body ul.a-list li, :lang(ta) .a-body ul.a-list li, :lang(bn) .a-body ul.a-list li { line-height: 1.95; }
+
+/* pull-quote */
+.pullquote { border-block: var(--rule-strong) solid var(--line-ink); padding-block: var(--s-6); margin-block: var(--s-7); position: relative; }
+.pullquote .pq { font-family: var(--font-display); font-weight: 700; font-size: clamp(1.5rem, 1.2rem + 1.5vw, 2.05rem); line-height: 1.32; letter-spacing: var(--ls-head); color: var(--ink-strong); margin: 0; text-wrap: balance; }
+:lang(hi) .pullquote .pq, :lang(ta) .pullquote .pq, :lang(bn) .pullquote .pq { line-height: 1.5; }
+.pullquote .pq-mark { font-family: var(--font-display); font-size: 3rem; line-height: 0.5; color: var(--accent); display: block; height: 0.5em; margin-bottom: var(--s-3); }
+.pullquote .pq-cite { font-family: var(--font-ui); font-size: var(--fs-meta); font-weight: 600; color: var(--ink-mute); margin-top: var(--s-4); display: flex; align-items: center; gap: var(--s-2); }
+.pullquote .pq-cite::before { content: ""; width: 18px; height: 1.5px; background: var(--accent); }
+
+/* inline figure (smaller) */
+.a-inline-fig { margin: var(--s-6) 0; }
+.a-inline-fig .a-img { aspect-ratio: 3/2; }
+
+/* ============================================================
+   SOFT PAYWALL  (premium only) — restrained, hairline-ruled
+   ============================================================ */
+.article[data-access="locked"] .gated { max-height: 240px; overflow: hidden; -webkit-mask-image: linear-gradient(180deg, #000 35%, transparent 96%); mask-image: linear-gradient(180deg, #000 35%, transparent 96%); }
+.article[data-access="locked"] .gated + .gate { display: flex; }
+.article[data-access="locked"] .post-read { display: none; }
+.article[data-access="unlocked"] .gate { display: none; }
+.gate { display: none; flex-direction: column; align-items: center; text-align: center; gap: var(--s-3); border-top: var(--rule-strong) solid var(--line-ink); padding: var(--s-7) var(--s-4) var(--s-5); margin-top: var(--s-2); }
+.gate .g-kicker { font-family: var(--font-ui); font-size: var(--fs-micro); font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); display: inline-flex; align-items: center; gap: 7px; }
+:lang(ta) .gate .g-kicker, :lang(bn) .gate .g-kicker, :lang(ur) .gate .g-kicker { letter-spacing: 0.03em; text-transform: none; }
+.gate .g-h { font-family: var(--font-display); font-weight: 700; font-size: var(--fs-h2); color: var(--ink-strong); letter-spacing: var(--ls-head); margin: 0; max-width: 22ch; }
+.gate .g-p { font-family: var(--font-body); font-size: var(--fs-small); color: var(--ink-soft); max-width: 48ch; margin: 0; }
+.gate .g-actions { display: flex; gap: var(--s-3); flex-wrap: wrap; justify-content: center; margin-top: var(--s-3); }
+.gate .g-note { font-family: var(--font-ui); font-size: var(--fs-caption); color: var(--ink-faint); margin-top: var(--s-1); }
+.gate .g-note a { color: var(--accent); text-decoration: underline; text-underline-offset: 2px; }
+
+/* ============================================================
+   TAGS · AUTHOR BIO
+   ============================================================ */
+.a-tags { display: flex; flex-wrap: wrap; gap: var(--s-2); margin-block: var(--s-7) var(--s-6); padding-top: var(--s-5); border-top: var(--rule) solid var(--line); }
+.author-bio { display: flex; gap: var(--s-4); align-items: flex-start; padding-block: var(--s-5); border-block: var(--rule) solid var(--line); margin-bottom: var(--s-7); }
+.author-bio .bio-av { width: 60px; height: 60px; border-radius: 50%; background: var(--paper-2); border: var(--rule) solid var(--line); flex-shrink: 0; display: grid; place-items: center; font-family: var(--font-display); font-weight: 700; font-size: 1.3rem; color: var(--ink-mute); }
+.author-bio .bio-main .bio-name { font-family: var(--font-display); font-weight: 700; font-size: var(--fs-h4); color: var(--ink-strong); }
+.author-bio .bio-main .bio-role { font-family: var(--font-ui); font-size: var(--fs-caption); color: var(--accent); font-weight: 600; margin-bottom: var(--s-2); }
+.author-bio .bio-main p { font-family: var(--font-body); font-size: var(--fs-small); color: var(--ink-soft); margin: 0; line-height: 1.6; }
+
+/* ============================================================
+   LIVE THREAD (inline, when developing) — reuses .thread tokens
+   ============================================================ */
+.a-thread { margin-block: var(--s-7); padding: var(--s-6); border: var(--rule-strong) solid var(--line-ink); border-radius: var(--r-md); }
+.a-thread .thread-head { margin-bottom: var(--s-4); }
+
+/* ============================================================
+   RELATED  ("Read more") — typographic grid, no cards
+   ============================================================ */
+.related { max-width: 1000px; margin-inline: auto; padding-inline: var(--gutter); }
+@media (max-width: 720px){ .related { padding-inline: var(--gutter-m); } }
+
+/* ============================================================
+   COMMENTS — hairline-ruled, understated
+   ============================================================ */
+.comments { max-width: 760px; margin-inline: auto; padding-inline: var(--gutter); margin-top: var(--s-8); }
+@media (max-width: 720px){ .comments { padding-inline: var(--gutter-m); } }
+.comments-head { display: flex; align-items: baseline; justify-content: space-between; gap: var(--s-4); padding-bottom: var(--s-4); border-bottom: var(--rule-strong) solid var(--line-ink); margin-bottom: var(--s-4); }
+.comments-head h2 { font-family: var(--font-display); font-weight: 700; font-size: var(--fs-h3); color: var(--ink-strong); margin: 0; }
+.comments-head .c-count { font-family: var(--font-ui); font-size: var(--fs-caption); color: var(--ink-mute); }
+.composer { display: flex; gap: var(--s-3); padding-bottom: var(--s-5); margin-bottom: var(--s-3); }
+.composer .av { width: 38px; height: 38px; border-radius: 50%; background: var(--paper-2); border: var(--rule) solid var(--line); display: grid; place-items: center; font-family: var(--font-ui); font-weight: 700; font-size: 0.78rem; color: var(--ink-mute); flex-shrink: 0; }
+.composer .c-field { flex: 1; }
+.composer textarea { width: 100%; min-height: 84px; border: var(--rule) solid var(--line); border-radius: var(--r-sm); padding: var(--s-3) var(--s-4); font-family: var(--font-body); font-size: 1rem; line-height: 1.55; color: var(--ink-strong); background: var(--surface); resize: vertical; transition: border-color var(--t-fast), box-shadow var(--t-fast); }
+.composer textarea::placeholder { color: var(--ink-faint); }
+.composer textarea:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+.composer .c-foot { display: flex; align-items: center; justify-content: space-between; margin-top: var(--s-3); }
+.composer .c-foot .c-rules { font-family: var(--font-ui); font-size: var(--fs-micro); color: var(--ink-faint); }
+.comment { display: flex; gap: var(--s-3); padding-block: var(--s-4); border-top: var(--rule) solid var(--line); }
+.comment .av { width: 38px; height: 38px; border-radius: 50%; background: var(--paper-2); border: var(--rule) solid var(--line); display: grid; place-items: center; font-family: var(--font-ui); font-weight: 700; font-size: 0.78rem; color: var(--ink-mute); flex-shrink: 0; }
+.comment .c-main { min-width: 0; }
+.comment .c-top { display: flex; align-items: center; gap: var(--s-2); margin-bottom: 4px; flex-wrap: wrap; }
+.comment .c-name { font-family: var(--font-ui); font-size: var(--fs-meta); font-weight: 700; color: var(--ink-strong); }
+.comment .c-badge { font-family: var(--font-ui); font-size: var(--fs-micro); font-weight: 700; color: var(--accent); border: var(--rule) solid var(--accent-soft); background: var(--accent-soft); border-radius: var(--r-pill); padding: 1px 8px; }
+.comment .c-time { font-family: var(--font-ui); font-size: var(--fs-micro); color: var(--ink-faint); }
+.comment .c-text { font-family: var(--font-body); font-size: var(--fs-small); line-height: 1.62; color: var(--ink); margin: 0; }
+.comment .c-act { display: flex; gap: var(--s-4); margin-top: var(--s-2); }
+.comment .c-act button { font-family: var(--font-ui); font-size: var(--fs-micro); font-weight: 600; color: var(--ink-mute); background: transparent; border: 0; padding: 0; display: inline-flex; align-items: center; gap: 5px; }
+.comment .c-act button:hover { color: var(--accent); }
+
+/* ============================================================
+   DEMO toggle (preview locked vs subscriber) — not part of UI
+   ============================================================ */
+.demo-toggle { position: fixed; left: 16px; bottom: 16px; z-index: 90; display: flex; align-items: center; gap: 8px; background: var(--ink-strong); color: var(--paper); border-radius: var(--r-pill); padding: 6px 6px 6px 14px; box-shadow: var(--shadow-band); font-family: var(--font-ui); }
+.demo-toggle .dt-label { font-size: var(--fs-micro); font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; opacity: 0.8; }
+.demo-toggle .dt-btns { display: flex; background: oklch(1 0 0 / 0.12); border-radius: var(--r-pill); padding: 2px; }
+.demo-toggle button { font-family: var(--font-ui); font-size: var(--fs-caption); font-weight: 600; color: oklch(1 0 0 / 0.7); background: transparent; border: 0; padding: 5px 12px; border-radius: var(--r-pill); transition: all var(--t-fast); }
+.demo-toggle button.active { background: var(--paper); color: var(--ink-strong); }

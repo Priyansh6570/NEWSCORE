@@ -1,0 +1,256 @@
+/* ============================================================
+   VĀRTA — Longform / Article (redesigned)
+   Built on editorial-tokens.css + editorial-components.css.
+
+   Three ideas drive this layout:
+   1. A PROTECTED READING MEASURE (~62–68 chars) centred with air.
+   2. The side margins become a QUIET EDITORIAL APPARATUS —
+      left rail: section · dateline · vertical reading progress ·
+      share/bookmark.  right margin: notes, definitions, stats,
+      cross-references pulled out of the body.
+   3. NO PAYWALL. The full piece always renders. Support is a
+      soft, hairline-ruled membership note near the footer.
+   ============================================================ */
+
+/* ---- mobile reading-progress hairline (top), desktop-hidden ---- */
+.lf-toprule { position: fixed; top: 0; inset-inline: 0; height: 2px; z-index: 65; background: transparent; display: none; }
+.lf-toprule i { display: block; height: 100%; width: 0%; background: var(--accent); transition: width 80ms linear; }
+
+/* ============================================================
+   SHELL — left apparatus rail + reading column (centred band)
+   ============================================================ */
+.lf { max-width: 1144px; margin-inline: auto; padding-inline: var(--gutter); padding-top: var(--s-7);
+      display: grid; grid-template-columns: 180px minmax(0, 912px); justify-content: center; gap: 52px; align-items: start; }
+
+/* the reading column itself is measure-capped; margin notes overflow into the right gutter */
+.lf-main { min-width: 0; }
+.lf-article { max-width: 660px; }
+
+/* ============================================================
+   LEFT RAIL — sticky apparatus
+   ============================================================ */
+.lf-rail { position: sticky; top: 80px; display: flex; flex-direction: column; gap: var(--s-5);
+           padding-inline-end: var(--s-5); border-inline-end: var(--rule) solid var(--line); }
+
+.rail-block { display: flex; flex-direction: column; gap: 5px; }
+.rail-label { font-family: var(--font-ui); font-size: var(--fs-micro); font-weight: 700; letter-spacing: 0.12em;
+              text-transform: uppercase; color: var(--ink-faint); }
+:lang(ta) .rail-label, :lang(bn) .rail-label, :lang(ur) .rail-label { letter-spacing: 0.03em; text-transform: none; }
+.rail-section { font-family: var(--font-ui); font-size: var(--fs-meta); font-weight: 700; color: var(--accent); }
+.rail-dateline { font-family: var(--font-ui); font-size: var(--fs-meta); color: var(--ink-soft); line-height: 1.5; }
+.rail-readtime { font-family: var(--font-ui); font-size: var(--fs-micro); color: var(--ink-mute); font-variant-numeric: tabular-nums; }
+
+/* vertical reading progress */
+.rail-progress { display: flex; align-items: center; gap: var(--s-3); }
+.rail-progress .track { width: 2px; height: 120px; background: var(--line); border-radius: 2px; position: relative; overflow: hidden; }
+.rail-progress .track i { position: absolute; inset-inline: 0; top: 0; height: 0%; background: var(--accent); transition: height 80ms linear; }
+.rail-progress .pct { font-family: var(--font-ui); font-size: var(--fs-micro); font-weight: 700; color: var(--ink-mute); font-variant-numeric: tabular-nums; letter-spacing: 0.04em; }
+
+/* share / bookmark cluster */
+.rail-share { display: flex; flex-direction: column; gap: var(--s-3); }
+.rail-share .ib { width: 38px; height: 38px; border-radius: 50%; border: var(--rule) solid var(--line);
+                  background: transparent; color: var(--ink-soft); display: grid; place-items: center;
+                  transition: all var(--t-fast) var(--ease); }
+.rail-share .ib:hover { border-color: var(--ink-strong); color: var(--ink-strong); transform: translateY(-2px); }
+.rail-share .ib.on { color: var(--accent); border-color: var(--accent); }
+
+/* ============================================================
+   ARTICLE HEADER — scaled DOWN to sit in proportion to the column
+   ============================================================ */
+.a-kicker { display: inline-flex; align-items: center; gap: var(--s-3); margin-bottom: var(--s-4); }
+.a-kicker .tag { font-size: var(--fs-caption); }
+.a-kicker .dot-sep { width: 3px; height: 3px; border-radius: 50%; background: var(--ink-faint); }
+.a-kicker .live-tag { display: inline-flex; align-items: center; gap: 7px; font-family: var(--font-ui);
+                      font-size: var(--fs-micro); font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--live); }
+:lang(ta) .a-kicker .live-tag, :lang(bn) .a-kicker .live-tag, :lang(ur) .a-kicker .live-tag { letter-spacing: 0.03em; text-transform: none; }
+
+.a-headline { font-family: var(--font-display); font-weight: 800;
+              font-size: clamp(1.85rem, 1.4rem + 1.5vw, 2.6rem); line-height: 1.12; letter-spacing: var(--ls-display);
+              color: var(--ink-strong); margin: 0 0 var(--s-4); text-wrap: balance; }
+:lang(hi) .a-headline, :lang(ta) .a-headline, :lang(bn) .a-headline, :lang(ur) .a-headline { font-weight: 700; line-height: 1.28; }
+
+.a-standfirst { font-family: var(--font-body); font-size: 1.3rem; line-height: 1.5; color: var(--ink-soft);
+                margin: 0 0 var(--s-5); font-style: italic; }
+:lang(hi) .a-standfirst, :lang(ta) .a-standfirst, :lang(bn) .a-standfirst, :lang(ur) .a-standfirst { font-style: normal; line-height: 1.7; font-size: 1.22rem; }
+
+/* byline row — hairline-ruled, never boxed */
+.a-meta { display: flex; align-items: center; justify-content: space-between; gap: var(--s-4); flex-wrap: wrap;
+          padding-block: var(--s-4); border-top: var(--rule) solid var(--line); border-bottom: var(--rule) solid var(--line); }
+.a-meta .byline .av { width: 42px; height: 42px; font-size: 0.9rem; }
+.a-meta .byline .nm { font-size: var(--fs-body); }
+.a-meta .byline .stamp { font-size: var(--fs-caption); color: var(--ink-mute); }
+.a-actions { display: flex; align-items: center; gap: var(--s-2); }
+.a-actions .ib { width: 36px; height: 36px; border-radius: 50%; border: var(--rule) solid var(--line);
+                 background: transparent; color: var(--ink-soft); display: grid; place-items: center; transition: all var(--t-fast); }
+.a-actions .ib:hover { border-color: var(--ink-strong); color: var(--ink-strong); }
+.a-actions .ib.on { color: var(--accent); border-color: var(--accent); }
+/* the mobile-only inline dateline (mirrors the rail) */
+.a-mobile-dateline { display: none; }
+
+/* ---- lead image (can exceed the reading measure slightly for presence) ---- */
+.a-figure { margin: var(--s-6) 0; }
+.a-figure .a-img { aspect-ratio: 16/9; background: var(--paper-2); filter: grayscale(1) contrast(1.02); overflow: hidden; border-radius: var(--r-sm); }
+.a-figure .a-img.ph { background-image: repeating-linear-gradient(135deg, var(--paper-2) 0 11px, var(--line-soft) 11px 22px); }
+.a-figure figcaption { font-family: var(--font-ui); font-size: var(--fs-caption); color: var(--ink-mute); margin-top: var(--s-3); display: flex; gap: var(--s-3); align-items: baseline; }
+.a-figure figcaption .credit { color: var(--ink-faint); margin-inline-start: auto; font-size: var(--fs-micro); letter-spacing: 0.04em; text-transform: uppercase; white-space: nowrap; }
+:lang(ta) .a-figure figcaption .credit, :lang(bn) .a-figure figcaption .credit, :lang(ur) .a-figure figcaption .credit { text-transform: none; letter-spacing: 0; }
+
+/* ============================================================
+   BODY — the typographic core, measure-protected
+   ============================================================ */
+.a-body { font-family: var(--font-body); max-width: 660px; position: relative; }
+.a-body p { font-size: 1.18rem; line-height: 1.78; color: var(--ink); margin: 0 0 var(--s-5); }
+:lang(hi) .a-body p { font-size: 1.18rem; line-height: 1.95; }
+:lang(ta) .a-body p { font-size: 1.16rem; line-height: 2.0; }
+:lang(bn) .a-body p { font-size: 1.16rem; line-height: 1.95; }
+:lang(ur) .a-body p { font-size: 1.28rem; line-height: 2.45; }
+
+/* drop cap (Latin only) */
+.a-body p.lead-para::first-letter { font-family: var(--font-display); font-weight: 800; font-size: 3.5em; line-height: 0.78;
+  float: left; margin: 0.02em 0.09em 0 0; color: var(--accent); }
+:lang(hi) .a-body p.lead-para::first-letter, :lang(ta) .a-body p.lead-para::first-letter,
+:lang(bn) .a-body p.lead-para::first-letter, :lang(ur) .a-body p.lead-para::first-letter {
+  font-size: inherit; float: none; margin: 0; color: inherit; font-weight: inherit; font-family: inherit; }
+
+.a-body h2 { font-family: var(--font-display); font-weight: 700; font-size: var(--fs-h3); line-height: var(--lh-head);
+  letter-spacing: var(--ls-head); color: var(--ink-strong); margin: var(--s-7) 0 var(--s-4); }
+.a-body h2 .h-mark { color: var(--accent); font-weight: 700; margin-inline-end: 0.4em; }
+.a-body strong { color: var(--ink-strong); font-weight: 700; }
+.a-body a.lnk { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }
+
+.a-body ul.a-list { margin: 0 0 var(--s-5); padding: 0; list-style: none; }
+.a-body ul.a-list li { position: relative; padding-inline-start: var(--s-5); margin-bottom: var(--s-3); font-size: 1.1rem; line-height: 1.7; color: var(--ink); }
+.a-body ul.a-list li::before { content: ""; position: absolute; inset-inline-start: 2px; top: 0.62em; width: 7px; height: 7px; background: var(--accent); border-radius: 1px; }
+:lang(hi) .a-body ul.a-list li, :lang(ta) .a-body ul.a-list li, :lang(bn) .a-body ul.a-list li { line-height: 1.9; }
+
+/* in-column pull-quote (one strong, ruled both sides) */
+.pullquote { border-block: var(--rule-strong) solid var(--line-ink); padding-block: var(--s-6); margin-block: var(--s-7); }
+.pullquote .pq-mark { font-family: var(--font-display); font-size: 3rem; line-height: 0.5; color: var(--accent); display: block; height: 0.5em; margin-bottom: var(--s-3); }
+.pullquote .pq { font-family: var(--font-display); font-weight: 700; font-size: clamp(1.4rem, 1.15rem + 1.2vw, 1.85rem); line-height: 1.32; letter-spacing: var(--ls-head); color: var(--ink-strong); margin: 0; text-wrap: balance; }
+:lang(hi) .pullquote .pq, :lang(ta) .pullquote .pq, :lang(bn) .pullquote .pq { line-height: 1.5; }
+.pullquote .pq-cite { font-family: var(--font-ui); font-size: var(--fs-meta); font-weight: 600; color: var(--ink-mute); margin-top: var(--s-4); display: flex; align-items: center; gap: var(--s-2); }
+.pullquote .pq-cite::before { content: ""; width: 18px; height: 1.5px; background: var(--accent); }
+
+/* inline figure */
+.a-inline-fig { margin: var(--s-6) 0; }
+.a-inline-fig .a-img { aspect-ratio: 3/2; }
+
+/* ============================================================
+   MARGIN NOTES — the apparatus in the right gutter.
+   They float into the reserved right space and sit beside the
+   paragraph they annotate. On mobile they fall inline.
+   ============================================================ */
+.mnote { float: right; clear: right; width: 192px; margin-inline-start: 0; margin-inline-end: -208px;
+         margin-bottom: var(--s-5); padding-top: var(--s-2); border-top: var(--rule-strong) solid var(--line-ink); }
+.mnote .mn-label { font-family: var(--font-ui); font-size: var(--fs-micro); font-weight: 700; letter-spacing: 0.1em;
+                   text-transform: uppercase; color: var(--ink-faint); margin-bottom: var(--s-2); display: block; }
+:lang(ta) .mnote .mn-label, :lang(bn) .mnote .mn-label, :lang(ur) .mnote .mn-label { letter-spacing: 0.02em; text-transform: none; }
+.mnote .mn-term { font-family: var(--font-display); font-weight: 700; font-size: 1.02rem; color: var(--ink-strong); line-height: 1.25; margin-bottom: 5px; }
+.mnote .mn-body { font-family: var(--font-body); font-size: 0.92rem; line-height: 1.5; color: var(--ink-soft); margin: 0; }
+:lang(hi) .mnote .mn-body, :lang(ta) .mnote .mn-body, :lang(bn) .mnote .mn-body { line-height: 1.7; }
+.mnote.mn-stat .mn-fig { font-family: var(--font-display); font-weight: 800; font-size: 2rem; line-height: 1; color: var(--accent); margin-bottom: 4px; }
+.mnote.mn-link a { font-family: var(--font-ui); font-size: var(--fs-meta); font-weight: 600; color: var(--accent);
+                   display: inline-flex; align-items: baseline; gap: 5px; line-height: 1.4; }
+.mnote.mn-link a:hover { text-decoration: underline; text-underline-offset: 3px; }
+
+/* RTL: notes go to the left gutter */
+:lang(ur) .mnote { float: left; clear: left; margin-inline-end: 0; margin-inline-start: -208px; }
+
+/* ============================================================
+   LIVE THREAD (developing) — kept, hairline language
+   ============================================================ */
+.a-thread { margin-block: var(--s-7); padding: var(--s-6); border: var(--rule-strong) solid var(--line-ink); border-radius: var(--r-md); max-width: 660px; }
+.a-thread .thread-head { margin-bottom: var(--s-4); }
+
+/* ============================================================
+   TAGS · AUTHOR BIO
+   ============================================================ */
+.a-tags { display: flex; flex-wrap: wrap; gap: var(--s-2); margin-block: var(--s-7) var(--s-6); padding-top: var(--s-5); border-top: var(--rule) solid var(--line); max-width: 660px; }
+.author-bio { display: flex; gap: var(--s-4); align-items: flex-start; padding-block: var(--s-5); border-block: var(--rule) solid var(--line); margin-bottom: var(--s-7); max-width: 660px; }
+.author-bio .bio-av { width: 58px; height: 58px; border-radius: 50%; background: var(--paper-2); border: var(--rule) solid var(--line); flex-shrink: 0; display: grid; place-items: center; font-family: var(--font-display); font-weight: 700; font-size: 1.3rem; color: var(--ink-mute); }
+.author-bio .bio-main .bio-name { font-family: var(--font-display); font-weight: 700; font-size: var(--fs-h4); color: var(--ink-strong); }
+.author-bio .bio-main .bio-role { font-family: var(--font-ui); font-size: var(--fs-caption); color: var(--accent); font-weight: 600; margin-bottom: var(--s-2); }
+.author-bio .bio-main p { font-family: var(--font-body); font-size: var(--fs-small); color: var(--ink-soft); margin: 0; line-height: 1.6; }
+
+/* ============================================================
+   SUPPORT NOTE  (replaces the paywall — soft, never a lock)
+   ============================================================ */
+.support { max-width: 1000px; margin: var(--s-8) auto 0; padding-inline: var(--gutter); }
+.support-inner { border-block: var(--rule-strong) solid var(--line-ink); padding-block: var(--s-6);
+                 display: grid; grid-template-columns: 1fr auto; gap: var(--s-5) var(--s-7); align-items: center; }
+.support .s-kicker { font-family: var(--font-ui); font-size: var(--fs-micro); font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); display: block; margin-bottom: var(--s-2); }
+:lang(ta) .support .s-kicker, :lang(bn) .support .s-kicker, :lang(ur) .support .s-kicker { letter-spacing: 0.03em; text-transform: none; }
+.support .s-h { font-family: var(--font-display); font-weight: 700; font-size: var(--fs-h3); color: var(--ink-strong); letter-spacing: var(--ls-head); margin: 0 0 var(--s-2); max-width: 26ch; }
+.support .s-p { font-family: var(--font-body); font-size: var(--fs-small); color: var(--ink-soft); margin: 0; max-width: 52ch; line-height: 1.6; }
+.support .s-actions { display: flex; flex-direction: column; gap: var(--s-2); align-items: stretch; }
+.support .s-actions .free { font-family: var(--font-ui); font-size: var(--fs-micro); color: var(--ink-faint); text-align: center; }
+
+/* ============================================================
+   RELATED ("Read more") — typographic grid, no cards
+   ============================================================ */
+.related { max-width: 1000px; margin-inline: auto; padding-inline: var(--gutter); }
+
+/* ============================================================
+   COMMENTS — hairline-ruled, understated
+   ============================================================ */
+.comments { max-width: 740px; margin-inline: auto; padding-inline: var(--gutter); margin-top: var(--s-8); }
+.comments-head { display: flex; align-items: baseline; justify-content: space-between; gap: var(--s-4); padding-bottom: var(--s-4); border-bottom: var(--rule-strong) solid var(--line-ink); margin-bottom: var(--s-4); }
+.comments-head h2 { font-family: var(--font-display); font-weight: 700; font-size: var(--fs-h3); color: var(--ink-strong); margin: 0; }
+.comments-head .c-count { font-family: var(--font-ui); font-size: var(--fs-caption); color: var(--ink-mute); }
+.composer { display: flex; gap: var(--s-3); padding-bottom: var(--s-5); margin-bottom: var(--s-3); }
+.composer .av { width: 38px; height: 38px; border-radius: 50%; background: var(--paper-2); border: var(--rule) solid var(--line); display: grid; place-items: center; font-family: var(--font-ui); font-weight: 700; font-size: 0.78rem; color: var(--ink-mute); flex-shrink: 0; }
+.composer .c-field { flex: 1; }
+.composer textarea { width: 100%; min-height: 82px; border: var(--rule) solid var(--line); border-radius: var(--r-sm); padding: var(--s-3) var(--s-4); font-family: var(--font-body); font-size: 1rem; line-height: 1.55; color: var(--ink-strong); background: var(--surface); resize: vertical; transition: border-color var(--t-fast), box-shadow var(--t-fast); }
+.composer textarea::placeholder { color: var(--ink-faint); }
+.composer textarea:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+.composer .c-foot { display: flex; align-items: center; justify-content: space-between; margin-top: var(--s-3); gap: var(--s-3); flex-wrap: wrap; }
+.composer .c-foot .c-rules { font-family: var(--font-ui); font-size: var(--fs-micro); color: var(--ink-faint); }
+.comment { display: flex; gap: var(--s-3); padding-block: var(--s-4); border-top: var(--rule) solid var(--line); }
+.comment .av { width: 38px; height: 38px; border-radius: 50%; background: var(--paper-2); border: var(--rule) solid var(--line); display: grid; place-items: center; font-family: var(--font-ui); font-weight: 700; font-size: 0.78rem; color: var(--ink-mute); flex-shrink: 0; }
+.comment .c-main { min-width: 0; }
+.comment .c-top { display: flex; align-items: center; gap: var(--s-2); margin-bottom: 4px; flex-wrap: wrap; }
+.comment .c-name { font-family: var(--font-ui); font-size: var(--fs-meta); font-weight: 700; color: var(--ink-strong); }
+.comment .c-badge { font-family: var(--font-ui); font-size: var(--fs-micro); font-weight: 700; color: var(--accent); border: var(--rule) solid var(--accent-soft); background: var(--accent-soft); border-radius: var(--r-pill); padding: 1px 8px; }
+.comment .c-time { font-family: var(--font-ui); font-size: var(--fs-micro); color: var(--ink-faint); }
+.comment .c-text { font-family: var(--font-body); font-size: var(--fs-small); line-height: 1.62; color: var(--ink); margin: 0; }
+.comment .c-act { display: flex; gap: var(--s-4); margin-top: var(--s-2); }
+.comment .c-act button { font-family: var(--font-ui); font-size: var(--fs-micro); font-weight: 600; color: var(--ink-mute); background: transparent; border: 0; padding: 0; display: inline-flex; align-items: center; gap: 5px; }
+.comment .c-act button:hover { color: var(--accent); }
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+/* collapse the apparatus: rail folds, notes go inline, progress -> top hairline.
+   The floating margin only engages when there is genuine room (>=1180px). */
+@media (max-width: 1180px){
+  .lf-toprule { display: block; }
+  .lf { grid-template-columns: 1fr; gap: 0; padding-inline: var(--gutter-m); padding-top: var(--s-5); }
+  .lf-rail { display: none; }
+  .lf-article { max-width: 680px; margin-inline: auto; }
+  .a-body, .a-thread, .a-tags, .author-bio { max-width: 100%; }
+  .a-mobile-dateline { display: flex; align-items: center; gap: var(--s-3); flex-wrap: wrap;
+                       font-family: var(--font-ui); font-size: var(--fs-caption); color: var(--ink-mute);
+                       margin-bottom: var(--s-4); }
+  .a-mobile-dateline .md-sec { font-weight: 700; color: var(--accent); }
+  .a-mobile-dateline .dot-sep { width: 3px; height: 3px; border-radius: 50%; background: var(--ink-faint); }
+
+  /* notes inline — full width, ruled aside */
+  .mnote { float: none; clear: both; width: auto; max-width: 480px; margin: var(--s-5) 0;
+           padding: var(--s-4) 0 var(--s-2); border-top: var(--rule-strong) solid var(--line-ink); }
+  :lang(ur) .mnote { float: none; margin-inline: 0; }
+  .mnote .mn-body { font-size: 0.98rem; }
+  .support-inner { grid-template-columns: 1fr; }
+  .support, .related, .comments { padding-inline: var(--gutter-m); }
+}
+
+@media (max-width: 560px){
+  .a-standfirst { font-size: 1.18rem; }
+  .a-body p { font-size: 1.12rem; }
+  .a-meta { gap: var(--s-3); }
+}
+
+/* print / reduced-motion safety: never hide content behind animation */
+@media print {
+  .lf-rail, .lf-toprule, .topbar, .demo-toggle { display: none !important; }
+  .lf { grid-template-columns: 1fr; }
+}

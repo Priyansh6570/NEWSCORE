@@ -1,0 +1,163 @@
+/* ============================================================
+   NewsCore — SINGLE-SOURCE TOKEN LAYER
+   The DEFAULT editorial brand: warm ivory paper · warm ink ·
+   one vermilion accent. EVERYTHING visual derives from here.
+
+   THE RULE (also in apps/web/CLAUDE.md): components reference ONLY
+   var(--token) or token-mapped Tailwind utilities — never a literal
+   hex, font, or brand string. Reskinning happens two ways:
+     (a) edit a value in THIS file  -> the whole app reskins;
+     (b) a tenant's SiteConfig theme -> injected as inline CSS vars
+         in <head> (see components/tenant-theme-style.tsx), which
+         override these defaults per request, before paint.
+
+   ── Reconciliation note (design bundle had TWO token files) ──────
+   Source of truth = design-reference .../styles/editorial-tokens.css
+   (home-A.html imports it; it IS the ivory/ink/vermilion default).
+   The bundle's other file, tokens.css, is a SUPERSEDED earlier
+   iteration; its values were NOT adopted. Conflicts resolved:
+     • accent     — KEPT vermilion (editorial). tokens.css used a
+                    blue "ink-blue" accent — dropped (that palette
+                    survives as the optional "indigo" tenant skin).
+     • type scale — KEPT editorial names (--fs-masthead/lead/h1..h4/
+                    lede/body/small/meta/micro). tokens.css used
+                    --fs-display/h2/caption/byline/kicker — dropped.
+     • neutrals   — KEPT --line/--line-soft/--line-ink and
+                    --ink-soft/--ink-mute/--ink-faint (editorial).
+                    tokens.css used --border/--hairline/--ink-muted.
+     • gutter     — KEPT 40px (editorial). tokens.css used 24px.
+     • page width — KEPT 1320px (editorial). tokens.css used 1240px.
+     • radii      — KEPT --r-xs/sm/md/pill (editorial).
+   ============================================================ */
+
+:root {
+  /* ---- FONT FAMILIES (default = Latin; :lang() blocks remap per script) ---- */
+  --font-display: "Newsreader", Georgia, "Times New Roman", serif;
+  --font-body:    "Newsreader", Georgia, serif;
+  --font-ui:      "Mukta", system-ui, -apple-system, sans-serif;
+
+  --lh-display: 1.1;
+  --lh-head:    1.16;
+  --lh-body:    1.62;
+  --ls-display: -0.021em;
+  --ls-head:    -0.013em;
+
+  /* ---- TYPE SCALE — fluid, not locked to one script's density ---- */
+  --fs-masthead: clamp(2.6rem, 1.3rem + 5.6vw, 5.4rem);
+  --fs-lead:     clamp(2.1rem, 1.4rem + 3.2vw, 3.7rem);
+  --fs-h1:       clamp(1.8rem, 1.4rem + 1.9vw, 2.7rem);
+  --fs-h2:       clamp(1.45rem, 1.2rem + 1.2vw, 2rem);
+  --fs-h3:       clamp(1.2rem, 1.08rem + 0.6vw, 1.5rem);
+  --fs-h4:       clamp(1.06rem, 1rem + 0.35vw, 1.2rem);
+  --fs-lede:     clamp(1.06rem, 1rem + 0.4vw, 1.2rem);
+  --fs-body:     1.0625rem;
+  --fs-small:    0.9375rem;
+  --fs-meta:     0.8125rem;
+  --fs-micro:    0.72rem;
+
+  /* ---- SPACING · 8px base ---- */
+  --s-1: 4px;  --s-2: 8px;  --s-3: 12px; --s-4: 16px; --s-5: 24px;
+  --s-6: 32px; --s-7: 48px; --s-8: 64px; --s-9: 96px; --s-10: 128px;
+
+  /* ---- LAYOUT ---- */
+  --page: 1320px;
+  --measure: 66ch;
+  --gutter: 40px;
+  --gutter-m: 20px;
+  --rule: 1px;          /* hairline */
+  --rule-strong: 1.5px;
+
+  /* ---- RADII (restrained; pills for chips only) ---- */
+  --r-xs: 4px; --r-sm: 8px; --r-md: 12px; --r-lg: 16px; --r-pill: 999px;
+
+  /* ---- MOTION ---- */
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --t-fast: 150ms; --t-base: 280ms;
+
+  /* ============ COLOR — LIGHT (default brand) ============ */
+  --paper:      oklch(0.985 0.006 85);   /* warm ivory */
+  --paper-2:    oklch(0.965 0.007 85);
+  --surface:    oklch(1 0 0);
+  --ink:        oklch(0.225 0.012 60);   /* warm near-black */
+  --ink-strong: oklch(0.16 0.014 55);
+  --ink-soft:   oklch(0.42 0.012 60);
+  --ink-mute:   oklch(0.56 0.01 60);
+  --ink-faint:  oklch(0.7 0.008 60);
+  --line:       oklch(0.86 0.006 70);    /* hairline rules */
+  --line-soft:  oklch(0.91 0.005 75);
+  --line-ink:   oklch(0.2 0.012 60);     /* strong divider */
+
+  /* one confident accent — vermilion */
+  --accent:      oklch(0.585 0.2 32);
+  --accent-deep: oklch(0.5 0.19 32);
+  --accent-soft: oklch(0.95 0.045 40);
+  --live:        oklch(0.585 0.225 27);  /* LIVE / breaking pulse */
+  --premium:     oklch(0.62 0.1 75);     /* subscriber gold (secondary) */
+  --premium-soft:oklch(0.95 0.04 82);
+  --on-accent:   oklch(0.99 0.01 60);
+
+  --shadow-band: 0 30px 70px -30px oklch(0.16 0.02 55 / 0.5);
+}
+
+/* ============ COLOR — DARK ============
+   Scoped to `:root[data-theme="dark"]` (specificity 0,2,0) on purpose:
+   it always outranks a tenant override injected at `:root` (0,1,0), so
+   dark mode stays legible even when a tenant only ships a light palette. */
+:root[data-theme="dark"] {
+  --paper:      oklch(0.185 0.01 60);
+  --paper-2:    oklch(0.215 0.011 60);
+  --surface:    oklch(0.23 0.012 60);
+  --ink:        oklch(0.92 0.008 80);
+  --ink-strong: oklch(0.98 0.005 85);
+  --ink-soft:   oklch(0.74 0.01 80);
+  --ink-mute:   oklch(0.6 0.01 75);
+  --ink-faint:  oklch(0.48 0.01 70);
+  --line:       oklch(0.34 0.012 65);
+  --line-soft:  oklch(0.29 0.01 65);
+  --line-ink:   oklch(0.8 0.01 80);
+
+  --accent:      oklch(0.7 0.17 35);
+  --accent-deep: oklch(0.62 0.18 33);
+  --accent-soft: oklch(0.32 0.07 35);
+  --live:        oklch(0.68 0.2 28);
+  --premium:     oklch(0.78 0.1 80);
+  --premium-soft:oklch(0.32 0.05 80);
+  --on-accent:   oklch(0.16 0.01 60);
+
+  --shadow-band: 0 30px 70px -30px oklch(0 0 0 / 0.7);
+}
+
+/* ============================================================
+   SCRIPT-RESILIENT TYPE — the same markup, retuned per script.
+   Setting <html lang> swaps fonts + line-heights automatically.
+   These blocks touch ONLY font + line-height tokens (never color),
+   so a tenant's color override at :root never collides with them.
+   ============================================================ */
+:lang(hi) {
+  --font-display: "Eczar", "Newsreader", serif;
+  --font-body:    "Tiro Devanagari Hindi", "Eczar", serif;
+  --font-ui:      "Mukta", sans-serif;
+  --lh-display: 1.2; --lh-head: 1.28; --lh-body: 1.9;
+  --ls-display: 0; --ls-head: 0;
+}
+:lang(ta) {
+  --font-display: "Tiro Tamil", serif;
+  --font-body:    "Tiro Tamil", serif;
+  --font-ui:      "Tiro Tamil", sans-serif;
+  --lh-display: 1.34; --lh-head: 1.4; --lh-body: 1.95;
+  --ls-display: 0; --ls-head: 0;
+}
+:lang(bn) {
+  --font-display: "Tiro Bangla", serif;
+  --font-body:    "Tiro Bangla", serif;
+  --font-ui:      "Tiro Bangla", sans-serif;
+  --lh-display: 1.3; --lh-head: 1.36; --lh-body: 1.92;
+  --ls-display: 0; --ls-head: 0;
+}
+:lang(ur) {
+  --font-display: "Noto Nastaliq Urdu", serif;
+  --font-body:    "Noto Nastaliq Urdu", serif;
+  --font-ui:      "Noto Nastaliq Urdu", serif;
+  --lh-display: 1.85; --lh-head: 2; --lh-body: 2.5;
+  --ls-display: 0; --ls-head: 0;
+}

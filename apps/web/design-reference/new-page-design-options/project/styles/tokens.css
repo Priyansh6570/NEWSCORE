@@ -1,0 +1,164 @@
+/* ============================================================
+   VĀRTA — Design Tokens
+   Premium bilingual (हिन्दी / English) news platform
+   White-label default brand
+   ============================================================ */
+
+/* ---- Fonts ----
+   Editorial Serif:  Newsreader (Latin)  ·  Eczar (Devanagari headlines)
+   Reading Serif:    Tiro Devanagari Hindi (long-form हिन्दी)
+   UI / System Sans: Mukta (Latin + Devanagari)
+*/
+
+:root {
+  /* ---------- TYPE FAMILIES ---------- */
+  --font-display:  "Newsreader", Georgia, serif;          /* English headlines */
+  --font-display-hi: "Eczar", "Newsreader", serif;        /* Hindi headlines   */
+  --font-read:     "Newsreader", Georgia, serif;           /* English long-form */
+  --font-read-hi:  "Tiro Devanagari Hindi", "Eczar", serif;/* Hindi long-form   */
+  --font-ui:       "Mukta", system-ui, -apple-system, sans-serif; /* UI both scripts */
+
+  /* ---------- TYPE SCALE (mobile-first, fluid) ---------- */
+  --fs-display: clamp(2.75rem, 1.6rem + 5.6vw, 5rem);
+  --fs-h1:      clamp(2.1rem, 1.5rem + 3vw, 3.25rem);
+  --fs-h2:      clamp(1.65rem, 1.3rem + 1.8vw, 2.3rem);
+  --fs-h3:      clamp(1.35rem, 1.2rem + 0.8vw, 1.6rem);
+  --fs-h4:      clamp(1.12rem, 1.05rem + 0.4vw, 1.25rem);
+  --fs-lead:    clamp(1.15rem, 1.05rem + 0.5vw, 1.3rem);
+  --fs-body:    1.0625rem;
+  --fs-small:   0.9375rem;
+  --fs-caption: 0.8125rem;
+  --fs-byline:  0.875rem;
+  --fs-kicker:  0.75rem;
+
+  /* ---------- LINE HEIGHTS ---------- */
+  --lh-tight:  1.08;
+  --lh-snug:   1.18;
+  --lh-head:   1.14;
+  --lh-body:   1.62;
+  --lh-read:   1.72;
+  --lh-read-hi: 1.95;   /* Devanagari needs more vertical room */
+
+  /* ---------- TRACKING ---------- */
+  --ls-kicker: 0.16em;
+  --ls-tight: -0.02em;
+  --ls-snug: -0.011em;
+
+  /* ---------- SPACING (8px base) ---------- */
+  --s-1: 4px;
+  --s-2: 8px;
+  --s-3: 12px;
+  --s-4: 16px;
+  --s-5: 24px;
+  --s-6: 32px;
+  --s-7: 48px;
+  --s-8: 64px;
+  --s-9: 96px;
+  --s-10: 128px;
+
+  /* ---------- LAYOUT ---------- */
+  --container: 1240px;
+  --container-read: 720px;
+  --gutter: 24px;
+  --gutter-mobile: 20px;
+
+  /* ---------- RADII (curves = brand signature) ---------- */
+  --r-xs: 6px;
+  --r-sm: 10px;
+  --r-md: 16px;
+  --r-lg: 24px;
+  --r-xl: 34px;
+  --r-2xl: 48px;
+  --r-pill: 999px;
+
+  /* ---------- BORDERS ---------- */
+  --bw: 1px;
+  --bw-thick: 1.5px;
+
+  /* ---------- TIMING ---------- */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --t-fast: 160ms;
+  --t-base: 280ms;
+  --t-slow: 520ms;
+
+  /* ============================================================
+     COLOR — LIGHT (primary surface)
+     Warm paper neutrals · cool ink · single editorial accent
+     ============================================================ */
+  --paper:        oklch(0.993 0.004 95);
+  --surface:      oklch(1 0 0);
+  --surface-2:    oklch(0.972 0.005 95);
+  --surface-3:    oklch(0.952 0.006 95);
+  --border:       oklch(0.905 0.006 95);
+  --border-strong:oklch(0.84 0.008 95);
+  --hairline:     oklch(0.92 0.005 95);
+
+  --ink:          oklch(0.215 0.014 278);  /* primary text */
+  --ink-strong:   oklch(0.155 0.018 278);
+  --ink-muted:    oklch(0.50 0.012 278);
+  --ink-faint:    oklch(0.64 0.010 278);
+  --on-accent:    oklch(0.99 0.004 250);
+
+  /* Editorial accent — deep ink-blue */
+  --accent:       oklch(0.47 0.13 256);
+  --accent-hover: oklch(0.40 0.13 256);
+  --accent-soft:  oklch(0.95 0.03 256);
+  --accent-line:  oklch(0.47 0.13 256);
+
+  /* Semantic */
+  --breaking:     oklch(0.55 0.215 27);
+  --breaking-soft:oklch(0.955 0.03 27);
+  --premium:      oklch(0.74 0.12 78);   /* gold / amber */
+  --premium-deep: oklch(0.58 0.10 76);
+  --premium-soft: oklch(0.96 0.035 82);
+  --success:      oklch(0.58 0.12 155);
+
+  /* Shadows — soft, layered */
+  --shadow-xs: 0 1px 2px oklch(0.2 0.02 278 / 0.06);
+  --shadow-sm: 0 2px 6px oklch(0.2 0.02 278 / 0.06), 0 1px 2px oklch(0.2 0.02 278 / 0.05);
+  --shadow-md: 0 10px 24px -8px oklch(0.2 0.02 278 / 0.14), 0 3px 8px -4px oklch(0.2 0.02 278 / 0.10);
+  --shadow-lg: 0 28px 56px -18px oklch(0.2 0.03 278 / 0.22), 0 8px 20px -10px oklch(0.2 0.02 278 / 0.12);
+  --shadow-accent: 0 16px 36px -14px oklch(0.47 0.13 256 / 0.40);
+
+  --paper-grad: radial-gradient(120% 120% at 100% 0%, oklch(0.97 0.012 256 / 0.5) 0%, transparent 55%);
+}
+
+/* ============================================================
+   COLOR — DARK
+   ============================================================ */
+[data-theme="dark"] {
+  --paper:        oklch(0.185 0.012 278);
+  --surface:      oklch(0.215 0.013 278);
+  --surface-2:    oklch(0.245 0.014 278);
+  --surface-3:    oklch(0.285 0.015 278);
+  --border:       oklch(0.33 0.015 278);
+  --border-strong:oklch(0.42 0.016 278);
+  --hairline:     oklch(0.30 0.014 278);
+
+  --ink:          oklch(0.93 0.006 95);
+  --ink-strong:   oklch(0.98 0.004 95);
+  --ink-muted:    oklch(0.70 0.012 95);
+  --ink-faint:    oklch(0.58 0.012 95);
+  --on-accent:    oklch(0.15 0.01 278);
+
+  --accent:       oklch(0.74 0.115 256);
+  --accent-hover: oklch(0.82 0.10 256);
+  --accent-soft:  oklch(0.30 0.05 256);
+  --accent-line:  oklch(0.74 0.115 256);
+
+  --breaking:     oklch(0.66 0.19 27);
+  --breaking-soft:oklch(0.32 0.07 27);
+  --premium:      oklch(0.80 0.115 80);
+  --premium-deep: oklch(0.72 0.11 78);
+  --premium-soft: oklch(0.33 0.05 80);
+  --success:      oklch(0.70 0.12 155);
+
+  --shadow-xs: 0 1px 2px oklch(0 0 0 / 0.4);
+  --shadow-sm: 0 2px 6px oklch(0 0 0 / 0.4), 0 1px 2px oklch(0 0 0 / 0.3);
+  --shadow-md: 0 12px 28px -10px oklch(0 0 0 / 0.55), 0 4px 10px -6px oklch(0 0 0 / 0.4);
+  --shadow-lg: 0 32px 64px -20px oklch(0 0 0 / 0.65), 0 10px 24px -12px oklch(0 0 0 / 0.5);
+  --shadow-accent: 0 16px 40px -16px oklch(0.74 0.115 256 / 0.45);
+
+  --paper-grad: radial-gradient(120% 120% at 100% 0%, oklch(0.30 0.04 256 / 0.4) 0%, transparent 55%);
+}

@@ -1,0 +1,149 @@
+/* ============================================================
+   VĀRTA — Identity skins
+   Pure token overrides on <html data-skin="…">. Layout, grid,
+   hairline rules and type are untouched — only the visual skin
+   (paper, ink, hairlines, the single accent, LIVE) changes.
+   Each defines LIGHT (default) and DARK token sets.
+   ============================================================ */
+
+/* ───────────────────────────────────────────────
+   1 · IVORY / INK / VERMILION
+   Warm ivory paper, warm near-black ink, one confident red.
+   The house style — classic, warm, unmistakably editorial.
+   ─────────────────────────────────────────────── */
+[data-skin="ivory"] {
+  --paper: oklch(0.986 0.009 80); --paper-2: oklch(0.966 0.011 80); --surface: oklch(1 0 0);
+  --ink-strong: oklch(0.17 0.013 50); --ink: oklch(0.24 0.012 52); --ink-soft: oklch(0.44 0.012 54);
+  --ink-mute: oklch(0.57 0.01 55); --ink-faint: oklch(0.71 0.008 56);
+  --line: oklch(0.87 0.009 68); --line-soft: oklch(0.92 0.007 70); --line-ink: oklch(0.2 0.013 52);
+  --accent: oklch(0.575 0.2 30); --accent-deep: oklch(0.49 0.19 30); --accent-soft: oklch(0.95 0.045 38);
+  --live: oklch(0.575 0.22 27); --premium: oklch(0.62 0.1 75); --premium-soft: oklch(0.95 0.04 82);
+  --on-accent: oklch(0.99 0.01 60);
+}
+[data-skin="ivory"][data-theme="dark"] {
+  --paper: oklch(0.185 0.011 55); --paper-2: oklch(0.218 0.012 55); --surface: oklch(0.235 0.013 55);
+  --ink-strong: oklch(0.98 0.006 85); --ink: oklch(0.92 0.008 82); --ink-soft: oklch(0.74 0.01 80);
+  --ink-mute: oklch(0.6 0.01 75); --ink-faint: oklch(0.48 0.01 70);
+  --line: oklch(0.34 0.012 60); --line-soft: oklch(0.29 0.01 60); --line-ink: oklch(0.82 0.01 80);
+  --accent: oklch(0.72 0.17 33); --accent-deep: oklch(0.64 0.18 32); --accent-soft: oklch(0.32 0.08 33);
+  --live: oklch(0.7 0.2 28); --on-accent: oklch(0.16 0.01 55);
+}
+
+/* ───────────────────────────────────────────────
+   2 · BROADSHEET MONO
+   Cool newsprint white, pure black. Accent IS ink — colour
+   appears only on the LIVE pulse. Maximum restraint, the
+   "paper of record" look.
+   ─────────────────────────────────────────────── */
+[data-skin="mono"] {
+  --paper: oklch(0.976 0.002 250); --paper-2: oklch(0.953 0.003 250); --surface: oklch(1 0 0);
+  --ink-strong: oklch(0.13 0 0); --ink: oklch(0.21 0.004 250); --ink-soft: oklch(0.4 0.004 250);
+  --ink-mute: oklch(0.53 0.004 250); --ink-faint: oklch(0.67 0.003 250);
+  --line: oklch(0.84 0.003 250); --line-soft: oklch(0.9 0.002 250); --line-ink: oklch(0.13 0 0);
+  --accent: oklch(0.21 0.004 250); --accent-deep: oklch(0.1 0 0); --accent-soft: oklch(0.93 0.004 250);
+  --live: oklch(0.55 0.21 27); --premium: oklch(0.46 0.02 250); --premium-soft: oklch(0.92 0.01 250);
+  --on-accent: oklch(0.99 0 0);
+}
+[data-skin="mono"][data-theme="dark"] {
+  --paper: oklch(0.16 0.002 250); --paper-2: oklch(0.2 0.003 250); --surface: oklch(0.225 0.004 250);
+  --ink-strong: oklch(0.99 0 0); --ink: oklch(0.92 0.003 250); --ink-soft: oklch(0.72 0.004 250);
+  --ink-mute: oklch(0.58 0.004 250); --ink-faint: oklch(0.46 0.003 250);
+  --line: oklch(0.34 0.004 250); --line-soft: oklch(0.28 0.003 250); --line-ink: oklch(0.96 0 0);
+  --accent: oklch(0.92 0.003 250); --accent-deep: oklch(0.99 0 0); --accent-soft: oklch(0.3 0.006 250);
+  --live: oklch(0.65 0.21 28); --premium: oklch(0.7 0.02 250); --on-accent: oklch(0.13 0 0);
+}
+
+/* ───────────────────────────────────────────────
+   3 · DEEP EDITORIAL
+   Dark-first identity: near-black canvas, warm ivory text, a
+   gold accent. Serious, premium, "evening read". The light
+   tokens ARE the dark look (default); dark mode goes deeper.
+   ─────────────────────────────────────────────── */
+[data-skin="deep"] {
+  --paper: oklch(0.195 0.011 60); --paper-2: oklch(0.23 0.012 60); --surface: oklch(0.255 0.013 60);
+  --ink-strong: oklch(0.97 0.012 85); --ink: oklch(0.9 0.013 84); --ink-soft: oklch(0.72 0.012 80);
+  --ink-mute: oklch(0.6 0.01 78); --ink-faint: oklch(0.5 0.01 72);
+  --line: oklch(0.35 0.012 62); --line-soft: oklch(0.3 0.01 62); --line-ink: oklch(0.82 0.012 80);
+  --accent: oklch(0.79 0.12 78); --accent-deep: oklch(0.7 0.12 76); --accent-soft: oklch(0.33 0.06 75);
+  --live: oklch(0.72 0.17 38); --premium: oklch(0.82 0.11 80); --premium-soft: oklch(0.34 0.05 80);
+  --on-accent: oklch(0.18 0.02 60);
+  --shadow-band: 0 30px 70px -30px oklch(0 0 0 / 0.7);
+}
+[data-skin="deep"][data-theme="dark"] {
+  --paper: oklch(0.13 0.008 60); --paper-2: oklch(0.17 0.01 60); --surface: oklch(0.2 0.011 60);
+  --ink-strong: oklch(0.98 0.012 85); --ink: oklch(0.9 0.013 84); --ink-soft: oklch(0.7 0.012 80);
+  --ink-mute: oklch(0.58 0.01 78); --ink-faint: oklch(0.46 0.01 72);
+  --line: oklch(0.3 0.01 62); --line-soft: oklch(0.25 0.009 62); --line-ink: oklch(0.78 0.012 80);
+  --accent: oklch(0.82 0.12 80); --accent-deep: oklch(0.74 0.12 78); --accent-soft: oklch(0.3 0.06 78);
+  --live: oklch(0.74 0.17 38); --on-accent: oklch(0.13 0.01 60);
+}
+
+/* ───────────────────────────────────────────────
+   4 · INDIGO PRESS
+   Cool paper, deep ink-blue as the brand colour, a small bright
+   coral reserved for LIVE/breaking. Calm, trustworthy, modern.
+   ─────────────────────────────────────────────── */
+[data-skin="indigo"] {
+  --paper: oklch(0.982 0.006 250); --paper-2: oklch(0.96 0.009 252); --surface: oklch(1 0 0);
+  --ink-strong: oklch(0.2 0.032 265); --ink: oklch(0.27 0.03 265); --ink-soft: oklch(0.45 0.026 265);
+  --ink-mute: oklch(0.57 0.02 265); --ink-faint: oklch(0.7 0.015 263);
+  --line: oklch(0.87 0.012 255); --line-soft: oklch(0.92 0.009 255); --line-ink: oklch(0.25 0.05 265);
+  --accent: oklch(0.42 0.13 264); --accent-deep: oklch(0.35 0.13 264); --accent-soft: oklch(0.93 0.04 260);
+  --live: oklch(0.62 0.2 30); --premium: oklch(0.62 0.1 75); --premium-soft: oklch(0.95 0.04 80);
+  --on-accent: oklch(0.99 0.01 250);
+}
+[data-skin="indigo"][data-theme="dark"] {
+  --paper: oklch(0.17 0.022 265); --paper-2: oklch(0.21 0.026 265); --surface: oklch(0.235 0.028 265);
+  --ink-strong: oklch(0.97 0.01 250); --ink: oklch(0.9 0.012 252); --ink-soft: oklch(0.72 0.014 255);
+  --ink-mute: oklch(0.6 0.014 258); --ink-faint: oklch(0.48 0.012 260);
+  --line: oklch(0.34 0.026 265); --line-soft: oklch(0.29 0.022 265); --line-ink: oklch(0.8 0.02 255);
+  --accent: oklch(0.68 0.15 262); --accent-deep: oklch(0.6 0.15 262); --accent-soft: oklch(0.3 0.08 263);
+  --live: oklch(0.68 0.2 30); --on-accent: oklch(0.15 0.02 265);
+}
+
+/* ───────────────────────────────────────────────
+   5 · FOREST / BOTTLE GREEN
+   Warm cream paper, deep bottle green as the primary, a coral
+   accent for LIVE. Distinctive — reads as considered, not as a
+   default news site.
+   ─────────────────────────────────────────────── */
+[data-skin="forest"] {
+  --paper: oklch(0.972 0.015 95); --paper-2: oklch(0.95 0.017 95); --surface: oklch(0.995 0.008 95);
+  --ink-strong: oklch(0.2 0.022 152); --ink: oklch(0.27 0.018 152); --ink-soft: oklch(0.43 0.015 150);
+  --ink-mute: oklch(0.55 0.012 148); --ink-faint: oklch(0.68 0.01 142);
+  --line: oklch(0.86 0.014 120); --line-soft: oklch(0.91 0.011 120); --line-ink: oklch(0.24 0.035 152);
+  --accent: oklch(0.43 0.09 158); --accent-deep: oklch(0.34 0.09 158); --accent-soft: oklch(0.93 0.04 150);
+  --live: oklch(0.63 0.18 35); --premium: oklch(0.66 0.12 70); --premium-soft: oklch(0.95 0.05 75);
+  --on-accent: oklch(0.98 0.02 120);
+}
+[data-skin="forest"][data-theme="dark"] {
+  --paper: oklch(0.17 0.018 158); --paper-2: oklch(0.21 0.02 158); --surface: oklch(0.235 0.022 158);
+  --ink-strong: oklch(0.96 0.012 95); --ink: oklch(0.9 0.013 95); --ink-soft: oklch(0.72 0.014 110);
+  --ink-mute: oklch(0.6 0.012 120); --ink-faint: oklch(0.48 0.01 130);
+  --line: oklch(0.33 0.018 158); --line-soft: oklch(0.28 0.015 158); --line-ink: oklch(0.8 0.014 100);
+  --accent: oklch(0.68 0.12 160); --accent-deep: oklch(0.6 0.12 160); --accent-soft: oklch(0.3 0.06 158);
+  --live: oklch(0.68 0.18 35); --on-accent: oklch(0.15 0.02 158);
+}
+
+/* ───────────────────────────────────────────────
+   6 · SAFFRON-RESTRAINED
+   Truly neutral ink base, saffron as the single accent used
+   sparingly. Indian without being a literal tricolour.
+   ─────────────────────────────────────────────── */
+[data-skin="saffron"] {
+  --paper: oklch(0.982 0.004 80); --paper-2: oklch(0.961 0.005 80); --surface: oklch(1 0 0);
+  --ink-strong: oklch(0.18 0.006 60); --ink: oklch(0.25 0.006 60); --ink-soft: oklch(0.44 0.006 60);
+  --ink-mute: oklch(0.57 0.005 60); --ink-faint: oklch(0.71 0.004 60);
+  --line: oklch(0.87 0.005 68); --line-soft: oklch(0.92 0.004 70); --line-ink: oklch(0.18 0.006 60);
+  --accent: oklch(0.66 0.15 55); --accent-deep: oklch(0.57 0.15 52); --accent-soft: oklch(0.95 0.05 65);
+  --live: oklch(0.57 0.2 30); --premium: oklch(0.66 0.13 70); --premium-soft: oklch(0.95 0.05 72);
+  --on-accent: oklch(0.21 0.03 60);
+}
+[data-skin="saffron"][data-theme="dark"] {
+  --paper: oklch(0.18 0.006 60); --paper-2: oklch(0.215 0.007 60); --surface: oklch(0.235 0.008 60);
+  --ink-strong: oklch(0.98 0.005 80); --ink: oklch(0.92 0.006 80); --ink-soft: oklch(0.73 0.008 75);
+  --ink-mute: oklch(0.6 0.008 70); --ink-faint: oklch(0.48 0.006 65);
+  --line: oklch(0.34 0.007 62); --line-soft: oklch(0.29 0.006 62); --line-ink: oklch(0.82 0.006 80);
+  --accent: oklch(0.74 0.14 60); --accent-deep: oklch(0.66 0.15 57); --accent-soft: oklch(0.33 0.07 60);
+  --live: oklch(0.66 0.2 30); --on-accent: oklch(0.18 0.03 60);
+}
